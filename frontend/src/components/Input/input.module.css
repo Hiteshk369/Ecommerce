@@ -1,0 +1,68 @@
+.mainContainer {
+  width: 100%;
+  position: relative;
+}
+
+.inputContainer {
+  width: 95%;
+  display: flex;
+  position: relative;
+  margin-bottom: 0.8rem;
+}
+
+.inputContainer input {
+  width: 90%;
+  height: 2%;
+  position: relative;
+  background-color: #323644;
+  padding: 1.25rem 1.75rem;
+  border-radius: 1.15rem;
+  font-family: "Poppins";
+  color: #fff;
+  font-size: 1rem;
+  &:focus {
+    background-color: #3d404b;
+    outline: var(--blue) 1px solid;
+  }
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+  &:invalid {
+    outline: red 1px solid;
+  }
+}
+
+.inputField {
+  outline: none;
+  border: none;
+}
+.errorField {
+  outline: red 1px solid;
+  border: none;
+}
+
+.label {
+  position: absolute;
+  left: 5%;
+  transform: translateY(18px) scale(1);
+  transform-origin: top left;
+  transition: all 0.1s ease-in-out;
+  font-family: "Poppins";
+  color: #798290;
+}
+
+.inputContainer input:not(:placeholder-shown) + .label,
+.inputContainer input:focus:placeholder-shown + .label {
+  transform: translateY(-0.8px) scale(0.8);
+  transition: 0.2s ease-in-out transform;
+  color: var(--blue);
+}
+
+.icon {
+  position: absolute;
+  right: 7rem;
+  top: 1.25rem;
+  color: #fff;
+  font-size: 1rem;
+}
