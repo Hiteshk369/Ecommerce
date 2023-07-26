@@ -7,6 +7,7 @@ const Navbar = () => {
   const [login, setLogin] = useState(true);
   const [cartItems, setCartItems] = useState(0);
   const pathName = window.location.pathname;
+  console.log(pathName);
   const categories = [
     {
       id: 1,
@@ -18,7 +19,7 @@ const Navbar = () => {
       id: 2,
       name: "Store",
       path: "/store",
-      active: pathName === "/store",
+      active: pathName.includes("/store"),
     },
     {
       id: 3,

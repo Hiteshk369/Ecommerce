@@ -31,7 +31,7 @@ const Routes = () => {
           element: <Store />,
         },
         {
-          path: "store/product/:id",
+          path: "store/:category/:id",
           element: <Product />,
         },
       ],

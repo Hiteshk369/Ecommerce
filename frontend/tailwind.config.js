@@ -8,6 +8,7 @@ module.exports = {
         max: "5.6em",
       },
       colors: {
+        lightOrange: "#f28634",
         darkBlue: "#2763ff",
         lightGray: "#ebeef2",
         darkGray: "#afafaf",

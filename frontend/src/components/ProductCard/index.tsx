@@ -22,7 +22,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 }) => {
   return (
     <Link
-      to={`/store/product/${id}`}
+      to={`/store/${category}/${id}`}
       className={`w-[260px] h-[320px] border border-lightGray shadow-md rounded-md  relative  group cursor-pointer transition-[2]  hover:scale-[1.02] `}
     >
       <div className="w-full h-[120px] bg-sky-200">
