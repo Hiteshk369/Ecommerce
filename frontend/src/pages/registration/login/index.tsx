@@ -8,11 +8,21 @@ import { Link, useNavigate } from "react-router-dom";
 
 import RegisterLayout from "../../../components/RegisterLayout";
 import Input from "../../../components/Input";
-import { loginFormSchema } from "../../../utils/Schema";
 import { fetcher } from "../../../libs/fetcher";
 
 const Login = () => {
   const navigate = useNavigate();
+
+  const loginFormSchema = z.object({
+    email: z
+      .string()
+      .email({ message: "Invalid email address" })
+      .min(1, { message: "Email is required" }),
+    password: z
+      .string()
+      .min(1, { message: "Password is required" })
+      .min(8, { message: "Must be 8 or more characters long" }),
+  });
 
   type formSchemaType = z.infer<typeof loginFormSchema>;
 
@@ -54,16 +64,16 @@ const Login = () => {
           <p className="text-[#798290] font-normal text-base">
             New to eCommerce?
           </p>
-          <Link to="/signup" className="text-darkBlue font-normal">
+          <Link to="/register" className="text-darkBlue font-normal">
             Register
           </Link>
         </div>
-        <div className="flex flex-col mt-[3%]">
+        <div className="flex flex-col gap-6 mt-[4%]">
           <Input
             id="email"
             label="Email"
             type="email"
-            register={register}
+            register={register("email")}
             errors={errors}
             icon={Mail}
             disabled={isSubmitting}
@@ -72,7 +82,7 @@ const Login = () => {
             id="password"
             label="Password"
             type="password"
-            register={register}
+            register={register("password")}
             errors={errors}
             icon={KeyRound}
             disabled={isSubmitting}
@@ -80,7 +90,7 @@ const Login = () => {
         </div>
         <button
           onClick={handleSubmit(submitFormData)}
-          className="w-[85%] bg-darkBlue text-white text-base font-medium cursor-pointer transition-[0.2s] duration-[ease-in] mt-[3%] px-7 py-5 rounded-[1.15rem] border-[none] hover:opacity-80 disabled:opacity-60"
+          className="w-[85%] bg-darkBlue text-white text-base font-medium cursor-pointer transition-[0.2s] duration-[ease-in] mt-[5%] px-7 py-5 rounded-[1.15rem] border-[none] hover:opacity-80 disabled:opacity-60"
           disabled={isSubmitting}
         >
           {isSubmitting ? (

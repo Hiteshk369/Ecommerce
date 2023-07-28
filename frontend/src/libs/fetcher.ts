@@ -19,6 +19,7 @@ export const getFetcher = async (url: string) => {
       "Content-Type": "application/json",
     },
   });
+
   const result = await response.json();
   if (response.status === 400 || !result) {
     console.log("error");

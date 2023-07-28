@@ -1,13 +1,3 @@
-import { LucideIcon } from "lucide-react";
-import { FieldErrors, UseFormRegister } from "react-hook-form";
-import { SignupFormSchema, loginFormSchema } from "../../utils/Schema";
-import { z } from "zod";
-
-import classes from "./input.module.css";
-
-type formSchemaType = z.infer<typeof SignupFormSchema>;
-type loginSchemaType = z.infer<typeof loginFormSchema>;
-
 interface FormInputProps {
   id: string;
   label: string;

@@ -1,5 +1,3 @@
-import { Toaster } from "react-hot-toast";
-
 import bg from "../../assets/ecommercebg.jpg";
 import Logo from "../../assets/Logo.png";
 
@@ -27,7 +25,6 @@ const RegisterLayout: React.FC<RegisterLayoutProps> = ({ children }) => {
           {children}
         </div>
       </div>
-      <Toaster />
       <img
         width="125"
         className="z-10 absolute right-[15px] bottom-[15px]"

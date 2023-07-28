@@ -1,23 +1,12 @@
 import { LucideIcon } from "lucide-react";
-import { FieldErrors, UseFormRegister } from "react-hook-form";
-import { SignupFormSchema, loginFormSchema } from "../../utils/Schema";
-import { z } from "zod";
-
-import classes from "./input.module.css";
-
-type formSchemaType = z.infer<typeof SignupFormSchema>;
-type loginSchemaType = z.infer<typeof loginFormSchema>;
-
+import { FieldErrors } from "react-hook-form";
 interface InputProps {
   id: "name" | "email" | "password";
   label: string;
   type?: string;
   disabled?: boolean;
   required?: boolean;
-  register:
-    | UseFormRegister<formSchemaType>
-    | UseFormRegister<loginSchemaType>
-    | any;
+  register?: unknown;
   errors: FieldErrors;
   icon: LucideIcon;
 }
@@ -34,23 +23,19 @@ const Input: React.FC<InputProps> = ({
 }) => {
   return (
     <div className="w-full relative">
-      <div className="w-[95%] flex relative mb-[0.8rem]">
+      <div className="w-[85%] relative">
         <input
-          className={`${
-            errors[id]
-              ? "border-[none] outline-1 outline-red-500"
-              : "border-none outline-none w-[90%] h-[2%] relative bg-[#323644] text-white text-base px-7 py-5 rounded-[1.15rem] focus:bg-[#3d404b] disabled:cursor-not-allowed disabled:opacity-60"
-          }`}
           id={id}
           type={type}
+          {...(register ?? {})}
           disabled={disabled}
-          {...register(id, { required })}
+          required={required}
+          className="block py-[1.5rem] px-[1.75rem]  placeholder:pl-3 w-full text-sm text-white bg-[#323644] rounded-lg   focus:outline-none focus:ring-0 focus:border-blue-600 peer"
           placeholder=" "
         />
-
         <label
           htmlFor={id}
-          className="absolute translate-y-[18px] origin-top-left transition-all duration-[0.1s] ease-[ease-in-out] text-[#798290] scale-100 left-[5%]"
+          className="absolute text-base text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0]  px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:bg-gray-900 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1"
         >
           {label}
         </label>

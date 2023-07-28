@@ -47,25 +47,25 @@ const Footer = () => {
     {
       id: 1,
       Icon: Mail,
-      style: "hover:text-[#34a853]",
+      style: "text-darkGray transition hover:text-[#34a853]",
       path: "mailto:pvkhk369@gmail.com",
     },
     {
       id: 2,
       Icon: Linkedin,
-      style: "hover:text-[#0a66c2]",
+      style: "text-darkGray transition hover:text-[#0a66c2]",
       path: "https://www.linkedin.com/in/hiteshkumar369/",
     },
     {
       id: 3,
       Icon: Github,
-      style: "hover:text-[#111]",
+      style: "text-darkGray transition hover:text-[#111]",
       path: "https://github.com/Hiteshk369",
     },
     {
       id: 4,
       Icon: Instagram,
-      style: "hover:text-[#e4405f]",
+      style: "text-darkGray transition hover:text-[#e4405f]",
       path: "https://www.instagram.com/hitesh_kumar369/",
     },
   ];

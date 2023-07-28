@@ -2,17 +2,31 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { Mail, KeyRound, User } from "lucide-react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
 import toast from "react-hot-toast";
 import { ThreeDots } from "react-loader-spinner";
 import { Link, useNavigate } from "react-router-dom";
 
 import RegisterLayout from "../../../components/RegisterLayout";
 import Input from "../../../components/Input";
-import { SignupFormSchema } from "../../../utils/Schema";
+import { fetcher } from "../../../libs/fetcher";
 
 const SignUp = () => {
   const navigate = useNavigate();
+
+  const SignupFormSchema = z.object({
+    name: z
+      .string()
+      .min(3, { message: "Name cannot be less than 3 characters" })
+      .max(36),
+    email: z
+      .string()
+      .email({ message: "Invalid email address" })
+      .min(1, { message: "Email is required" }),
+    password: z
+      .string()
+      .min(1, { message: "Password is required" })
+      .min(8, { message: "Must be 8 or more characters long" }),
+  });
 
   type formSchemaType = z.infer<typeof SignupFormSchema>;
 
@@ -29,19 +43,20 @@ const SignUp = () => {
     },
   });
 
-  const submitFormData: SubmitHandler<formSchemaType> = (data) => {
-    axios
-      .post("http://localhost:5000/api/auth/signup", data)
-      .then((data) => {
-        console.log(data);
-        toast.success("User registered");
-        setTimeout(() => {
-          navigate("/login");
-        }, 1000);
-      })
-      .catch((error) => {
-        toast.error("User registration failed");
-      });
+  const submitFormData: SubmitHandler<formSchemaType> = async (data) => {
+    const response = await fetcher(
+      "http://localhost:5000/api/auth/signup",
+      data
+    );
+    const result = await response.json();
+    if (response.status === 400 || !result) {
+      toast.error("Registration failed");
+    } else {
+      toast.success("User created");
+      setTimeout(() => {
+        navigate("/login");
+      }, 1000);
+    }
   };
 
   return (
@@ -58,12 +73,12 @@ const SignUp = () => {
             Log In
           </Link>
         </div>
-        <div className="flex flex-col mt-[3%]">
+        <div className="flex flex-col gap-3 mt-[3%]">
           <Input
             id="name"
             label="Name"
             type="text"
-            register={register}
+            register={register("name")}
             errors={errors}
             icon={User}
             disabled={isSubmitting}
@@ -72,7 +87,7 @@ const SignUp = () => {
             id="email"
             label="Email"
             type="email"
-            register={register}
+            register={register("email")}
             errors={errors}
             icon={Mail}
             disabled={isSubmitting}
@@ -81,7 +96,7 @@ const SignUp = () => {
             id="password"
             label="Password"
             type="password"
-            register={register}
+            register={register("password")}
             errors={errors}
             icon={KeyRound}
             disabled={isSubmitting}

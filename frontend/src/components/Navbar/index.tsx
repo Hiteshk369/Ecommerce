@@ -1,5 +1,4 @@
 import { Heart, Search, ShoppingCart, UserCircle2 } from "lucide-react";
-import classes from "./navbar.module.css";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
@@ -42,7 +41,7 @@ const Navbar = () => {
               className={
                 category.active
                   ? 'text-[#1e1e20] font-semibold w-20 text-xl no-underline cursor-pointer ml-6 after:content-[""] after:block after:h-0.5 after:w-4/5 after:bg-darkBlue after:scale-x-100'
-                  : 'w-20 text-xl text-[#1e1e20] cursor-pointer font-normal tracking-[0.5px] transition-[0.2s] duration-[ease-in] no-underline ml-6 hover:text-[#1e1e20] hover:font-semibold after:content-[""] after:block after:h-0.5 after:w-4/5 after:bg-darkBlue after:transition-[0.3s] after:duration-[ease-in-out] after:origin-left after:scale-x-0 hover:after:scale-y-100'
+                  : 'w-20 text-xl text-[#1e1e20] cursor-pointer font-normal tracking-[0.5px] transition-[0.2s] duration-[ease-in] no-underline ml-6 hover:text-[#1e1e20] hover:font-semibold after:content-[""] after:block after:h-0.5 after:w-4/5 after:bg-darkBlue after:transition-[0.3s] after:duration-[ease-in-out] after:origin-left after:scale-x-0 hover:after:scale-x-100'
               }
               to={category.path}
               key={category.id}

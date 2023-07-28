@@ -40,13 +40,13 @@ const Home = () => {
       <Navbar />
       <div className="max-w-[1240px] m-auto pt-28">
         <div className="grid grid-cols-2 h-[30rem] gap-4">
-          <div className="relative overflow-hidden rounded-lg border-[#d0d0d1]">
+          <div className="relative overflow-hidden rounded-lg border-[#d0d0d1] group">
             <img
               className="bg-contain h-full w-full cursor-pointer"
               src={MainBanner}
               alt="MainBanner"
             />
-            <button className="absolute bg-[#66b8e8] font-semibold opacity-70 transition-[0.3s] duration-[ease-in-out] cursor-pointer px-6 py-3 rounded-lg border-[none] left-[40%] bottom-[45%] scale-[0.9]">
+            <button className="absolute bg-[#66b8e8] font-semibold opacity-70 transition-[0.3s] duration-[ease-in-out] cursor-pointer px-6 py-3 rounded-lg border-[none] left-[40%] bottom-[45%] scale-[0.9] group-hover:scale-[1] group-hover:opacity-100">
               Shop now
             </button>
           </div>
