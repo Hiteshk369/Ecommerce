@@ -61,6 +61,18 @@ export const getProductById = asyncErrorHandler(
   }
 );
 
+//get product by category
+export const getProductByCategory = asyncErrorHandler(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const category = req.query.type;
+    const products = await Product.find({ category: category });
+    res.status(200).json({
+      success: true,
+      products,
+    });
+  }
+);
+
 //update a product --Admin
 export const updateProductById = asyncErrorHandler(
   async (req: Request, res: Response, next: NextFunction) => {

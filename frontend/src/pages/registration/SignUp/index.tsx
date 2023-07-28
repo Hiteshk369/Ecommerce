@@ -7,7 +7,6 @@ import toast from "react-hot-toast";
 import { ThreeDots } from "react-loader-spinner";
 import { Link, useNavigate } from "react-router-dom";
 
-import classes from "./SignUp.module.css";
 import RegisterLayout from "../../../components/RegisterLayout";
 import Input from "../../../components/Input";
 import { SignupFormSchema } from "../../../utils/Schema";
@@ -47,17 +46,19 @@ const SignUp = () => {
 
   return (
     <RegisterLayout>
-      <div className={classes.formContainer}>
-        <p className={classes.createAccountText}>
-          Create new account <span>.</span>
+      <div className="flex flex-col h-auto">
+        <p className="text-[2.5rem] font-semibold text-white pb-[0.75%]">
+          Create new account <span className="text-darkBlue">.</span>
         </p>
-        <div className={classes.flexContainer}>
-          <p className={classes.alreadyMemberText}>Already A Member?</p>
-          <Link to="/login" className={classes.loginText}>
+        <div className="flex gap-2">
+          <p className="text-[#798290] font-normal text-base">
+            Already A Member?
+          </p>
+          <Link to="/login" className="text-darkBlue font-normal">
             Log In
           </Link>
         </div>
-        <div className={classes.inputContainer}>
+        <div className="flex flex-col mt-[3%]">
           <Input
             id="name"
             label="Name"
@@ -88,11 +89,11 @@ const SignUp = () => {
         </div>
         <button
           onClick={handleSubmit(submitFormData)}
-          className={classes.submitButton}
+          className="w-[85%] bg-darkBlue text-white text-base font-medium cursor-pointer transition-[0.2s] duration-[ease-in] mt-[3%] px-7 py-5 rounded-[1.15rem] border-[none] hover:opacity-80 disabled:opacity-60"
           disabled={isSubmitting}
         >
           {isSubmitting ? (
-            <div className={classes.submittingDots}>
+            <div className="w-full flex items-center justify-center">
               <ThreeDots
                 height="30"
                 width="50"

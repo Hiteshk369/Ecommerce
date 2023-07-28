@@ -3,23 +3,43 @@ import { getFetcher } from "../../libs/fetcher";
 
 import StoreLayout from "../../components/StoreLayout";
 import ProductCard from "../../components/ProductCard";
+import { CirclesWithBar } from "react-loader-spinner";
 
 const Store = () => {
   const fetchProductData = async () => {
-    const result = await getFetcher("http://localhost:5000/api/product");
+    const result = await getFetcher(
+      "http://localhost:5000/api/product/getproducts"
+    );
     return result;
   };
 
   const { data, error, isLoading } = useQuery("productData", fetchProductData);
 
-  if (isLoading) return <p>Loading</p>;
-
   return (
     <StoreLayout>
       <div className="px-4 mt-8 mb-10">
         <div className="flex justify-center flex-wrap gap-5">
-          {isLoading && <p>Loading</p>}
-          {error && <p>Error retrieving products</p>}
+          {isLoading && (
+            <div className=" h-full w-full flex justify-center items-center">
+              <CirclesWithBar
+                height="100"
+                width="100"
+                color="#2763ff"
+                visible={true}
+                outerCircleColor="#2763ff"
+                innerCircleColor="#2763ff"
+                barColor="#2763ff"
+                ariaLabel="circles-with-bar-loading"
+              />
+            </div>
+          )}
+          {error && (
+            <div className="h-full w-full flex justify-center items-center">
+              <p className="text-xl text-neutral-700">
+                Error retrieving products
+              </p>
+            </div>
+          )}
           {data &&
             data?.products.map((product: any) => (
               <ProductCard

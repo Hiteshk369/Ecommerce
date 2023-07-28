@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import classes from "./footer.module.css";
 import { Instagram, Github, Mail, Linkedin } from "lucide-react";
 
 const Footer = () => {
@@ -48,48 +47,48 @@ const Footer = () => {
     {
       id: 1,
       Icon: Mail,
-      style: classes.gmailIcon,
+      style: "hover:text-[#34a853]",
       path: "mailto:pvkhk369@gmail.com",
     },
     {
       id: 2,
       Icon: Linkedin,
-      style: classes.linkedinIcon,
+      style: "hover:text-[#0a66c2]",
       path: "https://www.linkedin.com/in/hiteshkumar369/",
     },
     {
       id: 3,
       Icon: Github,
-      style: classes.githubIcon,
+      style: "hover:text-[#111]",
       path: "https://github.com/Hiteshk369",
     },
     {
       id: 4,
       Icon: Instagram,
-      style: classes.instagramIcon,
+      style: "hover:text-[#e4405f]",
       path: "https://www.instagram.com/hitesh_kumar369/",
     },
   ];
   return (
-    <div className={classes.container}>
-      <div className={classes.mainContainer}>
-        <div className={classes.aboutContainer}>
-          <p className={classes.logo}>
-            <span>e</span>COMMERCE
+    <div className="h-80 bg-[#ebeef2] w-screen">
+      <div className="max-w-[1240px] m-auto pt-12 flex pb-8 border-b border-b-[#e4dcdc]">
+        <div className="w-[35%]">
+          <p className="text-2xl font-semibold pb-3">
+            <span className="text-darkBlue">e</span>COMMERCE
           </p>
-          <p className={classes.description}>
+          <p className=" text-sm text-[#9c9c9c]">
             Robust, user-friendly ecommerce platform designed to facilitate
             smooth and secure online transactions, while empowering businesses
             to reach a global audience effortlessly.
           </p>
         </div>
-        <div className={classes.middleContainer}>
-          <div className={classes.shopContainer}>
-            <p className={classes.subTitle}>SHOP</p>
-            <div className={classes.shopList}>
+        <div className="w-[35%] flex gap-16 ml-16">
+          <div className="w-[30%]">
+            <p className="text-[1.15rem] font-medium mb-[0.7rem]">SHOP</p>
+            <div className="flex flex-col gap-[0.15rem]">
               {shopList.map((item) => (
                 <Link
-                  className={classes.shopListItem}
+                  className="no-underline text-[#9c9c9c] text-[0.9rem] transition-[0.2s] duration-[ease-in-out] hover:text-darkBlue hover:font-semibold"
                   to={item.path}
                   key={item.id}
                 >
@@ -98,12 +97,12 @@ const Footer = () => {
               ))}
             </div>
           </div>
-          <div className={classes.shopContainer}>
-            <p className={classes.subTitle}>COMPANY</p>
-            <div className={classes.shopList}>
+          <div className="w-[30%]">
+            <p className="text-[1.15rem] font-medium mb-[0.7rem]">COMPANY</p>
+            <div className="flex flex-col gap-[0.15rem]">
               {companyList.map((item) => (
                 <Link
-                  className={classes.shopListItem}
+                  className="no-underline text-[#9c9c9c] text-[0.9rem] transition-[0.2s] duration-[ease-in-out] hover:text-darkBlue hover:font-semibold"
                   to={item.path}
                   key={item.id}
                 >
@@ -112,20 +111,22 @@ const Footer = () => {
               ))}
             </div>
           </div>
-          <div className={classes.shopContainer}>
-            <p className={classes.subTitle}>ADDRESS</p>
+          <div className="w-[30%]">
+            <p className="text-[1.15rem] font-medium mb-[0.7rem]">ADDRESS</p>
             <div>
-              <p className={classes.addressItem}>
+              <p className="text-[#9c9c9c] text-[0.9rem]">
                 Padmakshi colony, Hanamkonda, Warangal, Telangana, India -
                 506001
               </p>
             </div>
           </div>
         </div>
-        <div className={classes.connectContainer}>
-          <div className={classes.widthContainer}>
-            <p className={classes.subTitle}>Connect with us</p>
-            <div className={classes.flexContainer}>
+        <div className="w-[30%] ml-auto">
+          <div className="max-w-[60%] ml-auto">
+            <p className="text-[1.15rem] font-medium mb-[0.7rem]">
+              Connect with us
+            </p>
+            <div className="flex gap-[1.2rem]">
               {connectIcons.map((icon) => (
                 <Link to={icon.path} target="_blank" key={icon.id}>
                   <icon.Icon className={icon.style} />
@@ -135,8 +136,8 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className={classes.copyrightContainer}>
-        <p className={classes.copyrightText}>
+      <div className="w-full h-16 flex justify-center items-center">
+        <p className="text-[#9c9c9c]">
           Copyright {"\u00a9"} 2023 eCOMMERCE. All Rights Reserved
         </p>
       </div>

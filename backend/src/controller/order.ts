@@ -4,10 +4,11 @@ import createHttpError from "http-errors";
 import asyncErrorHandler from "../middleware/asyncErrorHandler";
 import { v4 as uuidv4 } from "uuid";
 import updateProductStock from "../utils/updateProductStock";
+import { IRequest } from "../middleware/verifyToken";
 
 // create order
 export const createOrder = asyncErrorHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (req: IRequest, res: Response, next: NextFunction) => {
     const { shippingInfo, orderItems, paymentInfo } = req.body;
     const orderId = uuidv4().split("-")[0];
     paymentInfo.id = orderId;
@@ -15,21 +16,27 @@ export const createOrder = asyncErrorHandler(
       shippingInfo,
       orderItems,
       paymentInfo,
-      user: req.body.user.id,
+      user: req.userId,
     });
-    res.status(201).json({
-      success: true,
-      message: "Product created successfully",
-      order,
-    });
+
     if (!order) next(createHttpError(400, "Order failed"));
+    else {
+      order.orderItems.forEach(async (order) => {
+        await updateProductStock(order.product, order.quantity);
+      });
+      res.status(201).json({
+        success: true,
+        message: "Product created successfully",
+        order,
+      });
+    }
   }
 );
 
 // get user orders
 export const getUserOrders = asyncErrorHandler(
-  async (req: Request, res: Response, next: NextFunction) => {
-    const orders = await Order.find({ user: req.body.user.id });
+  async (req: IRequest, res: Response, next: NextFunction) => {
+    const orders = await Order.find({ user: req.userId });
     if (!orders) next(createHttpError(400, "Failed to fetch orders"));
     res.status(200).json({
       success: true,
@@ -96,11 +103,11 @@ export const updateOrderById = asyncErrorHandler(
       )
         return next(createHttpError(400, "Order cannot be updated"));
 
-      if (req.body.paymentInfo.deliveryStatus === "Shipped") {
-        order?.orderItems.forEach((order) => {
-          updateProductStock(order.product, order.quantity);
-        });
-      }
+      // if (req.body.paymentInfo.deliveryStatus === "Shipped") {
+      //   order?.orderItems.forEach((order) => {
+      //     updateProductStock(order.product, order.quantity);
+      //   });
+      // }
 
       if (req.body.paymentInfo.deliveryStatus === "Delivered") {
         order.paymentInfo.deliveryStatus = "Delivered";

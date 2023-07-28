@@ -8,11 +8,13 @@ import {
   ShoppingBag,
   LogOut,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 const Sidebar = () => {
   let orders = 20;
   const pathName = window.location.pathname;
+  const [searchParams] = useSearchParams();
+
   const sidebarRoutes = useMemo(
     () => [
       {
@@ -25,33 +27,38 @@ const Sidebar = () => {
       {
         id: 2,
         name: "Mobiles",
-        active: pathName.includes("/Mobile"),
+        active:
+          pathName.includes("/mobile") || searchParams.get("type") === "mobile",
         Icon: Smartphone,
-        path: "/mobiles",
+        path: "/store/category?type=mobile",
       },
       {
         id: 3,
         name: "Laptops",
-        active: pathName.includes("/Laptop"),
+        active:
+          pathName.includes("/laptop") || searchParams.get("type") === "laptop",
         Icon: Laptop,
-        path: "/laptops",
+        path: "/store/category?type=laptop",
       },
       {
         id: 4,
         name: "Watches",
-        active: pathName.includes("/Watch"),
+        active:
+          pathName.includes("/watch") || searchParams.get("type") === "watch",
         Icon: Watch,
-        path: "/watches",
+        path: "/store/category?type=watch",
       },
       {
         id: 5,
         name: "HeadPhones",
-        active: pathName.includes("/Headphone"),
+        active:
+          pathName.includes("/headphone") ||
+          searchParams.get("type") === "headphone",
         Icon: Headphones,
-        path: "/headphones",
+        path: "/store/category?type=headphone",
       },
     ],
-    [pathName]
+    [pathName, searchParams]
   );
   return (
     <div className="w-[225px] fixed left-0 h-full border-r border-r-lightGray px-4 pt-6 ">

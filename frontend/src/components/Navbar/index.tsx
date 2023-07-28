@@ -7,7 +7,7 @@ const Navbar = () => {
   const [login, setLogin] = useState(true);
   const [cartItems, setCartItems] = useState(0);
   const pathName = window.location.pathname;
-  console.log(pathName);
+
   const categories = [
     {
       id: 1,
@@ -29,18 +29,20 @@ const Navbar = () => {
     },
   ];
   return (
-    <div className={classes.Container}>
-      <div className={classes.navContainer}>
-        <div className={classes.logo}>
-          <p>
-            <span>e</span>COMMERCE
+    <div className="w-screen bg-white fixed z-[100000000]">
+      <div className="max-w-[1240px] h-20 flex items-center justify-between m-auto">
+        <div>
+          <p className="text-[1.4rem] tracking-[0.4px] text-[#1e1e20] font-semibold">
+            <span className="text-darkBlue">e</span>COMMERCE
           </p>
         </div>
-        <div className={classes.flexContainer}>
+        <div className="flex items-center gap-4">
           {categories.map((category) => (
             <Link
               className={
-                category.active ? classes.active : classes.categoryItem
+                category.active
+                  ? 'text-[#1e1e20] font-semibold w-20 text-xl no-underline cursor-pointer ml-6 after:content-[""] after:block after:h-0.5 after:w-4/5 after:bg-darkBlue after:scale-x-100'
+                  : 'w-20 text-xl text-[#1e1e20] cursor-pointer font-normal tracking-[0.5px] transition-[0.2s] duration-[ease-in] no-underline ml-6 hover:text-[#1e1e20] hover:font-semibold after:content-[""] after:block after:h-0.5 after:w-4/5 after:bg-darkBlue after:transition-[0.3s] after:duration-[ease-in-out] after:origin-left after:scale-x-0 hover:after:scale-y-100'
               }
               to={category.path}
               key={category.id}
@@ -49,7 +51,7 @@ const Navbar = () => {
             </Link>
           ))}
         </div>
-        <div className={classes.flexContainer}>
+        <div className="flex items-center gap-4">
           <div className="flex relative">
             <input
               className="bg-lightGray p-2 rounded-lg w-[300px] outline-none pl-6 text-neutral-800"
@@ -58,17 +60,21 @@ const Navbar = () => {
             <Search className="absolute text-neutral-600 right-2 top-2" />
           </div>
           <Heart size={25} color="#1e1e20" />
-          <div className={classes.cartContainer}>
+          <Link to="/cart" className="flex items-center relative">
             <ShoppingCart size={25} color="#1e1e20" />
             {cartItems > 0 && (
-              <div className={classes.cartItem}>{cartItems}</div>
+              <div className="w-4 h-4 text-[#d0d0d1] absolute flex items-center justify-center text-[0.8rem] font-medium top-[-20%] right-[-20%] p-2 rounded-[50%] bg-darkBlue">
+                {cartItems}
+              </div>
             )}
-          </div>
-          <div className={classes.buttonContainer}>
+          </Link>
+          <div className="w-24 flex items-center justify-center">
             {login ? (
               <UserCircle2 size={25} color="#1e1e20" />
             ) : (
-              <button className={classes.loginButton}>Login</button>
+              <button className="text-base bg-darkBlue text-[#d0d0d1] font-medium cursor-pointer transition-[0.2s] duration-[ease-in-out] px-5 py-[0.4rem] rounded-lg border-[none] hover:bg-[#2763ff] hover:text-[#ebebef]">
+                Login
+              </button>
             )}
           </div>
         </div>

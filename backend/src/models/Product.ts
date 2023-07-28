@@ -1,11 +1,12 @@
 import { Schema, model } from "mongoose";
 
-const productCategories = ["Mobile", "Laptop", "Watch", "Headphone"] as const;
+const productCategories = ["mobile", "laptop", "watch", "headphone"] as const;
 
 export interface IProduct {
   name: string;
   description: string;
   category: (typeof productCategories)[number];
+  brand: string;
   price: number;
   imageUrl: string;
   reviews: [
@@ -36,10 +37,14 @@ const productSchema = new Schema<IProduct>(
       required: [true, "Product category is required"],
       enum: productCategories,
     },
+    brand: {
+      type: String,
+      required: [true, "Product brand is required"],
+    },
     price: {
       type: Number,
       required: [true, "Product price is required"],
-      min: 0,
+      min: 1,
       maxLength: [6, "Product cannot exceed 8 characters"],
     },
     imageUrl: {

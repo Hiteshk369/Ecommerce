@@ -22,6 +22,13 @@ body {
 @tailwind utilities;
 
 @layer utilities {
+  .gradientBg {
+    background: linear-gradient(
+      -90deg,
+      rgba(39, 42, 55, 0.62),
+      rgb(39, 42, 55)
+    );
+  }
   .clip-path-circle {
     clip-path: circle(100px at 80% 20%);
   }

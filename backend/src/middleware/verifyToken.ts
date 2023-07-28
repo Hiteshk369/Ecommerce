@@ -1,8 +1,13 @@
 import { NextFunction, Request, Response } from "express";
 import createHttpError from "http-errors";
 import { verifyJWT } from "../utils/jwt";
+import { Schema } from "mongoose";
 
-const verifyToken = (req: Request, res: Response, next: NextFunction) => {
+export interface IRequest extends Request {
+  userId?: Schema.Types.ObjectId;
+}
+
+const verifyToken = (req: IRequest, res: Response, next: NextFunction) => {
   const accessToken = req.cookies.accessToken;
 
   if (!accessToken) return next(createHttpError(400, "Access Denied"));
@@ -10,7 +15,8 @@ const verifyToken = (req: Request, res: Response, next: NextFunction) => {
   try {
     const verified = verifyJWT(accessToken);
     if (verified) {
-      req.body.user = verified.payload;
+      req.userId = verified;
+      console.log(verified);
       next();
     }
   } catch (error) {

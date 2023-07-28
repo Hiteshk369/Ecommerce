@@ -4,6 +4,7 @@ import {
   deleteAllProducts,
   deleteProductById,
   getAllProducts,
+  getProductByCategory,
   getProductById,
   updateProductById,
 } from "../controller/product";
@@ -12,11 +13,22 @@ import verifyUserRole from "../middleware/verifyUserRole";
 
 const router = express.Router();
 
-router.post("/createproduct", verifyToken, verifyUserRole, createProduct);
-router.get("/", verifyToken, getAllProducts);
-router.get("/:id", verifyToken, getProductById);
-router.put("/:id", verifyToken, verifyUserRole, updateProductById);
-router.delete("/", verifyToken, verifyUserRole, deleteAllProducts);
-router.delete("/:id", verifyToken, verifyUserRole, deleteProductById);
+router.post("/createProduct", verifyToken, verifyUserRole, createProduct);
+router.get("/getProducts", verifyToken, getAllProducts);
+router.get("/getProducts/:id", verifyToken, getProductById);
+router.get("/category", verifyToken, getProductByCategory);
+router.put(
+  "/updateproduct/:id",
+  verifyToken,
+  verifyUserRole,
+  updateProductById
+);
+router.delete("/deleteproduct", verifyToken, verifyUserRole, deleteAllProducts);
+router.delete(
+  "/deleteproduct/:id",
+  verifyToken,
+  verifyUserRole,
+  deleteProductById
+);
 
 export default router;

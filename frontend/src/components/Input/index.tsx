@@ -33,10 +33,14 @@ const Input: React.FC<InputProps> = ({
   icon: Icon,
 }) => {
   return (
-    <div className={classes.mainContainer}>
-      <div className={classes.inputContainer}>
+    <div className="w-full relative">
+      <div className="w-[95%] flex relative mb-[0.8rem]">
         <input
-          className={`${errors[id] ? classes.errorField : classes.inputField}`}
+          className={`${
+            errors[id]
+              ? "border-[none] outline-1 outline-red-500"
+              : "border-none outline-none w-[90%] h-[2%] relative bg-[#323644] text-white text-base px-7 py-5 rounded-[1.15rem] focus:bg-[#3d404b] disabled:cursor-not-allowed disabled:opacity-60"
+          }`}
           id={id}
           type={type}
           disabled={disabled}
@@ -44,11 +48,17 @@ const Input: React.FC<InputProps> = ({
           placeholder=" "
         />
 
-        <label htmlFor={id} className={classes.label}>
+        <label
+          htmlFor={id}
+          className="absolute translate-y-[18px] origin-top-left transition-all duration-[0.1s] ease-[ease-in-out] text-[#798290] scale-100 left-[5%]"
+        >
           {label}
         </label>
       </div>
-      <Icon strokeWidth="1.5px" className={classes.icon} />
+      <Icon
+        strokeWidth="1.5px"
+        className="absolute text-white text-base right-28 top-5"
+      />
     </div>
   );
 };
