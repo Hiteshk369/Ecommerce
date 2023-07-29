@@ -1,7 +1,16 @@
 import FormInput from "../../components/FormInput";
 import Navbar from "../../components/Navbar";
+import { Trash2 } from "lucide-react";
+
+import { queryClient } from "../../App";
 
 const Cart = () => {
+  const { cartItems }: any = queryClient.getQueryData("cartItems");
+
+  const subTotal = cartItems.reduce((sum: number, product: any) => {
+    return sum + product.productId.price * product.quantity;
+  }, 0);
+
   return (
     <main className="w-screen h-screen">
       <Navbar />
@@ -75,15 +84,46 @@ const Cart = () => {
           </div>
           <div className="w-[35%] h-full border border-lightGray rounded-md px-4 py-2">
             <p className="text-xl font-medium pt-2 pb-3">Order Summary</p>
-            <div className="h-[260px] overflow-y-scroll">Cart Items</div>
+            <div className="h-[260px] overflow-y-scroll flex flex-col gap-2 scrollbar-hide scroll-smooth">
+              {cartItems &&
+                cartItems.map((item: any) => (
+                  <div
+                    key={item._id}
+                    className="flex bg-lightGray px-4 relative"
+                  >
+                    <div className="absolute w-6 h-6 bg-red-500 flex items-center justify-center rounded-full left-0 cursor-pointer">
+                      <Trash2 color="#fff" size={12} />
+                    </div>
+                    <div className="h-[100px] w-[100px] overflow-hidden">
+                      <img
+                        src={item.productId.imageUrl}
+                        alt={item.productId.name}
+                      />
+                    </div>
+                    <div className="ml-auto flex flex-col justify-center">
+                      <p className="font-medium">{item.productId.name}</p>
+                      <p className="ml-auto text-sm">
+                        Price :{" "}
+                        <span className="font-medium">
+                          {item.quantity * item.productId.price}
+                        </span>
+                      </p>
+                      <p className="ml-auto text-sm">
+                        Quantity :{" "}
+                        <span className="font-medium">{item.quantity}</span>
+                      </p>
+                    </div>
+                  </div>
+                ))}
+            </div>
             <div className="flex flex-col gap-1 py-3 border-b border-lightGray">
               <div className="flex items-center justify-between">
                 <p className="text-darkGray">Subtotal</p>
-                <p className="font-medium">120000</p>
+                <p className="font-medium">{subTotal}</p>
               </div>
               <div className="flex items-center justify-between">
                 <p className="text-darkGray">Tax</p>
-                <p className="text-darkGray font-medium">+ 499</p>
+                <p className="text-darkGray font-medium">+ 399</p>
               </div>
               <div className="flex items-center justify-between">
                 <p className="text-darkGray">Shipment cost</p>
@@ -92,7 +132,7 @@ const Cart = () => {
             </div>
             <div className="pt-3 flex justify-between">
               <p className="font-medium">Grand total</p>
-              <p className="font-medium">120600</p>
+              <p className="font-medium">{subTotal + 399 + 101}</p>
             </div>
             <button className="mt-4 mb-3 w-full flex items-center justify-center bg-darkBlue py-2 rounded-md">
               <p className="text-white font-medium">Continue to payment</p>

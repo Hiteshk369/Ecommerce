@@ -46,7 +46,7 @@ export const viewCart = asyncErrorHandler(
           path: "userId",
           select: "name",
         },
-        { path: "productId", select: "name imageUrl" },
+        { path: "productId", select: "name imageUrl price" },
       ]);
       res.status(200).json({
         success: true,

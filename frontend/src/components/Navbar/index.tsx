@@ -1,10 +1,11 @@
 import { Heart, Search, ShoppingCart, UserCircle2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useQuery } from "react-query";
+import { getFetcher } from "../../libs/fetcher";
 
 const Navbar = () => {
   const [login, setLogin] = useState(true);
-  const [cartItems, setCartItems] = useState(0);
   const pathName = window.location.pathname;
 
   const categories = [
@@ -27,6 +28,15 @@ const Navbar = () => {
       active: pathName === "/brands",
     },
   ];
+
+  const fetchCartItems = async () => {
+    const response = await getFetcher(
+      "http://localhost:5000/api/cart/viewcart"
+    );
+    return response;
+  };
+
+  const { data } = useQuery("cartItems", fetchCartItems);
   return (
     <div className="w-screen bg-white fixed z-[100000000]">
       <div className="max-w-[1240px] h-20 flex items-center justify-between m-auto">
@@ -61,9 +71,9 @@ const Navbar = () => {
           <Heart size={25} color="#1e1e20" />
           <Link to="/cart" className="flex items-center relative">
             <ShoppingCart size={25} color="#1e1e20" />
-            {cartItems > 0 && (
+            {data && data.cartItems.length > 0 && (
               <div className="w-4 h-4 text-[#d0d0d1] absolute flex items-center justify-center text-[0.8rem] font-medium top-[-20%] right-[-20%] p-2 rounded-[50%] bg-darkBlue">
-                {cartItems}
+                {data.cartItems.length}
               </div>
             )}
           </Link>

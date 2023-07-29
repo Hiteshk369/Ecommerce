@@ -9,11 +9,29 @@ import {
   ShoppingBag,
 } from "lucide-react";
 
-import { getFetcher } from "../../libs/fetcher";
+import { fetcher, getFetcher } from "../../libs/fetcher";
 import StoreLayout from "../../components/StoreLayout";
 import { CirclesWithBar } from "react-loader-spinner";
+import { useReducer } from "react";
+import toast, { Toaster } from "react-hot-toast";
+
+const initialState = {
+  counter: 0,
+};
+const reducer = (state: any, action: any) => {
+  switch (action.type) {
+    case "increment":
+      return { counter: state.counter + 1 };
+    case "decrement":
+      return { counter: state.counter - 1 };
+    default:
+      return { counter: state.counter };
+  }
+};
 
 const Product = () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
   const { id } = useParams();
   const getProductDetails = async () => {
     const result = await getFetcher(
@@ -26,7 +44,23 @@ const Product = () => {
     "productDetails",
     getProductDetails
   );
-  console.log(data);
+
+  const handleAddToCart = async (productId: string, quantity: number) => {
+    const response = await fetcher(
+      "http://localhost:5000/api/cart/updatecart",
+      {
+        productId,
+        quantity,
+      }
+    );
+    const result = await response.json();
+    if (response.status === 400 || !result) {
+      toast.error("Product not added");
+    } else {
+      toast.success("Added to cart");
+    }
+  };
+
   return (
     <StoreLayout>
       {isLoading && (
@@ -79,9 +113,17 @@ const Product = () => {
             </div>
             <div className="flex items-center pt-5 gap-8">
               <div className="flex items-center h-10 w-32 justify-evenly bg-lightGray rounded-3xl">
-                <Minus strokeWidth={2.5} size={16} />
-                <p className="font-semibold">1</p>
-                <Plus strokeWidth={2.5} size={16} />
+                <button
+                  onClick={() => {
+                    if (state.counter > 0) dispatch({ type: "decrement" });
+                  }}
+                >
+                  <Minus strokeWidth={2.5} size={16} />
+                </button>
+                <p className="font-semibold">{state.counter}</p>
+                <button onClick={() => dispatch({ type: "increment" })}>
+                  <Plus strokeWidth={2.5} size={16} />
+                </button>
               </div>
               <div className="w-40 text-xs font-medium text-neutral-600">
                 <p>
@@ -98,7 +140,12 @@ const Product = () => {
               <button className="bg-darkBlue w-[180px] py-2 text-white rounded-3xl font-medium">
                 <p>Buy Now</p>
               </button>
-              <button className="border-2 border-darkBlue w-[180px] py-2 text-darkBlue rounded-3xl font-medium">
+              <button
+                onClick={() =>
+                  handleAddToCart(data?.product._id, state.counter)
+                }
+                className="border-2 border-darkBlue w-[180px] py-2 text-darkBlue rounded-3xl font-medium"
+              >
                 Add to Cart
               </button>
             </div>
@@ -131,6 +178,7 @@ const Product = () => {
           </div>
         </div>
       )}
+      <Toaster />
     </StoreLayout>
   );
 };
