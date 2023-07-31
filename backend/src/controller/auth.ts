@@ -57,7 +57,7 @@ export const login = asyncErrorHandler(
         const accessToken = signJWT({ email: email, id: user._id }, "8h");
         res.cookie("accessToken", accessToken, {
           httpOnly: true,
-          maxAge: 150000000,
+          maxAge: 43200000,
         });
         res.status(200).json({ id: user._id, email, accessToken });
       } else {

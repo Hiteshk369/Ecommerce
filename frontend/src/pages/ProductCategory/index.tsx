@@ -5,6 +5,7 @@ import { getFetcher } from "../../libs/fetcher";
 import { useSearchParams } from "react-router-dom";
 import ProductCard from "../../components/ProductCard";
 import { CirclesWithBar } from "react-loader-spinner";
+import { IProduct } from "../../utils/types";
 
 const ProductCategory = () => {
   const [searchParams] = useSearchParams();
@@ -15,7 +16,7 @@ const ProductCategory = () => {
     const result = await getFetcher(
       `http://localhost:5000/api/product/category?type=${category}`
     );
-    console.log(result);
+
     return result;
   };
 
@@ -43,7 +44,7 @@ const ProductCategory = () => {
         )}
         <div className="flex flex-wrap justify-center gap-5">
           {data &&
-            data?.products.map((product: any) => (
+            data?.products.map((product: IProduct) => (
               <ProductCard
                 key={product._id}
                 id={product._id}
@@ -52,7 +53,7 @@ const ProductCategory = () => {
                 price={product.price}
                 image={product.imageUrl}
                 category={product.category}
-                wishlist={product.wishlist}
+                wishlist={true}
               />
             ))}
         </div>

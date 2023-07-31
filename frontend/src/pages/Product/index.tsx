@@ -8,17 +8,18 @@ import {
   Truck,
   ShoppingBag,
 } from "lucide-react";
+import toast, { Toaster } from "react-hot-toast";
+import { useReducer } from "react";
 
 import { fetcher, getFetcher } from "../../libs/fetcher";
 import StoreLayout from "../../components/StoreLayout";
 import { CirclesWithBar } from "react-loader-spinner";
-import { useReducer } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import { handleRefetchCartItems } from "../../libs/queryFunctions";
 
 const initialState = {
   counter: 0,
 };
-const reducer = (state: any, action: any) => {
+const reducer = (state: { counter: number }, action: { type: string }) => {
   switch (action.type) {
     case "increment":
       return { counter: state.counter + 1 };
@@ -57,6 +58,7 @@ const Product = () => {
     if (response.status === 400 || !result) {
       toast.error("Product not added");
     } else {
+      handleRefetchCartItems();
       toast.success("Added to cart");
     }
   };

@@ -30,7 +30,7 @@ const Sidebar = () => {
         active:
           pathName.includes("/mobile") || searchParams.get("type") === "mobile",
         Icon: Smartphone,
-        path: "/store/category?type=mobile",
+        path: "/store?type=mobile",
       },
       {
         id: 3,
@@ -38,7 +38,7 @@ const Sidebar = () => {
         active:
           pathName.includes("/laptop") || searchParams.get("type") === "laptop",
         Icon: Laptop,
-        path: "/store/category?type=laptop",
+        path: "/store?type=laptop",
       },
       {
         id: 4,

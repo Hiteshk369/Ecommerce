@@ -37,6 +37,7 @@ const Navbar = () => {
   };
 
   const { data } = useQuery("cartItems", fetchCartItems);
+
   return (
     <div className="w-screen bg-white fixed z-[100000000]">
       <div className="max-w-[1240px] h-20 flex items-center justify-between m-auto">

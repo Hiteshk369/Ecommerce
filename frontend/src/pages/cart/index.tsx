@@ -2,14 +2,42 @@ import FormInput from "../../components/FormInput";
 import Navbar from "../../components/Navbar";
 import { Trash2 } from "lucide-react";
 
-import { queryClient } from "../../App";
+import { useQuery } from "react-query";
+import { getFetcher } from "../../libs/fetcher";
+import { handleRefetchCartItems } from "../../libs/queryFunctions";
+import { ICartItems } from "../../utils/types";
 
 const Cart = () => {
-  const { cartItems }: any = queryClient.getQueryData("cartItems");
+  const fetchCartItems = async () => {
+    const response = await getFetcher(
+      "http://localhost:5000/api/cart/viewcart"
+    );
+    return response;
+  };
 
-  const subTotal = cartItems.reduce((sum: number, product: any) => {
-    return sum + product.productId.price * product.quantity;
-  }, 0);
+  const { data } = useQuery("cartItems", fetchCartItems);
+
+  const subTotal = data?.cartItems.reduce(
+    (sum: number, product: ICartItems) => {
+      return sum + product.productId.price * product.quantity;
+    },
+    0
+  );
+
+  const handleRemoveFromCart = async (productId: string) => {
+    const response = await fetch(
+      `http://localhost:5000/api/cart/deleteProductFromCart/${productId}`,
+      {
+        method: "DELETE",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    handleRefetchCartItems();
+    return response;
+  };
 
   return (
     <main className="w-screen h-screen">
@@ -85,15 +113,18 @@ const Cart = () => {
           <div className="w-[35%] h-full border border-lightGray rounded-md px-4 py-2">
             <p className="text-xl font-medium pt-2 pb-3">Order Summary</p>
             <div className="h-[260px] overflow-y-scroll flex flex-col gap-2 scrollbar-hide scroll-smooth">
-              {cartItems &&
-                cartItems.map((item: any) => (
+              {data &&
+                data.cartItems.map((item: ICartItems) => (
                   <div
                     key={item._id}
                     className="flex bg-lightGray px-4 relative"
                   >
-                    <div className="absolute w-6 h-6 bg-red-500 flex items-center justify-center rounded-full left-0 cursor-pointer">
+                    <button
+                      onClick={() => handleRemoveFromCart(item.productId._id)}
+                      className="absolute w-6 h-6 bg-red-500 flex items-center justify-center rounded-full left-0 cursor-pointer"
+                    >
                       <Trash2 color="#fff" size={12} />
-                    </div>
+                    </button>
                     <div className="h-[100px] w-[100px] overflow-hidden">
                       <img
                         src={item.productId.imageUrl}

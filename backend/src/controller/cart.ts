@@ -33,6 +33,11 @@ export const updateCart = asyncErrorHandler(
           });
         }
       }
+    } else {
+      res.status(400).json({
+        success: false,
+        message: "User not logged in",
+      });
     }
   }
 );
@@ -53,5 +58,23 @@ export const viewCart = asyncErrorHandler(
         cartItems,
       });
     }
+  }
+);
+
+export const deleteProductFromCart = asyncErrorHandler(
+  async (req: IRequest, res: Response, next: NextFunction) => {
+    const userId = req.userId;
+    console.log(userId);
+    const { id } = req.params;
+
+    await Cart.deleteOne({ userId, productId: id });
+    res.status(200).json({
+      success: true,
+      message: "Product removed",
+    });
+    res.json({
+      success: true,
+      message: "Product deleted from cart",
+    });
   }
 );
