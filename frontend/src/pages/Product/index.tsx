@@ -8,7 +8,7 @@ import {
   Truck,
   ShoppingBag,
 } from "lucide-react";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useReducer } from "react";
 
 import { fetcher, getFetcher } from "../../libs/fetcher";
@@ -59,8 +59,8 @@ const Product = () => {
       toast.error("Product not added");
     } else {
       handleRefetchCartItems();
-      toast.success("Added to cart");
     }
+    toast.success("Added to cart");
   };
 
   return (
@@ -180,7 +180,6 @@ const Product = () => {
           </div>
         </div>
       )}
-      <Toaster />
     </StoreLayout>
   );
 };

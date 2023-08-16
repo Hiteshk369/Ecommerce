@@ -6,6 +6,7 @@ import { useQuery } from "react-query";
 import { getFetcher } from "../../libs/fetcher";
 import { handleRefetchCartItems } from "../../libs/queryFunctions";
 import { ICartItems } from "../../utils/types";
+import toast from "react-hot-toast";
 
 const Cart = () => {
   const fetchCartItems = async () => {
@@ -36,6 +37,7 @@ const Cart = () => {
       }
     );
     handleRefetchCartItems();
+    toast.success("Product Removed");
     return response;
   };
 

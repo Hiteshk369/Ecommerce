@@ -1,15 +1,16 @@
-import Routes from "./Navigation";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
-import { Toaster } from "react-hot-toast";
+import { BrowserRouter } from "react-router-dom";
+import AppRoutes from "./Navigation";
 
 export const queryClient = new QueryClient();
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Routes />
-      <Toaster />
+      <BrowserRouter>
+        <AppRoutes />
+      </BrowserRouter>
       <ReactQueryDevtools />
     </QueryClientProvider>
   );

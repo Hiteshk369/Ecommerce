@@ -9,8 +9,10 @@ import { Link, useNavigate } from "react-router-dom";
 import RegisterLayout from "../../../components/RegisterLayout";
 import Input from "../../../components/Input";
 import { fetcher } from "../../../libs/fetcher";
+import Cookies from "universal-cookie";
 
 const Login = () => {
+  const cookies = new Cookies();
   const navigate = useNavigate();
 
   const loginFormSchema = z.object({
@@ -47,6 +49,9 @@ const Login = () => {
     if (response.status === 400 || !result) {
       toast.error("Invalid credentials");
     } else {
+      cookies.set("Token", result.accessToken, {
+        path: "/",
+      });
       toast.success("Login successful");
       setTimeout(() => {
         navigate("/");

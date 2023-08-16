@@ -58,6 +58,7 @@ export const login = asyncErrorHandler(
         res.cookie("accessToken", accessToken, {
           httpOnly: true,
           maxAge: 43200000,
+          sameSite: "lax",
         });
         res.status(200).json({ id: user._id, email, accessToken });
       } else {

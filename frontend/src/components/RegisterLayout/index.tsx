@@ -1,3 +1,4 @@
+import { Toaster } from "react-hot-toast";
 import bg from "../../assets/ecommercebg.jpg";
 import Logo from "../../assets/Logo.png";
 
@@ -31,6 +32,7 @@ const RegisterLayout: React.FC<RegisterLayoutProps> = ({ children }) => {
         src={Logo}
         alt="logo"
       />
+      <Toaster />
     </section>
   );
 };

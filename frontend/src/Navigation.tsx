@@ -1,56 +1,46 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import SignUp from "./pages/registration/SignUp";
-import Home from "./pages/home";
-import Error404 from "./pages/error";
-import Login from "./pages/registration/login";
-import Root from "./libs/Root";
-import Store from "./pages/store";
-import Product from "./pages/Product";
-import ProductCategory from "./pages/ProductCategory";
-import Cart from "./pages/cart";
+import { Routes, Route } from "react-router-dom";
+import Cookies from "universal-cookie";
 
-const Routes = () => {
-  const routes = createBrowserRouter([
-    {
-      path: "/login",
-      element: <Login />,
-      errorElement: <Error404 />,
-    },
-    {
-      path: "/register",
-      element: <SignUp />,
-      errorElement: <Error404 />,
-    },
-    {
-      path: "/",
-      element: <Home />,
-      errorElement: <Error404 />,
-    },
-    {
-      path: "/",
-      element: <Root />,
-      errorElement: <Error404 />,
-      children: [
-        {
-          path: "store",
-          element: <Store />,
-        },
-        {
-          path: "/store/:category/:id",
-          element: <Product />,
-        },
-        {
-          path: "/store/category",
-          element: <ProductCategory />,
-        },
-      ],
-    },
-    {
-      path: "cart",
-      element: <Cart />,
-    },
-  ]);
-  return <RouterProvider router={routes} />;
+import {
+  Cart,
+  Error404,
+  Home,
+  Login,
+  Product,
+  ProductCategory,
+  SignUp,
+  Store,
+} from "./pages";
+import { useState } from "react";
+import ProtectedRoute from "./libs/ProtectedRoute";
+
+const AppRoutes = () => {
+  const cookies = new Cookies();
+  const token = cookies.get("Token");
+  console.log(token);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
+    token === undefined ? false : true
+  );
+  // if (token === undefined) {
+  //   setIsAuthenticated(false);
+  // } else {
+  //   setIsAuthenticated(true);
+  // }
+
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<SignUp />} />
+      <Route path="/store" element={<Store />} />
+      <Route path="/store/category" element={<ProductCategory />} />
+      <Route path="/store/:category/:id" element={<Product />} />
+      <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
+        <Route path="/cart" element={<Cart />} />
+      </Route>
+      <Route path="*" element={<Error404 />} />
+    </Routes>
+  );
 };
 
-export default Routes;
+export default AppRoutes;

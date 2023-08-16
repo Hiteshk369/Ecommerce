@@ -1,6 +1,6 @@
 import Navbar from "../Navbar";
 import Sidebar from "../Sidebar";
-import { Search, SlidersHorizontal } from "lucide-react";
+import { Toaster } from "react-hot-toast";
 
 interface StoreLayoutProps {
   children: React.ReactNode;
@@ -14,6 +14,7 @@ const StoreLayout: React.FC<StoreLayoutProps> = ({ children }) => {
         <Sidebar />
         <div className="w-full ml-[220px]">{children}</div>
       </div>
+      <Toaster />
     </section>
   );
 };
