@@ -1,0 +1,26 @@
+{
+  "name": "root",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev":"lerna run dev",
+    "start":"lerna run start",
+    "build": "lerna run build",
+    "test": "lerna run test",
+    "clean": "lerna run clean",
+    "lint": "node node_modules/.bin/prettier --check \"**/*.{js,json,ts,yml,yaml}\"",
+    "prepare": "husky install",
+    "prettier": "node node_modules/.bin/prettier --check \"**/*.{js,json,ts,yml,yaml}\"",
+    "prettier:write": "node node_modules/.bin/prettier --write \"**/*.{js,json,ts,yml,yaml}\""
+  },
+  "devDependencies": {
+    "@types/node": "^20.5.1",
+    "eslint": "^8.47.0",
+    "husky": "^8.0.3",
+    "lerna": "^7.1.5",
+    "prettier": "^3.0.2",
+    "typescript": "^5.1.6"
+  }
+}

@@ -1,0 +1,38 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700&display=swap");
+
+:root {
+  --bg: #272a37;
+  --blue: #2763ff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  font-family: "Poppins";
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .gradientBg {
+    background: linear-gradient(
+      -90deg,
+      rgba(39, 42, 55, 0.62),
+      rgb(39, 42, 55)
+    );
+  }
+  .clip-path-circle {
+    clip-path: circle(100px at 80% 20%);
+  }
+  .clip-path-circle-hover {
+    clip-path: circle(220px at 80% -30%);
+  }
+}
