@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import reactRefresh from "@vitejs/plugin-react";
 import svgrPlugin from "vite-plugin-svgr";
+import path from "node:path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -18,4 +19,9 @@ export default defineConfig({
       },
     }),
   ],
+  resolve: {
+    alias: {
+      "@assets": path.resolve(__dirname, "./src/assets"),
+    },
+  },
 });
