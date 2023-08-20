@@ -7,8 +7,55 @@ import { getFetcher } from "../../libs/fetcher";
 import { handleRefetchCartItems } from "../../libs/queryFunctions";
 import { ICartItems } from "../../utils/types";
 import toast from "react-hot-toast";
+import { z } from "zod";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const Cart = () => {
+  const orderFormSchema = z.object({
+    name: z
+      .string()
+      .min(3, { message: "Name cannot be less than 3 characters" })
+      .max(36),
+    email: z
+      .string()
+      .email({ message: "Invalid email address" })
+      .min(1, { message: "Email is required" }),
+    phoneNumber: z.string(),
+    address: z
+      .string()
+      .min(3, { message: "address cannot be less than 5 characters" })
+      .max(36),
+    city: z
+      .string()
+      .min(3, { message: "city cannot be less than 5 characters" })
+      .max(36),
+    state: z
+      .string()
+      .min(3, { message: "state cannot be less than 5 characters" })
+      .max(36),
+    pinCode: z.string(),
+  });
+
+  type formSchemaType = z.infer<typeof orderFormSchema>;
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<formSchemaType>({
+    resolver: zodResolver(orderFormSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      phoneNumber: "",
+      address: "",
+      city: "",
+      state: "",
+      pinCode: "",
+    },
+  });
+
   const fetchCartItems = async () => {
     const response = await getFetcher(
       "http://localhost:5000/api/cart/viewcart"
@@ -17,10 +64,18 @@ const Cart = () => {
   };
 
   const { data } = useQuery("cartItems", fetchCartItems);
+  if (data) {
+    const array: any = [];
+    data.cartItems.forEach((item: any) => {
+      array.push(item.product);
+    });
+    console.log(data.cartItems);
+    console.log(array);
+  }
 
   const subTotal = data?.cartItems.reduce(
     (sum: number, product: ICartItems) => {
-      return sum + product.productId.price * product.quantity;
+      return sum + product.product.price * product.product.quantity;
     },
     0
   );
@@ -41,13 +96,17 @@ const Cart = () => {
     return response;
   };
 
+  const placeOrder: SubmitHandler<formSchemaType> = async (data) => {
+    console.log(data);
+  };
+
   return (
     <main className="w-screen h-screen">
       <Navbar />
       <section className="pt-24 w-full h-full">
         <div className="max-w-[1200px] m-auto flex gap-4">
-          <div className="w-[60%] h-full flex flex-col gap-4">
-            <div className="w-full border border-lightGray rounded-md px-4 pt-4 pb-8 flex flex-col gap-2">
+          <div className="w-[60%] h-full gap-4">
+            <div className="w-full h-full border border-lightGray rounded-md px-4 pt-4 pb-8 flex flex-col gap-2">
               <p className="text-xl font-medium pt-2 pb-4">
                 Delivery Information
               </p>
@@ -56,6 +115,8 @@ const Cart = () => {
                 label="Full Name"
                 placeholderText="Enter your full name"
                 required
+                register={register("name")}
+                errors={errors}
               />
               <div className="flex w-full gap-4">
                 <FormInput
@@ -63,12 +124,16 @@ const Cart = () => {
                   label="Email"
                   placeholderText="Enter your email id"
                   required
+                  register={register("email")}
+                  errors={errors}
                 />
                 <FormInput
                   id="phoneNumber"
                   label="Phone number"
                   placeholderText="Enter your phone number"
                   required
+                  register={register("phoneNumber")}
+                  errors={errors}
                 />
               </div>
               <FormInput
@@ -76,6 +141,8 @@ const Cart = () => {
                 label="Address"
                 placeholderText="Enter your address"
                 required
+                register={register("address")}
+                errors={errors}
               />
               <div className="flex w-full gap-4">
                 <FormInput
@@ -83,32 +150,25 @@ const Cart = () => {
                   label="City"
                   placeholderText="Enter your city"
                   required
+                  register={register("city")}
+                  errors={errors}
                 />
                 <FormInput
                   id="state"
                   label="State"
                   placeholderText="Enter your state"
                   required
+                  register={register("state")}
+                  errors={errors}
                 />
                 <FormInput
                   id="pinCode"
                   label="Pin code"
                   placeholderText="Enter your pin code"
                   required
+                  register={register("pinCode")}
+                  errors={errors}
                 />
-              </div>
-            </div>
-            <div className="w-full border border-lightGray rounded-md px-4 py-4">
-              <p className="text-xl font-medium pt-2 pb-7">Payment Method</p>
-              <div className="flex  justify-evenly">
-                <div className="flex items-center gap-1">
-                  <input type="radio" value="Male" name="gender" required />
-                  <p className="text-neutral-600">Online Payment</p>
-                </div>
-                <div className="flex items-center gap-1">
-                  <input type="radio" value="Female" name="gender" required />
-                  <p className="text-neutral-600">Cash On Delivery</p>
-                </div>
               </div>
             </div>
           </div>
@@ -122,28 +182,30 @@ const Cart = () => {
                     className="flex bg-lightGray px-4 relative"
                   >
                     <button
-                      onClick={() => handleRemoveFromCart(item.productId._id)}
+                      onClick={() => handleRemoveFromCart(item.product.id)}
                       className="absolute w-6 h-6 bg-red-500 flex items-center justify-center rounded-full left-0 cursor-pointer"
                     >
                       <Trash2 color="#fff" size={12} />
                     </button>
                     <div className="h-[100px] w-[100px] overflow-hidden">
                       <img
-                        src={item.productId.imageUrl}
-                        alt={item.productId.name}
+                        src={item.product.imageUrl}
+                        alt={item.product.name}
                       />
                     </div>
                     <div className="ml-auto flex flex-col justify-center">
-                      <p className="font-medium">{item.productId.name}</p>
+                      <p className="font-medium">{item.product.name}</p>
                       <p className="ml-auto text-sm">
                         Price :{" "}
                         <span className="font-medium">
-                          {item.quantity * item.productId.price}
+                          {item.product.quantity * item.product.price}
                         </span>
                       </p>
                       <p className="ml-auto text-sm">
                         Quantity :{" "}
-                        <span className="font-medium">{item.quantity}</span>
+                        <span className="font-medium">
+                          {item.product.quantity}
+                        </span>
                       </p>
                     </div>
                   </div>
@@ -167,7 +229,10 @@ const Cart = () => {
               <p className="font-medium">Grand total</p>
               <p className="font-medium">{subTotal + 399 + 101}</p>
             </div>
-            <button className="mt-4 mb-3 w-full flex items-center justify-center bg-darkBlue py-2 rounded-md">
+            <button
+              onClick={handleSubmit(placeOrder)}
+              className="mt-4 mb-3 w-full flex items-center justify-center bg-darkBlue py-2 rounded-md"
+            >
               <p className="text-white font-medium">Continue to payment</p>
             </button>
           </div>

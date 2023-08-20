@@ -3,7 +3,13 @@ import { Schema, model } from "mongoose";
 export interface ICart {
   userId: Schema.Types.ObjectId;
   productId: Schema.Types.ObjectId;
-  quantity: number;
+  product: {
+    id: Schema.Types.ObjectId;
+    name: string;
+    price: number;
+    imageUrl: string;
+    quantity: number;
+  };
 }
 
 const cartSchema = new Schema<ICart>({
@@ -17,9 +23,27 @@ const cartSchema = new Schema<ICart>({
     ref: "Product",
     required: [true, "Product Id is required"],
   },
-  quantity: {
-    type: Number,
-    required: [true, "Quantity is required"],
+  product: {
+    id: {
+      type: Schema.Types.ObjectId,
+      required: true,
+    },
+    name: {
+      type: String,
+      required: true,
+    },
+    price: {
+      type: Number,
+      required: true,
+    },
+    imageUrl: {
+      type: String,
+      required: true,
+    },
+    quantity: {
+      type: Number,
+      required: true,
+    },
   },
 });
 

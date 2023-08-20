@@ -46,12 +46,24 @@ const Product = () => {
     getProductDetails
   );
 
-  const handleAddToCart = async (productId: string, quantity: number) => {
+  const handleAddToCart = async (
+    productId: string,
+    name: string,
+    price: number,
+    imageUrl: string,
+    quantity: number
+  ) => {
     const response = await fetcher(
       "http://localhost:5000/api/cart/updatecart",
       {
         productId,
-        quantity,
+        product: {
+          id: productId,
+          name,
+          price,
+          imageUrl,
+          quantity,
+        },
       }
     );
     const result = await response.json();
@@ -144,7 +156,13 @@ const Product = () => {
               </button>
               <button
                 onClick={() =>
-                  handleAddToCart(data?.product._id, state.counter)
+                  handleAddToCart(
+                    data?.product._id,
+                    data?.product.name,
+                    data?.product.price,
+                    data?.product.imageUrl,
+                    state.counter
+                  )
                 }
                 className="border-2 border-darkBlue w-[180px] py-2 text-darkBlue rounded-3xl font-medium"
               >

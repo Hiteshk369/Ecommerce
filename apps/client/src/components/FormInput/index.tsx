@@ -1,3 +1,5 @@
+import { FieldErrors } from "react-hook-form";
+
 interface FormInputProps {
   id: string;
   label: string;
@@ -5,6 +7,8 @@ interface FormInputProps {
   disabled?: boolean;
   required?: boolean;
   placeholderText?: string;
+  register?: object;
+  errors: FieldErrors;
 }
 
 const FormInput: React.FC<FormInputProps> = ({
@@ -13,6 +17,7 @@ const FormInput: React.FC<FormInputProps> = ({
   type = "text",
   disabled,
   required,
+  register,
   placeholderText,
 }) => {
   return (
@@ -27,6 +32,7 @@ const FormInput: React.FC<FormInputProps> = ({
         required
         disabled={disabled}
         placeholder={placeholderText}
+        {...(register ?? {})}
       />
     </div>
   );

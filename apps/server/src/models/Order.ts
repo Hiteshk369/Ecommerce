@@ -14,11 +14,13 @@ export interface IOrder {
   };
   orderItems: [
     {
-      name: string;
-      price: number;
-      quantity: number;
-      image: string;
-      product: Schema.Types.ObjectId;
+      product: {
+        name: string;
+        price: number;
+        quantity: number;
+        image: string;
+        id: Schema.Types.ObjectId;
+      };
     }
   ];
   paymentInfo: {
@@ -67,26 +69,28 @@ const orderSchema = new Schema<IOrder>(
     },
     orderItems: [
       {
-        name: {
-          type: String,
-          required: true,
-        },
-        price: {
-          type: Number,
-          required: true,
-        },
-        quantity: {
-          type: Number,
-          required: true,
-        },
-        image: {
-          type: String,
-          required: true,
-        },
         product: {
-          type: Schema.Types.ObjectId,
-          ref: "Product",
-          required: true,
+          name: {
+            type: String,
+            required: true,
+          },
+          price: {
+            type: Number,
+            required: true,
+          },
+          quantity: {
+            type: Number,
+            required: true,
+          },
+          imageUrl: {
+            type: String,
+            required: true,
+          },
+          id: {
+            type: Schema.Types.ObjectId,
+            ref: "Product",
+            required: true,
+          },
         },
       },
     ],
@@ -117,12 +121,12 @@ const orderSchema = new Schema<IOrder>(
       },
       taxPrice: {
         type: Number,
-        default: 40,
+        default: 399,
         required: true,
       },
       deliveryCharges: {
         type: Number,
-        default: 30,
+        default: 101,
         required: true,
       },
       discount: {

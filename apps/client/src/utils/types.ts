@@ -25,11 +25,13 @@ export interface IProduct {
 export interface ICartItems {
   _id: string;
   userId: string;
-  productId: {
-    _id: string;
+  productId: string;
+  product: {
+    id: string;
     name: string;
     price: number;
     imageUrl: string;
+    quantity: number;
   };
 
   quantity: number;

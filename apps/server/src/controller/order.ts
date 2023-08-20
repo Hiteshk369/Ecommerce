@@ -5,25 +5,33 @@ import asyncErrorHandler from "../middleware/asyncErrorHandler";
 import { v4 as uuidv4 } from "uuid";
 import updateProductStock from "../utils/updateProductStock";
 import { IRequest } from "../middleware/verifyToken";
+import Cart from "../models/Cart";
 
 // create order
 export const createOrder = asyncErrorHandler(
   async (req: IRequest, res: Response, next: NextFunction) => {
     const { shippingInfo, orderItems, paymentInfo } = req.body;
-    const orderId = uuidv4().split("-")[0];
-    paymentInfo.id = orderId;
+    const userId = req.userId;
+    const cartItems = await Cart.find(
+      { userId: userId },
+      { product: 1, _id: 0 }
+    );
+
+    // const orderId = uuidv4().split("-")[0];
+    // paymentInfo.id = orderId;
+
     const order = await Order.create({
       shippingInfo,
-      orderItems,
+      orderItems: cartItems,
       paymentInfo,
       user: req.userId,
     });
 
     if (!order) next(createHttpError(400, "Order failed"));
     else {
-      order.orderItems.forEach(async (order) => {
-        await updateProductStock(order.product, order.quantity);
-      });
+      // order.orderItems.forEach(async (order) => {
+      //   await updateProductStock(order.id, order.quantity);
+      // });
       res.status(201).json({
         success: true,
         message: "Product created successfully",

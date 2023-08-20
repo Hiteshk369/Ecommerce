@@ -6,14 +6,16 @@ import toast from "react-hot-toast";
 import { ThreeDots } from "react-loader-spinner";
 import { Link, useNavigate } from "react-router-dom";
 
+import { useDispatch } from "react-redux";
+import { SET_USER } from "../../../redux/reducers/userSlice";
+
 import RegisterLayout from "../../../components/RegisterLayout";
 import Input from "../../../components/Input";
 import { fetcher } from "../../../libs/fetcher";
-import Cookies from "universal-cookie";
 
 const Login = () => {
-  const cookies = new Cookies();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const loginFormSchema = z.object({
     email: z
@@ -49,9 +51,8 @@ const Login = () => {
     if (response.status === 400 || !result) {
       toast.error("Invalid credentials");
     } else {
-      cookies.set("Token", result.accessToken, {
-        path: "/",
-      });
+      localStorage.setItem("accessToken", result.accessToken);
+      dispatch(SET_USER(result.accessToken));
       toast.success("Login successful");
       setTimeout(() => {
         navigate("/");

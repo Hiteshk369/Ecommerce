@@ -1,13 +1,11 @@
 import { Heart, Search, ShoppingCart, UserCircle2 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
 import { useQuery } from "react-query";
 import { getFetcher } from "../../libs/fetcher";
 
 const Navbar = () => {
-  const [login, setLogin] = useState(true);
+  const user = localStorage.getItem("accessToken");
   const pathName = window.location.pathname;
-
   const categories = [
     {
       id: 1,
@@ -79,12 +77,14 @@ const Navbar = () => {
             )}
           </Link>
           <div className="w-24 flex items-center justify-center">
-            {login ? (
+            {user ? (
               <UserCircle2 size={25} color="#1e1e20" />
             ) : (
-              <button className="text-base bg-darkBlue text-[#d0d0d1] font-medium cursor-pointer transition-[0.2s] duration-[ease-in-out] px-5 py-[0.4rem] rounded-lg border-[none] hover:bg-[#2763ff] hover:text-[#ebebef]">
-                Login
-              </button>
+              <Link to="/login">
+                <button className="text-base bg-darkBlue text-[#d0d0d1] font-medium cursor-pointer transition-[0.2s] duration-[ease-in-out] px-5 py-[0.4rem] rounded-lg border-[none] hover:bg-[#2763ff] hover:text-[#ebebef]">
+                  Login
+                </button>
+              </Link>
             )}
           </div>
         </div>

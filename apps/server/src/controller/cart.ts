@@ -6,7 +6,8 @@ import { IRequest } from "../middleware/verifyToken";
 export const updateCart = asyncErrorHandler(
   async (req: IRequest, res: Response, next: NextFunction) => {
     const userId = req.userId;
-    const { productId, quantity } = req.body;
+    const { productId } = req.body;
+    const { name, price, imageUrl, quantity } = req.body.product;
     if (userId) {
       if (quantity === 0) {
         await Cart.deleteOne({ userId, productId });
@@ -17,7 +18,7 @@ export const updateCart = asyncErrorHandler(
       } else {
         const updateCart = await Cart.findOneAndUpdate(
           { userId, productId },
-          { quantity: quantity },
+          { product: { id: productId, name, price, imageUrl, quantity } },
           { new: true }
         );
         if (updateCart)
@@ -26,7 +27,11 @@ export const updateCart = asyncErrorHandler(
             updateCart,
           });
         else {
-          const createCart = await Cart.create({ userId, productId, quantity });
+          const createCart = await Cart.create({
+            userId,
+            productId,
+            product: { id: productId, name, price, imageUrl, quantity },
+          });
           res.status(200).json({
             success: true,
             createCart,
@@ -46,13 +51,7 @@ export const viewCart = asyncErrorHandler(
   async (req: IRequest, res: Response, next: NextFunction) => {
     const userId = req.userId;
     if (userId) {
-      const cartItems = await Cart.find({ userId: userId }).populate([
-        {
-          path: "userId",
-          select: "name",
-        },
-        { path: "productId", select: "name imageUrl price" },
-      ]);
+      const cartItems = await Cart.find({ userId: userId });
       res.status(200).json({
         success: true,
         cartItems,
