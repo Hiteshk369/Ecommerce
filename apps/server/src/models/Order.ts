@@ -6,21 +6,21 @@ const deliveryStatus = ["Shipped", "Delivered", "Cancelled"] as const;
 export interface IOrder {
   user: Schema.Types.ObjectId;
   shippingInfo: {
+    name: string;
+    email: string;
     address: string;
     city: string;
     state: string;
-    pinCode: number;
-    phoneNo: number;
+    pinCode: string;
+    phoneNumber: string;
   };
   orderItems: [
     {
-      product: {
-        name: string;
-        price: number;
-        quantity: number;
-        image: string;
-        id: Schema.Types.ObjectId;
-      };
+      name: string;
+      price: number;
+      quantity: number;
+      image: string;
+      id: Schema.Types.ObjectId;
     }
   ];
   paymentInfo: {
@@ -46,6 +46,14 @@ const orderSchema = new Schema<IOrder>(
       ref: "User",
     },
     shippingInfo: {
+      name: {
+        type: String,
+        required: true,
+      },
+      email: {
+        type: String,
+        required: true,
+      },
       address: {
         type: String,
         required: true,
@@ -59,38 +67,36 @@ const orderSchema = new Schema<IOrder>(
         required: true,
       },
       pinCode: {
-        type: Number,
+        type: String,
         required: true,
       },
-      phoneNo: {
-        type: Number,
+      phoneNumber: {
+        type: String,
         required: true,
       },
     },
     orderItems: [
       {
-        product: {
-          name: {
-            type: String,
-            required: true,
-          },
-          price: {
-            type: Number,
-            required: true,
-          },
-          quantity: {
-            type: Number,
-            required: true,
-          },
-          imageUrl: {
-            type: String,
-            required: true,
-          },
-          id: {
-            type: Schema.Types.ObjectId,
-            ref: "Product",
-            required: true,
-          },
+        name: {
+          type: String,
+          required: true,
+        },
+        price: {
+          type: Number,
+          required: true,
+        },
+        quantity: {
+          type: Number,
+          required: true,
+        },
+        imageUrl: {
+          type: String,
+          required: true,
+        },
+        id: {
+          type: Schema.Types.ObjectId,
+          ref: "Product",
+          required: true,
         },
       },
     ],

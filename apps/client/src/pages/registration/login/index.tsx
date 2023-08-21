@@ -52,6 +52,7 @@ const Login = () => {
       toast.error("Invalid credentials");
     } else {
       localStorage.setItem("accessToken", result.accessToken);
+      localStorage.setItem("userId", result.id);
       dispatch(SET_USER(result.accessToken));
       toast.success("Login successful");
       setTimeout(() => {

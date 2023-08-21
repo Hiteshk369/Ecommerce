@@ -11,6 +11,7 @@ import {
   Store,
 } from "./pages";
 import ProtectedRoute from "./libs/ProtectedRoute";
+import Success from "./pages/success";
 
 const AppRoutes = () => {
   const user = localStorage.getItem("accessToken");
@@ -23,14 +24,8 @@ const AppRoutes = () => {
       <Route path="/store" element={<Store />} />
       <Route path="/store/category" element={<ProductCategory />} />
       <Route path="/store/:category/:id" element={<Product />} />
-      <Route
-        path="/cart"
-        element={
-          <ProtectedRoute user={user}>
-            <Cart />
-          </ProtectedRoute>
-        }
-      />
+      <Route path="/cart" element={<Cart />} />
+      <Route path="/success" element={<Success />} />
       <Route path="*" element={<Error404 />} />
     </Routes>
   );

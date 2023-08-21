@@ -71,8 +71,8 @@ const Product = () => {
       toast.error("Product not added");
     } else {
       handleRefetchCartItems();
+      toast.success("Added to cart");
     }
-    toast.success("Added to cart");
   };
 
   return (

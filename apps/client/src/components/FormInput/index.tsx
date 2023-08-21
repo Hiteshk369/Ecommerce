@@ -29,7 +29,7 @@ const FormInput: React.FC<FormInputProps> = ({
         className="w-full px-2 py-2 border-lightGray border rounded-md text-sm"
         id={id}
         type={type}
-        required
+        required={required}
         disabled={disabled}
         placeholder={placeholderText}
         {...(register ?? {})}

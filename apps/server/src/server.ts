@@ -11,6 +11,7 @@ import auth from "./routes/auth";
 import product from "./routes/product";
 import order from "./routes/order";
 import cart from "./routes/cart";
+import stripe from "./routes/stripe";
 
 const app = express();
 
@@ -38,6 +39,7 @@ app.use("/api/auth", auth);
 app.use("/api/product", product);
 app.use("/api/order", order);
 app.use("/api/cart", cart);
+app.use("/api/stripe", stripe);
 
 connectDB()
   .then(() => {

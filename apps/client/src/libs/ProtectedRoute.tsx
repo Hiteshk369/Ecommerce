@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import { Navigate, Outlet } from "react-router-dom";
 
 interface userType {
@@ -7,6 +8,7 @@ interface userType {
 
 const ProtectedRoute: React.FC<userType> = ({ user, children }) => {
   if (!user) {
+    toast.error("Login");
     return <Navigate to="/login" replace />;
   }
 

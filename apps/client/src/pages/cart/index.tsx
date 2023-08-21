@@ -3,15 +3,17 @@ import Navbar from "../../components/Navbar";
 import { Trash2 } from "lucide-react";
 
 import { useQuery } from "react-query";
-import { getFetcher } from "../../libs/fetcher";
+import { fetcher, getFetcher } from "../../libs/fetcher";
 import { handleRefetchCartItems } from "../../libs/queryFunctions";
 import { ICartItems } from "../../utils/types";
 import toast from "react-hot-toast";
 import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useAppSelector } from "../../libs/hooks";
 
 const Cart = () => {
+  const user = useAppSelector((state) => state.user.value);
   const orderFormSchema = z.object({
     name: z
       .string()
@@ -64,14 +66,6 @@ const Cart = () => {
   };
 
   const { data } = useQuery("cartItems", fetchCartItems);
-  if (data) {
-    const array: any = [];
-    data.cartItems.forEach((item: any) => {
-      array.push(item.product);
-    });
-    console.log(data.cartItems);
-    console.log(array);
-  }
 
   const subTotal = data?.cartItems.reduce(
     (sum: number, product: ICartItems) => {
@@ -96,8 +90,19 @@ const Cart = () => {
     return response;
   };
 
-  const placeOrder: SubmitHandler<formSchemaType> = async (data) => {
-    console.log(data);
+  const placeOrder = async (cartItems: any) => {
+    const response = await fetcher(
+      "http://localhost:5000/api/stripe/create-checkout-session",
+      {
+        cartItems,
+      }
+    );
+    const result = await response.json();
+    if (response.status === 400 || !result) {
+      toast.error("Failed");
+    } else {
+      window.location.href = result.url;
+    }
   };
 
   return (
@@ -230,7 +235,9 @@ const Cart = () => {
               <p className="font-medium">{subTotal + 399 + 101}</p>
             </div>
             <button
-              onClick={handleSubmit(placeOrder)}
+              onClick={() =>
+                user ? placeOrder(data?.cartItems) : toast.error("Login")
+              }
               className="mt-4 mb-3 w-full flex items-center justify-center bg-darkBlue py-2 rounded-md"
             >
               <p className="text-white font-medium">Continue to payment</p>

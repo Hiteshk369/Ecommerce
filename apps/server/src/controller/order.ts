@@ -3,43 +3,58 @@ import Order from "../models/Order";
 import createHttpError from "http-errors";
 import asyncErrorHandler from "../middleware/asyncErrorHandler";
 import { v4 as uuidv4 } from "uuid";
-import updateProductStock from "../utils/updateProductStock";
+// import updateProductStock from "../utils/updateProductStock";
 import { IRequest } from "../middleware/verifyToken";
-import Cart from "../models/Cart";
+//import Cart from "../models/Cart";
 
 // create order
-export const createOrder = asyncErrorHandler(
-  async (req: IRequest, res: Response, next: NextFunction) => {
-    const { shippingInfo, orderItems, paymentInfo } = req.body;
-    const userId = req.userId;
-    const cartItems = await Cart.find(
-      { userId: userId },
-      { product: 1, _id: 0 }
-    );
+// export const createOrder = asyncErrorHandler(
+//   async (req: IRequest, res: Response, next: NextFunction) => {
+//     const { name, email, phoneNumber, address, city, state, pinCode } =
+//       req.body.shippingInfo;
+//     const userId = req.userId;
+//     const cartItems = await Cart.find(
+//       { userId: userId },
+//       { product: 1, _id: 0 }
+//     );
 
-    // const orderId = uuidv4().split("-")[0];
-    // paymentInfo.id = orderId;
+//     const orderId = uuidv4().split("-")[0];
+//     const subTotal = cartItems.reduce((sum: number, product: any) => {
+//       return sum + product.product.price * product.product.quantity;
+//     }, 0);
+//     const totalPrice = subTotal + 101 + 399;
+//     const order = await Order.create({
+//       shippingInfo: {
+//         name,
+//         email,
+//         phoneNumber,
+//         address,
+//         city,
+//         state,
+//         pinCode,
+//       },
+//       orderItems: cartItems,
+//       paymentInfo: {
+//         id: orderId.toUpperCase(),
+//         itemsPrice: subTotal,
+//         totalPrice: totalPrice,
+//       },
+//       user: req.userId,
+//     });
 
-    const order = await Order.create({
-      shippingInfo,
-      orderItems: cartItems,
-      paymentInfo,
-      user: req.userId,
-    });
-
-    if (!order) next(createHttpError(400, "Order failed"));
-    else {
-      // order.orderItems.forEach(async (order) => {
-      //   await updateProductStock(order.id, order.quantity);
-      // });
-      res.status(201).json({
-        success: true,
-        message: "Product created successfully",
-        order,
-      });
-    }
-  }
-);
+//     if (!order) next(createHttpError.InternalServerError);
+//     else {
+//       order.orderItems.forEach(async (order) => {
+//         await updateProductStock(order.id, order.quantity);
+//       });
+//       res.status(201).json({
+//         success: true,
+//         message: "Product created successfully",
+//         order,
+//       });
+//     }
+//   }
+// );
 
 // get user orders
 export const getUserOrders = asyncErrorHandler(

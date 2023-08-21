@@ -4,22 +4,25 @@ import { BrowserRouter } from "react-router-dom";
 import AppRoutes from "./Navigation";
 import store from "./redux/store";
 import { Provider } from "react-redux";
-import { CookiesProvider } from "react-cookie";
+import { Toaster } from "react-hot-toast";
 
 export const queryClient = new QueryClient();
 
 function App() {
   return (
-    <CookiesProvider>
-      <Provider store={store}>
-        <QueryClientProvider client={queryClient}>
-          <BrowserRouter>
-            <AppRoutes />
-          </BrowserRouter>
-          <ReactQueryDevtools />
-        </QueryClientProvider>
-      </Provider>
-    </CookiesProvider>
+    <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <AppRoutes />
+          <Toaster
+            containerStyle={{
+              zIndex: 1000000000,
+            }}
+          />
+        </BrowserRouter>
+        <ReactQueryDevtools />
+      </QueryClientProvider>
+    </Provider>
   );
 }
 

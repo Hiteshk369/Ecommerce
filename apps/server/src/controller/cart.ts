@@ -63,7 +63,6 @@ export const viewCart = asyncErrorHandler(
 export const deleteProductFromCart = asyncErrorHandler(
   async (req: IRequest, res: Response, next: NextFunction) => {
     const userId = req.userId;
-    console.log(userId);
     const { id } = req.params;
 
     await Cart.deleteOne({ userId, productId: id });
@@ -71,9 +70,16 @@ export const deleteProductFromCart = asyncErrorHandler(
       success: true,
       message: "Product removed",
     });
-    res.json({
+  }
+);
+
+export const deleteAllFromCart = asyncErrorHandler(
+  async (req: IRequest, res: Response, next: NextFunction) => {
+    const userId = req.userId;
+    await Cart.deleteMany({ userId });
+    res.status(200).json({
       success: true,
-      message: "Product deleted from cart",
+      message: "Cart empty",
     });
   }
 );
