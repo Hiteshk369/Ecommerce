@@ -6,7 +6,7 @@ const Footer = () => {
     {
       id: 1,
       name: "All Products",
-      path: "",
+      path: "/store",
     },
     {
       id: 2,

@@ -12,7 +12,6 @@ import verifyUserRole from "../middleware/verifyUserRole";
 
 const router = express.Router();
 
-// router.post("/neworder", verifyToken, createOrder);
 router.get("/", verifyToken, getUserOrders);
 router.get("/:id", verifyToken, getSingleUserOrder);
 router.get("/admin/allorders", verifyToken, verifyUserRole, getAllOrders);

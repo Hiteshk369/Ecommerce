@@ -1,10 +1,10 @@
-import StoreLayout from "../../components/StoreLayout";
-
 import { useQuery } from "react-query";
-import { getFetcher } from "../../libs/fetcher";
 import { useSearchParams } from "react-router-dom";
-import ProductCard from "../../components/ProductCard";
 import { CirclesWithBar } from "react-loader-spinner";
+
+import StoreLayout from "../../components/StoreLayout";
+import ProductCard from "../../components/ProductCard";
+import { getFetcher } from "../../libs/fetcher";
 import { IProduct } from "../../utils/types";
 
 const ProductCategory = () => {

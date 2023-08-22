@@ -1,10 +1,16 @@
-import { Heart, Search, ShoppingCart, UserCircle2 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Heart, Search, ShoppingCart } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
+import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+
 import { getFetcher } from "../../libs/fetcher";
+import { REMOVE_USER } from "../../redux/reducers/userSlice";
 
 const Navbar = () => {
   const user = localStorage.getItem("accessToken");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const pathName = window.location.pathname;
   const categories = [
     {
@@ -19,6 +25,12 @@ const Navbar = () => {
       path: "/store",
       active: pathName.includes("/store"),
     },
+    {
+      id: 3,
+      name: "Orders",
+      path: "/orders",
+      active: pathName.includes("/orders"),
+    },
   ];
 
   const fetchCartItems = async () => {
@@ -30,14 +42,26 @@ const Navbar = () => {
 
   const { data } = useQuery("cartItems", fetchCartItems);
 
+  const handleLogout = async () => {
+    const response = await getFetcher("http://localhost:5000/api/auth/logout");
+    if (response.status === 400 || !response) {
+      toast.error("Logout failed");
+    } else {
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("userId");
+      dispatch(REMOVE_USER());
+      navigate("/login");
+    }
+  };
+
   return (
     <div className="w-screen bg-white fixed z-[100000000]">
       <div className="max-w-[1240px] h-20 flex items-center justify-between m-auto">
-        <div>
+        <Link to="/">
           <p className="text-[1.4rem] tracking-[0.4px] text-[#1e1e20] font-semibold">
             <span className="text-darkBlue">e</span>COMMERCE
           </p>
-        </div>
+        </Link>
         <div className="flex items-center gap-4">
           {categories.map((category) => (
             <Link
@@ -72,7 +96,12 @@ const Navbar = () => {
           </Link>
           <div className="w-24 flex items-center justify-center">
             {user ? (
-              <UserCircle2 size={25} color="#1e1e20" />
+              <button
+                onClick={handleLogout}
+                className="text-base bg-darkBlue text-[#d0d0d1] font-medium cursor-pointer transition-[0.2s] duration-[ease-in-out] px-5 py-[0.4rem] rounded-lg border-[none] hover:bg-[#2763ff] hover:text-[#ebebef]"
+              >
+                Logout
+              </button>
             ) : (
               <Link to="/login">
                 <button className="text-base bg-darkBlue text-[#d0d0d1] font-medium cursor-pointer transition-[0.2s] duration-[ease-in-out] px-5 py-[0.4rem] rounded-lg border-[none] hover:bg-[#2763ff] hover:text-[#ebebef]">

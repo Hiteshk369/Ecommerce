@@ -1,11 +1,10 @@
 import { useQuery } from "react-query";
-import { getFetcher } from "../../libs/fetcher";
+import { CirclesWithBar } from "react-loader-spinner";
 
 import StoreLayout from "../../components/StoreLayout";
 import ProductCard from "../../components/ProductCard";
-import { CirclesWithBar } from "react-loader-spinner";
+import { getFetcher } from "../../libs/fetcher";
 import { IProduct } from "../../utils/types";
-import { useSearchParams } from "react-router-dom";
 
 const Store = () => {
   const fetchProductData = async () => {
@@ -18,7 +17,7 @@ const Store = () => {
   const { data, error, isLoading } = useQuery("productData", fetchProductData);
   return (
     <StoreLayout>
-      <div className="px-4 mt-8 mb-10">
+      <div className="px-4 mt-8 mb-10 pb-10">
         <div className="flex justify-center flex-wrap gap-5">
           {isLoading && (
             <div className=" h-full w-full flex justify-center items-center">
@@ -51,7 +50,7 @@ const Store = () => {
                 price={product.price}
                 image={product.imageUrl}
                 category={product.category}
-                wishlist={true}
+                wishlist={false}
               />
             ))}
         </div>

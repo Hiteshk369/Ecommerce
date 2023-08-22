@@ -1,5 +1,5 @@
 import toast from "react-hot-toast";
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 interface userType {
   user: string | null;
@@ -7,7 +7,7 @@ interface userType {
 }
 
 const ProtectedRoute: React.FC<userType> = ({ user, children }) => {
-  if (!user) {
+  if (user === null) {
     toast.error("Login");
     return <Navigate to="/login" replace />;
   }

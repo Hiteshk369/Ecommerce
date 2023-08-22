@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import Lottie from "lottie-react";
+
 import Navbar from "../../components/Navbar";
 import { handleRefetchCartItems } from "../../libs/queryFunctions";
-import Lottie from "lottie-react";
 import failAnimation from "../../assets/failed.json";
-import { Link } from "react-router-dom";
 
 function Cancel() {
   const [scale, setScale] = useState(false);

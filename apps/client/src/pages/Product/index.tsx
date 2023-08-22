@@ -10,10 +10,10 @@ import {
 } from "lucide-react";
 import toast from "react-hot-toast";
 import { useReducer } from "react";
-
-import { fetcher, getFetcher } from "../../libs/fetcher";
-import StoreLayout from "../../components/StoreLayout";
 import { CirclesWithBar } from "react-loader-spinner";
+
+import StoreLayout from "../../components/StoreLayout";
+import { fetcher, getFetcher } from "../../libs/fetcher";
 import { handleRefetchCartItems } from "../../libs/queryFunctions";
 
 const initialState = {

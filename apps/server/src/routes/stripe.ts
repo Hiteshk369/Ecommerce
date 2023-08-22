@@ -87,7 +87,7 @@ router.post("/create-checkout-session", async (req: IRequest, res) => {
       allowed_countries: ["IN"],
     },
     success_url: `${process.env.CLIENT_URL}/success`,
-    cancel_url: "http://localhost:4242/cancel",
+    cancel_url: `${process.env.CLIENT_URL}/cancel`,
   });
 
   res.send({ url: session.url });

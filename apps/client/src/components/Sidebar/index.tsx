@@ -9,13 +9,19 @@ import {
   LogOut,
 } from "lucide-react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import { useAppSelector } from "../../libs/hooks";
 import toast from "react-hot-toast";
+import { useQuery } from "react-query";
+import { useDispatch } from "react-redux";
+
+import { useAppSelector } from "../../libs/hooks";
+import { getFetcher } from "../../libs/fetcher";
+import { REMOVE_USER } from "../../redux/reducers/userSlice";
 
 const Sidebar = () => {
   const user = useAppSelector((state) => state.user.token);
   const navigate = useNavigate();
-  let orders = 20;
+  const dispatch = useDispatch();
+
   const pathName = window.location.pathname;
   const [searchParams] = useSearchParams();
 
@@ -64,6 +70,25 @@ const Sidebar = () => {
     ],
     [pathName, searchParams]
   );
+  const fetchOrders = async () => {
+    const response = await getFetcher("http://localhost:5000/api/order");
+    return response;
+  };
+
+  const { data, error, isLoading } = useQuery("orderItems", fetchOrders);
+
+  const handleLogout = async () => {
+    const response = await getFetcher("http://localhost:5000/api/auth/logout");
+    if (response.status === 400 || !response) {
+      toast.error("Logout failed");
+    } else {
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("userId");
+      dispatch(REMOVE_USER());
+      navigate("/login");
+    }
+  };
+
   return (
     <div className="w-[225px] fixed left-0 h-full border-r border-r-lightGray px-4 pt-6 ">
       <div className="w-full px-3 flex flex-col items-center gap-1 border-b pb-2 border-b-lightGray">
@@ -85,21 +110,21 @@ const Sidebar = () => {
       <div className="w-full px-3 pt-6 flex flex-col border-b pb-6 border-b-lightGray">
         <p className="text-sm font-medium text-darkGray">
           Last Orders:{" "}
-          <span className="text-neutral-700 text-sm">{orders}</span>
+          <span className="text-neutral-700 text-sm">
+            {data?.orders.length}
+          </span>
         </p>
         <div className="pt-4 space-y-3">
           <div className="pl-1 flex items-center gap-1 w-90%">
             <ShoppingBag size={15} />
-            <p className="text-neutral-700 text-sm">389237918280</p>
-            <p className="text-darkGray text-xs font-semibold ml-auto cursor-pointer">
-              view
+            <p className="text-neutral-700 text-sm">
+              {data?.orders[0].paymentInfo.id}
             </p>
           </div>
           <div className="pl-1 flex items-center gap-1 pb-2">
             <ShoppingBag size={15} />
-            <p className="text-neutral-700 text-sm">389237918280</p>
-            <p className="text-darkGray text-xs font-semibold ml-auto cursor-pointer">
-              view
+            <p className="text-neutral-700 text-sm">
+              {data?.orders[1].paymentInfo.id}
             </p>
           </div>
           <button
@@ -114,10 +139,10 @@ const Sidebar = () => {
         </div>
       </div>
       <div className="w-full pt-24 px-3 flex flex-col ">
-        <div className="flex items-center gap-2">
+        <button onClick={handleLogout} className="flex items-center gap-2">
           <LogOut className="text-darkBlue" />
           <p>Log out</p>
-        </div>
+        </button>
       </div>
     </div>
   );

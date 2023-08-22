@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import Lottie from "lottie-react";
-import successAnimation from "../../assets/success.json";
-import Navbar from "../../components/Navbar";
-import { handleRefetchCartItems } from "../../libs/queryFunctions";
 import { Link } from "react-router-dom";
+import Lottie from "lottie-react";
+
+import Navbar from "../../components/Navbar";
+import successAnimation from "../../assets/success.json";
+import { handleRefetchCartItems } from "../../libs/queryFunctions";
 
 function Success() {
   const [scale, setScale] = useState(false);

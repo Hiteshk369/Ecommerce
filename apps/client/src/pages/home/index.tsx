@@ -1,11 +1,11 @@
+import { BadgeDollarSign, BaggageClaim, Smile, Truck } from "lucide-react";
+
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
+
 import { banners } from "../../utils/Banner";
 import { brands } from "../../utils/Banner";
 import MainBanner from "../../assets/Banners/MainBanner.jpeg";
-
-import { BadgeDollarSign, BaggageClaim, Smile, Truck } from "lucide-react";
-import { useAppSelector } from "../../libs/hooks";
 
 const Home = () => {
   const features = [
