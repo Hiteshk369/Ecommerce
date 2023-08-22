@@ -53,7 +53,12 @@ const Login = () => {
     } else {
       localStorage.setItem("accessToken", result.accessToken);
       localStorage.setItem("userId", result.id);
-      dispatch(SET_USER(result.accessToken));
+      dispatch(
+        SET_USER({
+          token: result.accessToken,
+          id: result.id,
+        })
+      );
       toast.success("Login successful");
       setTimeout(() => {
         navigate("/");

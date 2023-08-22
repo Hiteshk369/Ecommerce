@@ -18,8 +18,9 @@ const stripe = new Stripe(
 
 const createOrder = async (customer: any, data: any) => {
   const cartItems = JSON.parse(customer.metadata.cart);
-  const orderId = uuidv4().split("-")[0];
+  const orderId = uuidv4().split("-")[0].toUpperCase();
   const newOrder = new Order({
+    user: customer.metadata.userId,
     shippingInfo: {
       name: data.customer_details.name,
       email: data.customer_details.email,
@@ -45,8 +46,8 @@ const createOrder = async (customer: any, data: any) => {
 };
 
 router.post("/create-checkout-session", async (req: IRequest, res) => {
-  const { cartItems } = req.body;
-  const id = req.userId;
+  const { cartItems, userId } = req.body;
+
   const cartProducts: any = [];
   cartItems.map((item: any) => {
     cartProducts.push(item.product);
@@ -54,7 +55,7 @@ router.post("/create-checkout-session", async (req: IRequest, res) => {
 
   const customer = await stripe.customers.create({
     metadata: {
-      userId: String(id),
+      userId: String(userId),
       cart: JSON.stringify(cartProducts),
     },
   });
@@ -127,8 +128,7 @@ router.post(
 
     if (eventType === "checkout.session.completed") {
       stripe.customers.retrieve(data.customer).then((customer) => {
-        console.log(customer);
-        console.log("data:", data);
+        createOrder(customer, data);
       });
     }
 

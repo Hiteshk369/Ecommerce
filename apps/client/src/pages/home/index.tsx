@@ -5,6 +5,7 @@ import { brands } from "../../utils/Banner";
 import MainBanner from "../../assets/Banners/MainBanner.jpeg";
 
 import { BadgeDollarSign, BaggageClaim, Smile, Truck } from "lucide-react";
+import { useAppSelector } from "../../libs/hooks";
 
 const Home = () => {
   const features = [

@@ -13,7 +13,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useAppSelector } from "../../libs/hooks";
 
 const Cart = () => {
-  const user = useAppSelector((state) => state.user.value);
+  const user = useAppSelector((state) => state.user.token);
+  const userId = useAppSelector((state) => state.user.id);
   const orderFormSchema = z.object({
     name: z
       .string()
@@ -90,11 +91,12 @@ const Cart = () => {
     return response;
   };
 
-  const placeOrder = async (cartItems: any) => {
+  const placeOrder = async (cartItems: any, userId: any) => {
     const response = await fetcher(
       "http://localhost:5000/api/stripe/create-checkout-session",
       {
         cartItems,
+        userId,
       }
     );
     const result = await response.json();
@@ -236,7 +238,9 @@ const Cart = () => {
             </div>
             <button
               onClick={() =>
-                user ? placeOrder(data?.cartItems) : toast.error("Login")
+                user
+                  ? placeOrder(data?.cartItems, userId)
+                  : toast.error("Login")
               }
               className="mt-4 mb-3 w-full flex items-center justify-center bg-darkBlue py-2 rounded-md"
             >

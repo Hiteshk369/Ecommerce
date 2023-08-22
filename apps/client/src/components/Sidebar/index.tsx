@@ -8,9 +8,13 @@ import {
   ShoppingBag,
   LogOut,
 } from "lucide-react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { useAppSelector } from "../../libs/hooks";
+import toast from "react-hot-toast";
 
 const Sidebar = () => {
+  const user = useAppSelector((state) => state.user.token);
+  const navigate = useNavigate();
   let orders = 20;
   const pathName = window.location.pathname;
   const [searchParams] = useSearchParams();
@@ -30,7 +34,7 @@ const Sidebar = () => {
         active:
           pathName.includes("/mobile") || searchParams.get("type") === "mobile",
         Icon: Smartphone,
-        path: "/store?type=mobile",
+        path: "/store/category?type=mobile",
       },
       {
         id: 3,
@@ -38,7 +42,7 @@ const Sidebar = () => {
         active:
           pathName.includes("/laptop") || searchParams.get("type") === "laptop",
         Icon: Laptop,
-        path: "/store?type=laptop",
+        path: "/store/category?type=laptop",
       },
       {
         id: 4,
@@ -98,9 +102,15 @@ const Sidebar = () => {
               view
             </p>
           </div>
-          <p className="text-sm text-darkGray font-semiBold cursor-pointer transition ease-in-out hover:text-darkBlue">
-            See all
-          </p>
+          <button
+            onClick={() => {
+              user ? navigate("/orders") : toast.error("Login");
+            }}
+          >
+            <p className="text-sm text-darkGray font-semiBold cursor-pointer transition ease-in-out hover:text-darkBlue">
+              See all
+            </p>
+          </button>
         </div>
       </div>
       <div className="w-full pt-24 px-3 flex flex-col ">

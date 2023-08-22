@@ -3,6 +3,7 @@ import Lottie from "lottie-react";
 import successAnimation from "../../assets/success.json";
 import Navbar from "../../components/Navbar";
 import { handleRefetchCartItems } from "../../libs/queryFunctions";
+import { Link } from "react-router-dom";
 
 function Success() {
   const [scale, setScale] = useState(false);
@@ -40,7 +41,7 @@ function Success() {
         <div
           className={`transition ${
             scale
-              ? "transform translate-y-[-200px] duration-500 scale-[0.75]"
+              ? "transform translate-y-[-100px] duration-500 scale-[0.75]"
               : ""
           } `}
         >
@@ -52,11 +53,32 @@ function Success() {
         </div>
         <div
           className={`transition ${
-            scale ? "transform translate-y-[-200px] duration-500 scale-1" : ""
+            scale ? "transform translate-y-[-100px] duration-500" : ""
           } `}
         >
-          <p>Order Successful</p>
+          <p className="text-2xl">Order successful</p>
         </div>
+        {scale && (
+          <div className="flex flex-col items-center">
+            <div
+              className={`transition ${
+                scale
+                  ? "transform duration-[10000ms] translate-y-[-40px] scale-[1] opacity-100"
+                  : "opacity-0"
+              } `}
+            >
+              <p className="text-3xl">
+                You will receive your order in 3-5 working days.
+              </p>
+            </div>
+            <Link
+              to="/store"
+              className="bg-darkBlue text-white px-4 py-3 rounded-lg hover:opacity-80 transition ease-in"
+            >
+              <p className="font-semibold ">Continue to Store</p>
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );

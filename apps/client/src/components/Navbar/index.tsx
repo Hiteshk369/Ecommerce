@@ -19,12 +19,6 @@ const Navbar = () => {
       path: "/store",
       active: pathName.includes("/store"),
     },
-    {
-      id: 3,
-      name: "Brands",
-      path: "/products/brands",
-      active: pathName === "/brands",
-    },
   ];
 
   const fetchCartItems = async () => {

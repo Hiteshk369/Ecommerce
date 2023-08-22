@@ -1,10 +1,12 @@
 import { Routes, Route } from "react-router-dom";
 
 import {
+  Cancel,
   Cart,
   Error404,
   Home,
   Login,
+  Orders,
   Product,
   ProductCategory,
   SignUp,
@@ -26,6 +28,8 @@ const AppRoutes = () => {
       <Route path="/store/:category/:id" element={<Product />} />
       <Route path="/cart" element={<Cart />} />
       <Route path="/success" element={<Success />} />
+      <Route path="/cancel" element={<Cancel />} />
+      <Route path="/orders" element={<Orders />} />
       <Route path="*" element={<Error404 />} />
     </Routes>
   );

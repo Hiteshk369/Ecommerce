@@ -8,6 +8,7 @@ import Cart from "./cart";
 import Error404 from "./error";
 import Success from "./success";
 import Cancel from "./cancel";
+import Orders from "./orders";
 
 export {
   Home,
@@ -20,4 +21,5 @@ export {
   Error404,
   Success,
   Cancel,
+  Orders,
 };

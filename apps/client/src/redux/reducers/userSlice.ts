@@ -8,11 +8,12 @@ export const userSlice = createSlice({
   },
   reducers: {
     SET_USER: (state, action) => {
-      state.token = action.payload;
-      state.id = action.payload;
+      state.token = action.payload.token;
+      state.id = action.payload.id;
     },
     REMOVE_USER: (state) => {
       state.token = null;
+      state.id = null;
     },
   },
 });
