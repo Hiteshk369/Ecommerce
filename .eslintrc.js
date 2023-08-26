@@ -7,4 +7,7 @@ module.exports = {
       rootDir: ["apps/*/"],
     },
   },
+  rules: {
+    "turbo/no-undeclared-env-vars": "off",
+  },
 };

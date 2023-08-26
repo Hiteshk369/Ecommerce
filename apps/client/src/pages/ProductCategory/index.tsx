@@ -4,8 +4,8 @@ import { CirclesWithBar } from "react-loader-spinner";
 
 import StoreLayout from "../../components/StoreLayout";
 import ProductCard from "../../components/ProductCard";
-import { getFetcher } from "../../libs/fetcher";
 import { IProduct } from "../../utils/types";
+import axiosInstance from "../../libs/axios";
 
 const ProductCategory = () => {
   const [searchParams] = useSearchParams();
@@ -13,11 +13,11 @@ const ProductCategory = () => {
 
   const fetchProductByCategory = async (type: any) => {
     const category = type.queryKey[1];
-    const result = await getFetcher(
+    const response = await axiosInstance.get(
       `http://localhost:5000/api/product/category?type=${category}`
     );
 
-    return result;
+    return response.data;
   };
 
   const { data, isLoading, error } = useQuery(

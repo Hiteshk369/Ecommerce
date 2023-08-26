@@ -2,6 +2,7 @@ import React from "react";
 import { handleRefetchCartItems } from "../../libs/queryFunctions";
 import toast from "react-hot-toast";
 import { IndianRupee, Trash2 } from "lucide-react";
+import axiosInstance from "../../libs/axios";
 
 interface CartCardProps {
   item: any;
@@ -9,19 +10,12 @@ interface CartCardProps {
 
 const CartCard: React.FC<CartCardProps> = ({ item }) => {
   const handleRemoveFromCart = async (productId: string) => {
-    const response = await fetch(
-      `http://localhost:5000/api/cart/deleteProductFromCart/${productId}`,
-      {
-        method: "DELETE",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
+    const response = await axiosInstance.delete(
+      `http://localhost:5000/api/cart/deleteProductFromCart/${productId}`
     );
     handleRefetchCartItems();
     toast.success("Product Removed");
-    return response;
+    return response.data;
   };
   return (
     <div key={item._id} className="flex  w-full">

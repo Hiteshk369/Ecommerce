@@ -2,13 +2,12 @@ import { useQuery } from "react-query";
 
 import Navbar from "../../components/Navbar";
 import OrderItem from "../../components/OrderItem";
-
-import { getFetcher } from "../../libs/fetcher";
+import axiosInstance from "../../libs/axios";
 
 function Orders() {
   const fetchOrders = async () => {
-    const response = await getFetcher("http://localhost:5000/api/order");
-    return response;
+    const response = await axiosInstance.get("http://localhost:5000/api/order");
+    return response.data;
   };
 
   const { data, error, isLoading } = useQuery("orderItems", fetchOrders);

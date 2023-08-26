@@ -11,7 +11,6 @@ import { SET_USER } from "../../../redux/reducers/userSlice";
 
 import RegisterLayout from "../../../components/RegisterLayout";
 import Input from "../../../components/Input";
-import { fetcher } from "../../../libs/fetcher";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -43,10 +42,15 @@ const Login = () => {
   });
 
   const submitFormData: SubmitHandler<formSchemaType> = async (data) => {
-    const response = await fetcher(
-      "http://localhost:5000/api/auth/login",
-      data
-    );
+    const response = await fetch("http://localhost:5000/api/auth/login", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
     const result = await response.json();
     if (response.status === 400 || !result) {
       toast.error("Invalid credentials");

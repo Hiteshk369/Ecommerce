@@ -5,27 +5,20 @@ import Lottie from "lottie-react";
 import Navbar from "../../components/Navbar";
 import successAnimation from "../../assets/success.json";
 import { handleRefetchCartItems } from "../../libs/queryFunctions";
+import axiosInstance from "../../libs/axios";
 
 function Success() {
   const [scale, setScale] = useState(false);
 
   const handleEmptyCart = async () => {
-    const response = await fetch(
-      "http://localhost:5000/api/cart/deleteAllFromCart",
-      {
-        method: "DELETE",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
+    const response = await axiosInstance.delete(
+      "http://localhost:5000/api/cart/deleteAllFromCart"
     );
-    const result = await response.json();
-    if (response.status === 400 || !result) {
+    if (response.status === 400 || !response.data) {
       console.log("error");
     }
     handleRefetchCartItems();
-    return result;
+    return response.data;
   };
 
   useEffect(() => {

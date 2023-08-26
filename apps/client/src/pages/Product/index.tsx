@@ -13,8 +13,8 @@ import { useReducer } from "react";
 import { CirclesWithBar } from "react-loader-spinner";
 
 import StoreLayout from "../../components/StoreLayout";
-import { fetcher, getFetcher } from "../../libs/fetcher";
 import { handleRefetchCartItems } from "../../libs/queryFunctions";
+import axiosInstance from "../../libs/axios";
 
 const initialState = {
   counter: 0,
@@ -35,10 +35,10 @@ const Product = () => {
 
   const { id } = useParams();
   const getProductDetails = async () => {
-    const result = await getFetcher(
+    const response = await axiosInstance.get(
       `http://localhost:5000/api/product/getproducts/${id}`
     );
-    return result;
+    return response.data;
   };
 
   const { data, isLoading, error } = useQuery(
@@ -53,7 +53,7 @@ const Product = () => {
     imageUrl: string,
     quantity: number
   ) => {
-    const response = await fetcher(
+    const response = await axiosInstance.post(
       "http://localhost:5000/api/cart/updatecart",
       {
         productId,
@@ -66,8 +66,7 @@ const Product = () => {
         },
       }
     );
-    const result = await response.json();
-    if (response.status === 400 || !result) {
+    if (response.status === 400 || !response.data) {
       toast.error("Product not added");
     } else {
       handleRefetchCartItems();

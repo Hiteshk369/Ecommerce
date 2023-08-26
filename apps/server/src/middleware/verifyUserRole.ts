@@ -9,8 +9,7 @@ const verifyUserRole = asyncErrorHandler(
     if (user?.admin) {
       next();
     } else {
-      res.redirect("/");
-      next(createHttpError(401, "Unauthorized access"));
+      next(createHttpError.Unauthorized());
     }
   }
 );

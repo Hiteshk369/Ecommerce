@@ -5,10 +5,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
 import { ThreeDots } from "react-loader-spinner";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 import RegisterLayout from "../../../components/RegisterLayout";
 import Input from "../../../components/Input";
-import { fetcher } from "../../../libs/fetcher";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -44,12 +44,11 @@ const SignUp = () => {
   });
 
   const submitFormData: SubmitHandler<formSchemaType> = async (data) => {
-    const response = await fetcher(
+    const response = await axios.post(
       "http://localhost:5000/api/auth/signup",
       data
     );
-    const result = await response.json();
-    if (response.status === 400 || !result) {
+    if (response.status === 400 || !response.data) {
       toast.error("Registration failed");
     } else {
       toast.success("User created");

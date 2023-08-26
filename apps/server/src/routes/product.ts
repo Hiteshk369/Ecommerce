@@ -8,7 +8,7 @@ import {
   getProductById,
   updateProductById,
 } from "../controller/product";
-import verifyToken from "../middleware/verifyToken";
+import { verifyToken } from "../middleware/verifyToken";
 import verifyUserRole from "../middleware/verifyUserRole";
 
 const router = express.Router();

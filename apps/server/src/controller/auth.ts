@@ -1,10 +1,14 @@
 import { Request, Response, NextFunction } from "express";
 import User from "../models/User";
-import { encryptPassword, verifyPassword } from "../utils/passwordFunc";
+import { encryptPassword, verifyPassword } from "../helpers/passwordFunc";
 import asyncErrorHandler from "../middleware/asyncErrorHandler";
 import createHttpError from "http-errors";
 import dotenv from "dotenv";
-import { signJWT, verifyJWT } from "../utils/jwt";
+import {
+  signAccessToken,
+  signRefreshToken,
+  verifyRefreshToken,
+} from "../helpers/jwt";
 
 dotenv.config();
 
@@ -13,13 +17,11 @@ export const signUp = asyncErrorHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     const { name, email, password } = req.body;
 
-    //check if the data is present
     if (!name || !email || !password)
       return next(createHttpError(401, "All fields are required"));
 
     const checkUser = await User.findOne({ email: email.toLowerCase() });
 
-    //to check if a user already exists if not create a user
     if (!checkUser) {
       const hashedPassword = await encryptPassword(password);
       const user = await User.create({
@@ -41,7 +43,6 @@ export const login = asyncErrorHandler(
   async (req: Request, res: Response, next: NextFunction) => {
     const { email, password } = req.body;
 
-    //check if the data is present
     if (!email || !password)
       return next(createHttpError(401, "email and password is required"));
 
@@ -49,18 +50,25 @@ export const login = asyncErrorHandler(
       email: email.toLowerCase(),
     }).select("password admin");
 
-    //to check if a user data is available, if yes: Login, no: Return an error
     if (user) {
       const hashedPassword = user.password as string;
       const passwordMatched = await verifyPassword(password, hashedPassword);
       if (passwordMatched) {
-        const accessToken = signJWT({ email: email, id: user._id }, "8h");
-        res.cookie("accessToken", accessToken, {
+        const accessToken = signAccessToken(
+          { email: email, id: user._id },
+          "1h"
+        );
+        const refreshToken = signRefreshToken(
+          { email: email, id: user._id },
+          "7d"
+        );
+        res.cookie("refreshToken", refreshToken, {
           httpOnly: true,
           maxAge: 43200000,
-          sameSite: "lax",
         });
-        res.status(200).json({ id: user._id, email, accessToken });
+        res
+          .status(200)
+          .json({ id: user._id, email, accessToken, refreshToken });
       } else {
         next(createHttpError(404, "Incorrect password"));
       }
@@ -73,7 +81,7 @@ export const login = asyncErrorHandler(
 //logout
 export const logout = asyncErrorHandler(
   async (req: Request, res: Response, next: NextFunction) => {
-    res.cookie("accessToken", "", {
+    res.cookie("refreshToken", "", {
       maxAge: 0,
       httpOnly: true,
     });
@@ -81,7 +89,6 @@ export const logout = asyncErrorHandler(
       success: true,
       message: "User logged out",
     });
-    res.redirect("/login");
   }
 );
 
@@ -115,3 +122,43 @@ export const resetPassword = asyncErrorHandler(
     }
   }
 );
+
+//new refresh token
+export const getRefreshToken = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const refreshToken = req.cookies.refreshToken;
+    if (!refreshToken)
+      return next(createHttpError.Unauthorized("No refresh token"));
+    const userId = verifyRefreshToken(refreshToken);
+    console.log(userId);
+    if (!userId) return next(createHttpError.Unauthorized("no user"));
+    else {
+      const user = await User.findOne({ _id: userId });
+      if (!user) return next(createHttpError.Unauthorized("not found"));
+      else {
+        const accessToken = signAccessToken(
+          { email: user.email, id: user.id },
+          "1h"
+        );
+        const newRefreshToken = signRefreshToken(
+          { email: user.email, id: user.id },
+          "7d"
+        );
+        res.cookie("refreshToken", newRefreshToken, {
+          httpOnly: true,
+          maxAge: 43200000,
+          sameSite: "lax",
+        });
+        res
+          .status(200)
+          .json({ accessToken: accessToken, refreshToken: newRefreshToken });
+      }
+    }
+  } catch (error) {
+    next(createHttpError.InternalServerError());
+  }
+};

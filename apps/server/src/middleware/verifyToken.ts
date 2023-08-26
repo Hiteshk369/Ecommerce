@@ -1,27 +1,25 @@
 import { NextFunction, Request, Response } from "express";
-import createHttpError from "http-errors";
-import { verifyJWT } from "../utils/jwt";
+import httpError from "http-errors";
+import jwt from "jsonwebtoken";
+import { publicKeyAccessToken } from "../helpers/jwt";
 import { Schema } from "mongoose";
 
 export interface IRequest extends Request {
   userId?: Schema.Types.ObjectId;
 }
 
-const verifyToken = (req: IRequest, res: Response, next: NextFunction) => {
-  const accessToken = req.cookies.accessToken;
-
-  if (!accessToken) return next(createHttpError(400, "Access Denied"));
-
-  try {
-    const verified = verifyJWT(accessToken);
-    if (verified) {
-      req.userId = verified;
-      console.log(verified);
-      next();
-    }
-  } catch (error) {
-    next(createHttpError(400, "Invalid request"));
-  }
+export const verifyToken = (
+  req: IRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  if (!req.headers["authorization"]) return next(httpError.Unauthorized());
+  const authHeader = req.headers["authorization"];
+  const token = authHeader.split(" ")[1];
+  const payload = jwt.verify(token, publicKeyAccessToken) as {
+    id: Schema.Types.ObjectId;
+  };
+  if (!payload) return next(httpError.Unauthorized());
+  req.userId = payload.id;
+  next();
 };
-
-export default verifyToken;

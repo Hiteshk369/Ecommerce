@@ -7,7 +7,7 @@ import {
   getUserOrders,
   updateOrderById,
 } from "../controller/order";
-import verifyToken from "../middleware/verifyToken";
+import { verifyToken } from "../middleware/verifyToken";
 import verifyUserRole from "../middleware/verifyUserRole";
 
 const router = express.Router();

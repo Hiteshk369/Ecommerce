@@ -1,17 +1,18 @@
 import { useQuery } from "react-query";
 import { CirclesWithBar } from "react-loader-spinner";
+import axiosInstance from "../../libs/axios";
 
 import StoreLayout from "../../components/StoreLayout";
 import ProductCard from "../../components/ProductCard";
-import { getFetcher } from "../../libs/fetcher";
 import { IProduct } from "../../utils/types";
 
 const Store = () => {
   const fetchProductData = async () => {
-    const result = await getFetcher(
-      "http://localhost:5000/api/product/getproducts"
+    const response = await axiosInstance.get(
+      "http://localhost:5000/api/product/getproducts",
+      { withCredentials: true }
     );
-    return result;
+    return response.data;
   };
 
   const { data, error, isLoading } = useQuery("productData", fetchProductData);

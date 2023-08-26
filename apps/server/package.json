@@ -1,5 +1,5 @@
 {
-  "name": "server",
+  "name": "@ecommerce/server",
   "version": "1.0.0",
   "description": "A nodejs server for ecommerce application",
   "main": "server.ts",

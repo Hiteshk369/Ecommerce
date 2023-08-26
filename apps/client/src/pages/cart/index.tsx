@@ -3,24 +3,24 @@ import { useQuery } from "react-query";
 import toast from "react-hot-toast";
 
 import Navbar from "../../components/Navbar";
-import { fetcher, getFetcher } from "../../libs/fetcher";
 import { useAppSelector } from "../../libs/hooks";
 import { ICartItems } from "../../utils/types";
 import emptyCart from "../../assets/emptyCart.jpg";
 import CartCard from "../../components/CartCard";
+import axiosInstance from "../../libs/axios";
 
 const Cart = () => {
   const user = useAppSelector((state) => state.user.token);
   const userId = useAppSelector((state) => state.user.id);
 
   const fetchCartItems = async () => {
-    const response = await getFetcher(
+    const response = await axiosInstance.get(
       "http://localhost:5000/api/cart/viewcart"
     );
-    return response;
+    return response.data;
   };
 
-  const { data } = useQuery("cartItems", fetchCartItems);
+  const { data, isLoading, error } = useQuery("cartItems", fetchCartItems);
 
   const subTotal = data?.cartItems.reduce(
     (sum: number, product: ICartItems) => {
@@ -30,18 +30,17 @@ const Cart = () => {
   );
 
   const placeOrder = async (cartItems: any, userId: any) => {
-    const response = await fetcher(
+    const response = await axiosInstance.post(
       "http://localhost:5000/api/stripe/create-checkout-session",
       {
         cartItems,
         userId,
       }
     );
-    const result = await response.json();
-    if (response.status === 400 || !result) {
+    if (response.status === 400 || !response.data) {
       toast.error("Failed");
     } else {
-      window.location.href = result.url;
+      window.location.href = response.data.url;
     }
   };
 

@@ -3,7 +3,7 @@ import Product from "../models/Product";
 import asyncErrorHandler from "../middleware/asyncErrorHandler";
 import createHttpError from "http-errors";
 import { v4 as uuidv4 } from "uuid";
-import uploadImage from "../utils/uploadImage";
+import uploadImage from "../helpers/uploadImage";
 
 //create a product --Admin
 export const createProduct = asyncErrorHandler(

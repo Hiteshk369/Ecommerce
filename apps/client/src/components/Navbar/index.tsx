@@ -4,8 +4,8 @@ import { useQuery } from "react-query";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 
-import { getFetcher } from "../../libs/fetcher";
 import { REMOVE_USER } from "../../redux/reducers/userSlice";
+import axiosInstance from "../../libs/axios";
 
 const Navbar = () => {
   const user = localStorage.getItem("accessToken");
@@ -34,16 +34,18 @@ const Navbar = () => {
   ];
 
   const fetchCartItems = async () => {
-    const response = await getFetcher(
+    const response = await axiosInstance.get(
       "http://localhost:5000/api/cart/viewcart"
     );
-    return response;
+    return response.data;
   };
 
   const { data } = useQuery("cartItems", fetchCartItems);
 
   const handleLogout = async () => {
-    const response = await getFetcher("http://localhost:5000/api/auth/logout");
+    const response = await axiosInstance.get(
+      "http://localhost:5000/api/auth/logout"
+    );
     if (response.status === 400 || !response) {
       toast.error("Logout failed");
     } else {

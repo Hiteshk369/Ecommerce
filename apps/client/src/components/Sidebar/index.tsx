@@ -14,8 +14,8 @@ import { useQuery } from "react-query";
 import { useDispatch } from "react-redux";
 
 import { useAppSelector } from "../../libs/hooks";
-import { getFetcher } from "../../libs/fetcher";
 import { REMOVE_USER } from "../../redux/reducers/userSlice";
+import axiosInstance from "../../libs/axios";
 
 const Sidebar = () => {
   const user = useAppSelector((state) => state.user.token);
@@ -71,15 +71,17 @@ const Sidebar = () => {
     [pathName, searchParams]
   );
   const fetchOrders = async () => {
-    const response = await getFetcher("http://localhost:5000/api/order");
-    return response;
+    const response = await axiosInstance.get("http://localhost:5000/api/order");
+    return response.data;
   };
 
   const { data, error, isLoading } = useQuery("orderItems", fetchOrders);
 
   const handleLogout = async () => {
-    const response = await getFetcher("http://localhost:5000/api/auth/logout");
-    if (response.status === 400 || !response) {
+    const response = await axiosInstance.get(
+      "http://localhost:5000/api/auth/logout"
+    );
+    if (response.status === 400 || !response.data) {
       toast.error("Logout failed");
     } else {
       localStorage.removeItem("accessToken");
