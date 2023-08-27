@@ -11,9 +11,7 @@ function Success() {
   const [scale, setScale] = useState(false);
 
   const handleEmptyCart = async () => {
-    const response = await axiosInstance.delete(
-      "http://localhost:5000/api/cart/deleteAllFromCart"
-    );
+    const response = await axiosInstance.delete("/cart/deleteAllFromCart");
     if (response.status === 400 || !response.data) {
       console.log("error");
     }

@@ -75,19 +75,17 @@ const Sidebar = () => {
     return response.data;
   };
 
-  const { data, error, isLoading } = useQuery("orderItems", fetchOrders);
+  const { data } = useQuery("orderItems", fetchOrders);
 
   const handleLogout = async () => {
-    const response = await axiosInstance.get(
-      "http://localhost:5000/api/auth/logout"
-    );
-    if (response.status === 400 || !response.data) {
-      toast.error("Logout failed");
-    } else {
+    try {
+      await axiosInstance.get("/auth/logout");
       localStorage.removeItem("accessToken");
       localStorage.removeItem("userId");
       dispatch(REMOVE_USER());
       navigate("/login");
+    } catch (err) {
+      toast.error("Logout failed");
     }
   };
 
@@ -113,32 +111,42 @@ const Sidebar = () => {
         <p className="text-sm font-medium text-darkGray">
           Last Orders:{" "}
           <span className="text-neutral-700 text-sm">
-            {data?.orders.length}
+            {data ? data?.orders.length : 0}
           </span>
         </p>
-        <div className="pt-4 space-y-3">
-          <div className="pl-1 flex items-center gap-1 w-90%">
-            <ShoppingBag size={15} />
-            <p className="text-neutral-700 text-sm">
-              {data?.orders[0].paymentInfo.id}
-            </p>
+        {data ? (
+          <div className="pt-4 space-y-3">
+            {data.orders.length !== 0 && (
+              <div className="pl-1 flex items-center gap-1 w-90%">
+                <ShoppingBag size={15} />
+                <p className="text-neutral-700 text-sm">
+                  {data?.orders[0].paymentInfo.id}
+                </p>
+              </div>
+            )}
+            {data.orders.length > 1 && (
+              <div className="pl-1 flex items-center gap-1 pb-2">
+                <ShoppingBag size={15} />
+                <p className="text-neutral-700 text-sm">
+                  {data?.orders[1].paymentInfo.id}
+                </p>
+              </div>
+            )}
+            <button
+              onClick={() => {
+                user ? navigate("/orders") : toast.error("Login");
+              }}
+            >
+              <p className="text-sm text-darkGray font-semiBold cursor-pointer transition ease-in-out hover:text-darkBlue">
+                {data.orders.length !== 0 && "see all"}
+              </p>
+            </button>
           </div>
-          <div className="pl-1 flex items-center gap-1 pb-2">
-            <ShoppingBag size={15} />
-            <p className="text-neutral-700 text-sm">
-              {data?.orders[1].paymentInfo.id}
-            </p>
+        ) : (
+          <div>
+            <p>No orders</p>
           </div>
-          <button
-            onClick={() => {
-              user ? navigate("/orders") : toast.error("Login");
-            }}
-          >
-            <p className="text-sm text-darkGray font-semiBold cursor-pointer transition ease-in-out hover:text-darkBlue">
-              See all
-            </p>
-          </button>
-        </div>
+        )}
       </div>
       <div className="w-full pt-24 px-3 flex flex-col ">
         <button onClick={handleLogout} className="flex items-center gap-2">

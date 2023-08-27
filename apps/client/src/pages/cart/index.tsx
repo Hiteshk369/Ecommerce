@@ -8,19 +8,18 @@ import { ICartItems } from "../../utils/types";
 import emptyCart from "../../assets/emptyCart.jpg";
 import CartCard from "../../components/CartCard";
 import axiosInstance from "../../libs/axios";
+import Spinner from "../../components/Spinner";
 
 const Cart = () => {
   const user = useAppSelector((state) => state.user.token);
   const userId = useAppSelector((state) => state.user.id);
 
   const fetchCartItems = async () => {
-    const response = await axiosInstance.get(
-      "http://localhost:5000/api/cart/viewcart"
-    );
+    const response = await axiosInstance.get("/cart/viewcart");
     return response.data;
   };
 
-  const { data, isLoading, error } = useQuery("cartItems", fetchCartItems);
+  const { data, isLoading } = useQuery("cartItems", fetchCartItems);
 
   const subTotal = data?.cartItems.reduce(
     (sum: number, product: ICartItems) => {
@@ -30,17 +29,17 @@ const Cart = () => {
   );
 
   const placeOrder = async (cartItems: any, userId: any) => {
-    const response = await axiosInstance.post(
-      "http://localhost:5000/api/stripe/create-checkout-session",
-      {
-        cartItems,
-        userId,
-      }
-    );
-    if (response.status === 400 || !response.data) {
-      toast.error("Failed");
-    } else {
+    try {
+      const response = await axiosInstance.post(
+        "/stripe/create-checkout-session",
+        {
+          cartItems,
+          userId,
+        }
+      );
       window.location.href = response.data.url;
+    } catch (err) {
+      toast.error("Try again");
     }
   };
 
@@ -49,6 +48,11 @@ const Cart = () => {
       <Navbar />
       <section className="pt-24 w-full h-full">
         <div className="max-w-[1240px] h-full m-auto flex gap-4">
+          {isLoading && (
+            <div className="flex w-full h-full items-center justify-center">
+              <Spinner />
+            </div>
+          )}
           {data && data.cartItems.length !== 0 ? (
             <>
               <div className="h-[90%] w-[70%] border border-gray-300 rounded-md">

@@ -6,6 +6,7 @@ import StoreLayout from "../../components/StoreLayout";
 import ProductCard from "../../components/ProductCard";
 import { IProduct } from "../../utils/types";
 import axiosInstance from "../../libs/axios";
+import Spinner from "../../components/Spinner";
 
 const ProductCategory = () => {
   const [searchParams] = useSearchParams();
@@ -14,13 +15,13 @@ const ProductCategory = () => {
   const fetchProductByCategory = async (type: any) => {
     const category = type.queryKey[1];
     const response = await axiosInstance.get(
-      `http://localhost:5000/api/product/category?type=${category}`
+      `/product/category?type=${category}`
     );
 
     return response.data;
   };
 
-  const { data, isLoading, error } = useQuery(
+  const { data, isLoading } = useQuery(
     ["productByCategory", type],
     fetchProductByCategory
   );
@@ -29,17 +30,8 @@ const ProductCategory = () => {
     <StoreLayout>
       <div className="ml-4 px-4 mt-8">
         {isLoading && (
-          <div className=" h-full w-full flex justify-center items-center">
-            <CirclesWithBar
-              height="100"
-              width="100"
-              color="#2763ff"
-              visible={true}
-              outerCircleColor="#2763ff"
-              innerCircleColor="#2763ff"
-              barColor="#2763ff"
-              ariaLabel="circles-with-bar-loading"
-            />
+          <div className=" h-[500px] w-full flex justify-center items-center">
+            <Spinner />
           </div>
         )}
         <div className="flex flex-wrap justify-center gap-5">
@@ -53,7 +45,6 @@ const ProductCategory = () => {
                 price={product.price}
                 image={product.imageUrl}
                 category={product.category}
-                wishlist={true}
               />
             ))}
         </div>

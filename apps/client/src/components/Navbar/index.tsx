@@ -34,25 +34,21 @@ const Navbar = () => {
   ];
 
   const fetchCartItems = async () => {
-    const response = await axiosInstance.get(
-      "http://localhost:5000/api/cart/viewcart"
-    );
+    const response = await axiosInstance.get("/cart/viewcart");
     return response.data;
   };
 
   const { data } = useQuery("cartItems", fetchCartItems);
 
   const handleLogout = async () => {
-    const response = await axiosInstance.get(
-      "http://localhost:5000/api/auth/logout"
-    );
-    if (response.status === 400 || !response) {
-      toast.error("Logout failed");
-    } else {
+    try {
+      await axiosInstance.get("/auth/logout");
       localStorage.removeItem("accessToken");
       localStorage.removeItem("userId");
       dispatch(REMOVE_USER());
       navigate("/login");
+    } catch (err) {
+      toast.error("Logout failed");
     }
   };
 
@@ -80,22 +76,26 @@ const Navbar = () => {
           ))}
         </div>
         <div className="flex items-center gap-4">
-          <div className="flex relative">
-            <input
-              className="bg-lightGray p-2 rounded-lg w-[300px] outline-none pl-6 text-neutral-800"
-              type="text"
-            />
-            <Search className="absolute text-neutral-600 right-2 top-2" />
-          </div>
-          <Heart size={25} color="#1e1e20" />
-          <Link to="/cart" className="flex items-center relative">
-            <ShoppingCart size={25} color="#1e1e20" />
-            {data && data.cartItems.length > 0 && (
-              <div className="w-4 h-4 text-[#d0d0d1] absolute flex items-center justify-center text-[0.8rem] font-medium top-[-20%] right-[-20%] p-2 rounded-[50%] bg-darkBlue">
-                {data.cartItems.length}
+          {pathName !== "/" && (
+            <div className="flex items-center gap-4">
+              <div className="flex relative">
+                <input
+                  className="bg-lightGray p-2 rounded-lg w-[300px] outline-none pl-6 text-neutral-800"
+                  type="text"
+                />
+                <Search className="absolute text-neutral-600 right-2 top-2" />
               </div>
-            )}
-          </Link>
+              <Link to="/cart" className="flex items-center relative">
+                <ShoppingCart size={25} color="#1e1e20" />
+                {data && data.cartItems.length > 0 && (
+                  <div className="w-4 h-4 text-[#d0d0d1] absolute flex items-center justify-center text-[0.8rem] font-medium top-[-20%] right-[-20%] p-2 rounded-[50%] bg-darkBlue">
+                    {data.cartItems.length}
+                  </div>
+                )}
+              </Link>
+            </div>
+          )}
+
           <div className="w-24 flex items-center justify-center">
             {user ? (
               <button

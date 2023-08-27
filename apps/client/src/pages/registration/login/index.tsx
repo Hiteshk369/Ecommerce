@@ -42,19 +42,16 @@ const Login = () => {
   });
 
   const submitFormData: SubmitHandler<formSchemaType> = async (data) => {
-    const response = await fetch("http://localhost:5000/api/auth/login", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-
-    const result = await response.json();
-    if (response.status === 400 || !result) {
-      toast.error("Invalid credentials");
-    } else {
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      const result = await response.json();
       localStorage.setItem("accessToken", result.accessToken);
       localStorage.setItem("userId", result.id);
       dispatch(
@@ -67,6 +64,8 @@ const Login = () => {
       setTimeout(() => {
         navigate("/");
       }, 1000);
+    } catch (err) {
+      toast.error("Invalid credentials");
     }
   };
 

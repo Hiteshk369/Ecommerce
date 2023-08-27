@@ -1,4 +1,4 @@
-import { Heart, Star, IndianRupee } from "lucide-react";
+import { IndianRupee } from "lucide-react";
 import { Link } from "react-router-dom";
 
 interface ProductCardProps {
@@ -8,7 +8,6 @@ interface ProductCardProps {
   image: string;
   price: number;
   category: string;
-  wishlist: boolean;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -18,7 +17,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
   image,
   price,
   category,
-  wishlist,
 }) => {
   return (
     <Link
@@ -26,18 +24,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
       className={`w-[260px] h-[320px] border border-lightGray shadow-md rounded-md  relative  group cursor-pointer transition-[2]  hover:scale-[1.02] `}
     >
       <div className="w-full h-[120px] bg-sky-200">
-        <div className="absolute z-[100] top-[5%] left-[15%] w-[120] h-[120]  transition ">
-          <img width={180} height={180} src={image} alt={name} />
+        <div className="w-full h-[200px] flex items-center justify-center">
+          <img width={160} height={160} src={image} alt={name} />
         </div>
-        <Heart
-          className={
-            wishlist
-              ? "absolute top-[2%] right-[3%] text-[#ff5555]"
-              : "absolute top-[2%] right-[3%] text-neutral-500"
-          }
-          fill={wishlist ? "#ff5555" : "rgb(186,230,253)"}
-        />
-        <p className="px-4 py-4 font-medium text-lg text-white">{brand}</p>
+        <p className="absolute top-0 px-4 py-4 font-medium text-lg text-white">
+          {brand}
+        </p>
       </div>
       <div className="pt-16 px-4 flex">
         <div>

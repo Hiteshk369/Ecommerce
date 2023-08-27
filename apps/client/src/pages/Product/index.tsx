@@ -15,6 +15,7 @@ import { CirclesWithBar } from "react-loader-spinner";
 import StoreLayout from "../../components/StoreLayout";
 import { handleRefetchCartItems } from "../../libs/queryFunctions";
 import axiosInstance from "../../libs/axios";
+import Spinner from "../../components/Spinner";
 
 const initialState = {
   counter: 0,
@@ -35,9 +36,7 @@ const Product = () => {
 
   const { id } = useParams();
   const getProductDetails = async () => {
-    const response = await axiosInstance.get(
-      `http://localhost:5000/api/product/getproducts/${id}`
-    );
+    const response = await axiosInstance.get(`/product/getproducts/${id}`);
     return response.data;
   };
 
@@ -53,19 +52,16 @@ const Product = () => {
     imageUrl: string,
     quantity: number
   ) => {
-    const response = await axiosInstance.post(
-      "http://localhost:5000/api/cart/updatecart",
-      {
-        productId,
-        product: {
-          id: productId,
-          name,
-          price,
-          imageUrl,
-          quantity,
-        },
-      }
-    );
+    const response = await axiosInstance.post("/cart/updatecart", {
+      productId,
+      product: {
+        id: productId,
+        name,
+        price,
+        imageUrl,
+        quantity,
+      },
+    });
     if (response.status === 400 || !response.data) {
       toast.error("Product not added");
     } else {
@@ -78,16 +74,7 @@ const Product = () => {
     <StoreLayout>
       {isLoading && (
         <div className="ml-4 h-full w-full flex justify-center items-center">
-          <CirclesWithBar
-            height="100"
-            width="100"
-            color="#2763ff"
-            visible={true}
-            outerCircleColor="#2763ff"
-            innerCircleColor="#2763ff"
-            barColor="#2763ff"
-            ariaLabel="circles-with-bar-loading"
-          />
+          <Spinner />
         </div>
       )}
       {error && (

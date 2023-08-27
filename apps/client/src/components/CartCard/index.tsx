@@ -11,7 +11,7 @@ interface CartCardProps {
 const CartCard: React.FC<CartCardProps> = ({ item }) => {
   const handleRemoveFromCart = async (productId: string) => {
     const response = await axiosInstance.delete(
-      `http://localhost:5000/api/cart/deleteProductFromCart/${productId}`
+      `/cart/deleteProductFromCart/${productId}`
     );
     handleRefetchCartItems();
     toast.success("Product Removed");

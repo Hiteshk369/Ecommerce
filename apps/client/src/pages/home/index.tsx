@@ -97,7 +97,7 @@ const Home = () => {
           </div>
           <div className="flex flex-1 items-center">
             <div className="w-2/5 h-4/5 border-r-[2.5px] border-r-[#161616] border-solid" />
-            <p className="text-[#bfc4c8] ml-auto">
+            <p className="text-[#9c9c9c] ml-auto">
               We ensure our customers have the best shopping experience
             </p>
           </div>
@@ -109,7 +109,7 @@ const Home = () => {
                 {feature.Icon}
               </div>
               <p className="font-semibold mb-2">{feature.title}</p>
-              <p className="text-[#bfc4c8] text-xs">{feature.description}</p>
+              <p className="text-[#9c9c9c] text-xs">{feature.description}</p>
             </div>
           ))}
         </div>

@@ -30,7 +30,7 @@ const Input: React.FC<InputProps> = ({
           {...(register ?? {})}
           disabled={disabled}
           required={required}
-          className="block py-[1.5rem] px-[1.75rem]  placeholder:pl-3 w-full text-sm text-white bg-[#323644] rounded-lg   focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+          className="block py-[1.5rem] px-[1.75rem]  placeholder:pl-3 w-full text-base text-white bg-[#323644] rounded-lg   focus:outline-none focus:ring-0 focus:border-blue-600 peer"
           placeholder=" "
         />
         <label
