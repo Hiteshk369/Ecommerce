@@ -10,7 +10,6 @@ import {
 } from "lucide-react";
 import toast from "react-hot-toast";
 import { useReducer } from "react";
-import { CirclesWithBar } from "react-loader-spinner";
 
 import StoreLayout from "../../components/StoreLayout";
 import { handleRefetchCartItems } from "../../libs/queryFunctions";

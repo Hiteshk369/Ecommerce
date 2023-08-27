@@ -1,6 +1,5 @@
 import { useQuery } from "react-query";
 import { useSearchParams } from "react-router-dom";
-import { CirclesWithBar } from "react-loader-spinner";
 
 import StoreLayout from "../../components/StoreLayout";
 import ProductCard from "../../components/ProductCard";

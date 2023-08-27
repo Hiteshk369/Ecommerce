@@ -1,12 +1,10 @@
 import { useQuery } from "react-query";
-import { CirclesWithBar } from "react-loader-spinner";
 import axiosInstance from "../../libs/axios";
 
 import StoreLayout from "../../components/StoreLayout";
 import ProductCard from "../../components/ProductCard";
 import { IProduct } from "../../utils/types";
 import Spinner from "../../components/Spinner";
-import { useNavigate } from "react-router-dom";
 
 const Store = () => {
   const fetchProductData = async () => {
