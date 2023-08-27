@@ -1,4 +1,4 @@
-import { Heart, Search, ShoppingCart } from "lucide-react";
+import { Search, ShoppingCart } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import toast from "react-hot-toast";
