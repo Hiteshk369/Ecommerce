@@ -19,7 +19,9 @@ export const verifyToken = (
   const payload = jwt.verify(token, publicKeyAccessToken) as {
     id: Schema.Types.ObjectId;
   };
-  if (!payload) return next(httpError.Unauthorized());
+  if (!payload){
+    return next(httpError.Unauthorized());
+  }
   req.userId = payload.id;
   next();
 };

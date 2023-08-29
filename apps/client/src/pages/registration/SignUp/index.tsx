@@ -45,7 +45,7 @@ const SignUp = () => {
 
   const submitFormData: SubmitHandler<formSchemaType> = async (data) => {
     const response = await axios.post(
-      "http://localhost:5000/api/auth/signup",
+      "https://api-server-ecommerce.onrender.com/api/auth/signup",
       data
     );
     if (response.status === 400 || !response.data) {

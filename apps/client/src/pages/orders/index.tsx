@@ -4,11 +4,21 @@ import Navbar from "../../components/Navbar";
 import OrderItem from "../../components/OrderItem";
 import axiosInstance from "../../libs/axios";
 import Spinner from "../../components/Spinner";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 function Orders() {
+  const navigate = useNavigate()
   const fetchOrders = async () => {
-    const response = await axiosInstance.get("/order");
-    return response.data;
+    try{
+      const response = await axiosInstance.get("/order");
+      return response.data;
+    }catch(err){
+      toast.error('Login')
+      setTimeout(()=>{
+        navigate('/login')
+      },1000)
+    }
   };
 
   const { data, isLoading } = useQuery("orderItems", fetchOrders);

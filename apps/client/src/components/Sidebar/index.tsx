@@ -71,7 +71,7 @@ const Sidebar = () => {
     [pathName, searchParams]
   );
   const fetchOrders = async () => {
-    const response = await axiosInstance.get("http://localhost:5000/api/order");
+    const response = await axiosInstance.get("/order");
     return response.data;
   };
 

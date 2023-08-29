@@ -1,29 +1,34 @@
 {
-  "private": true,
-  "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev --parallel",
-    "dev:client": "concurrently 'turbo run dev --filter=client' 'turbo run dev --filter=server' --parallel",
-    "dev:admin": "concurrently 'turbo run dev --filter=admin' 'turbo run dev --filter=server' --parallel",
-    "dev:server": "turbo run dev --filter=server --parallel",
-    "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "test": "turbo run test"
-  },
-  "devDependencies": {
-    "@turbo/gen": "^1.9.7",
-    "concurrently": "^8.2.0",
-    "eslint": "^7.32.0",
-    "eslint-config-custom": "*",
-    "prettier": "^2.5.1",
-    "turbo": "latest"
-  },
   "name": "ecommerce",
-  "description": "An ecommerce platform",
+  "description": "An ecommerce store",
   "author": "Hitesh Kumar",
-  "packageManager": "npm@9.2.0",
+  "private": true,
+  "npmClient": "yarn",
+  "useWorkspaces": true,
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "command": {
+    "publish": {
+      "conventionalCommits": true
+    }
+  },
+  "scripts": {
+    "build": "lerna run build",
+    "dev": "lerna run dev --parallel",
+    "dev:client": "concurrently 'lerna run dev --scope=@ecommerce/client' 'lerna run dev --scope=@ecommerce/server' --parallel",
+    "dev:admin": "concurrently 'lerna run dev --scope=@ecommerce/admin' 'lerna run dev --scope=@ecommerce/server' --parallel",
+    "dev:server": "lerna run dev --scope=@ecommerce/server",
+    "lint": "lerna run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "test": "lerna run test",
+    "bootstrap": "lerna bootstrap",
+    "publish:ci": "lerna publish --yes --no-verify-access"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.1",
+    "lerna": "^7.1.5",
+    "prettier": "^3.0.2"
+  }
 }

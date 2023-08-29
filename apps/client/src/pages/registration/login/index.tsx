@@ -43,14 +43,17 @@ const Login = () => {
 
   const submitFormData: SubmitHandler<formSchemaType> = async (data) => {
     try {
-      const response = await fetch("http://localhost:5000/api/auth/login", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      const response = await fetch(
+        "https://api-server-ecommerce.onrender.com/api/auth/login",
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
       const result = await response.json();
       localStorage.setItem("accessToken", result.accessToken);
       localStorage.setItem("userId", result.id);

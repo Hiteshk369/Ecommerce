@@ -5,13 +5,25 @@ import StoreLayout from "../../components/StoreLayout";
 import ProductCard from "../../components/ProductCard";
 import { IProduct } from "../../utils/types";
 import Spinner from "../../components/Spinner";
+import {  useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const Store = () => {
+  const navigate = useNavigate()
   const fetchProductData = async () => {
-    const response = await axiosInstance.get("/product/getproducts", {
-      withCredentials: true,
-    });
-    return response.data;
+    try{
+      const response = await axiosInstance.get("/product/getproducts", {
+        withCredentials: true,
+      });
+      return response.data;
+    }catch(err){
+      toast.error('Login')
+      setTimeout(()=>{
+        navigate('/login')
+      },1000)
+      
+    }
+    
   };
 
   const { data, error, isLoading } = useQuery("productData", fetchProductData);
@@ -28,7 +40,7 @@ const Store = () => {
           {error && (
             <div className="h-full w-full flex justify-center items-center">
               <p className="text-xl text-neutral-700">
-                Error retrieving products
+                Error loading
               </p>
             </div>
           )}

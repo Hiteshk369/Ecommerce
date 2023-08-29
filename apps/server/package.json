@@ -1,12 +1,12 @@
 {
-  "name": "server",
+  "name": "@ecommerce/server",
   "version": "1.0.0",
   "description": "A nodejs server for ecommerce application",
   "main": "server.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "npx tsc && nodemon ./dist/server.js",
-    "start": "node dist/server.js",
+    "start": "node ./dist/server.js",
     "build": "npx tsc"
   },
   "author": "Hitesh kumar",
