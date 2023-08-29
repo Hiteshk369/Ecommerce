@@ -1,6 +1,6 @@
 {
   "name": "@ecommerce/mobile",
-  "main": "expo-router/entry",
+  "main": "index.js",
   "description": "Mobile application for ecommerce",
   "version": "1.0.0",
   "scripts": {
