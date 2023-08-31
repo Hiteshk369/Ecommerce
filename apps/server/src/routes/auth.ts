@@ -16,4 +16,7 @@ router.post("/resetPassword", resetPassword);
 router.get("/refresh", getRefreshToken);
 router.get("/logout", verifyToken, logout);
 
+//mobile
+router.post("/refresh", getRefreshToken);
+
 export default router;

@@ -130,7 +130,7 @@ export const getRefreshToken = async (
   next: NextFunction
 ) => {
   try {
-    const refreshToken = req.cookies.refreshToken;
+    const { refreshToken } = req.cookies || req.body;
     if (!refreshToken)
       return next(createHttpError.Unauthorized("No refresh token"));
     const userId = verifyRefreshToken(refreshToken);

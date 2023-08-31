@@ -31,7 +31,7 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
       {
         id: 2,
         name: "Product",
-        to: "/",
+        to: "/product",
         Icon: ShoppingBag,
         active: pathName === "/product",
       },
