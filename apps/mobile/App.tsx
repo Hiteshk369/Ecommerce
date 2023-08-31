@@ -1,12 +1,9 @@
 import { View, Text } from "react-native";
 import React from "react";
+import RegisterStack from "./src/navigation/registerStack";
 
 const App = () => {
-  return (
-    <View>
-      <Text>App</Text>
-    </View>
-  );
+  return <RegisterStack />;
 };
 
 export default App;
