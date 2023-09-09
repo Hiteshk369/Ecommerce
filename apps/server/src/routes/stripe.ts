@@ -119,7 +119,7 @@ router.post(
       eventType = request.body.type;
     }
 
-    if (eventType === "checkout.session.async_payment_succeeded") {
+    if (eventType === "checkout.session.completed") {
       stripe.customers.retrieve(data.customer).then((customer) => {
         createOrder(customer, data);
       });
