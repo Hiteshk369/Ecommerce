@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: process.env.VITE_SERVER_URL,
+  baseURL: "https://api-ecommerce-1md0.onrender.com/api",
   withCredentials: true,
 });
 

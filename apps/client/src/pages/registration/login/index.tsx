@@ -44,7 +44,7 @@ const Login = () => {
   const submitFormData: SubmitHandler<formSchemaType> = async (data) => {
     try {
       const response = await fetch(
-        `${process.env.VITE_SERVER_URL}/auth/login`,
+        `https://api-ecommerce-1md0.onrender.com/api/auth/login`,
         {
           method: "POST",
           credentials: "include",
