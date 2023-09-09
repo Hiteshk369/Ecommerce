@@ -98,9 +98,7 @@ const Cart = () => {
                     }
                     className="mt-8 w-full flex items-center justify-center bg-darkBlue py-2 rounded-md hover:opacity-90 transition ease-in-out duration-200"
                   >
-                    <p className="text-white font-medium">
-                      Continue to payment
-                    </p>
+                    <p className="text-white font-medium">continue</p>
                   </button>
                 </div>
               </div>
