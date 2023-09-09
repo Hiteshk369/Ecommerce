@@ -93,7 +93,7 @@ let endpointSecret = process.env.STRIPE_ENDPOINT as string;
 router.post(
   "/webhook",
   express.raw({ type: "application/json" }),
-  async (request: IRequest, response) => {
+  async (request, response) => {
     const sig: any = request.headers["stripe-signature"];
 
     let data: any;
@@ -104,7 +104,7 @@ router.post(
 
       try {
         event = stripe.webhooks.constructEvent(
-          JSON.stringify(request.body),
+          (request as any).rawBody,
           sig,
           endpointSecret
         );
