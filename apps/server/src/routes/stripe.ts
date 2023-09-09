@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 dotenv.config();
 const router = express.Router();
 
-const stripe = new Stripe(process.env.STRIPE_KEY, {
+const stripe = new Stripe(process.env.STRIPE_KEY as string, {
   apiVersion: "2023-08-16",
 });
 
@@ -89,7 +89,7 @@ router.post("/create-checkout-session", async (req: IRequest, res) => {
   res.send({ url: session.url });
 });
 
-let endpointSecret: string = process.env.STRIPE_ENDPOINT!;
+let endpointSecret = process.env.STRIPE_ENDPOINT as string;
 router.post(
   "/webhook",
   express.raw({ type: "application/json" }),
