@@ -29,8 +29,6 @@ app.use(
 );
 app.use(cookieParser());
 
-app.use("/api/stripe", stripe);
-
 app.use(bodyParser.json({ limit: "10mb" }));
 app.use(bodyParser.urlencoded({ extended: true, limit: "10mb" }));
 
@@ -44,6 +42,7 @@ app.use("/api/auth", auth);
 app.use("/api/product", product);
 app.use("/api/order", order);
 app.use("/api/cart", cart);
+app.use("/api/stripe", stripe);
 
 connectDB()
   .then(() => {
