@@ -90,8 +90,8 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="w-[225px] fixed left-0 h-full border-r border-r-lightGray px-4 pt-6 ">
-      <div className="w-full px-3 flex flex-col items-center gap-1 border-b pb-2 border-b-lightGray">
+    <div className="md:flex hidden flex-col md:fixed left-0 h-full border-r border-r-lightGray px-4 pt-6 ">
+      <div className="w-[225px] px-3 flex flex-col items-center gap-1 border-b pb-2 border-b-lightGray">
         {sidebarRoutes.map((route) => (
           <Link
             className={

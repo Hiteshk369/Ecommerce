@@ -11,7 +11,7 @@ const StoreLayout: React.FC<StoreLayoutProps> = ({ children }) => {
       <Navbar />
       <div className=" pt-20 w-full h-full flex">
         <Sidebar />
-        <div className="w-full ml-[220px]">{children}</div>
+        <div className="md:w-full w-[95%] md:ml-[220px]">{children}</div>
       </div>
     </section>
   );

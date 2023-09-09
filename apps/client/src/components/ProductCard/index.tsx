@@ -21,23 +21,33 @@ const ProductCard: React.FC<ProductCardProps> = ({
   return (
     <Link
       to={`/store/${category}/${id}`}
-      className={`w-[260px] h-[320px] border border-lightGray shadow-md rounded-md  relative  group cursor-pointer transition-[2]  hover:scale-[1.02] `}
+      className={`md:w-[260px] md:h-[320px] w-[175px] h-[260px] border border-lightGray shadow-md rounded-md  relative  group cursor-pointer transition-[2]  hover:scale-[1.02] `}
     >
-      <div className="w-full h-[120px] bg-sky-200">
+      <div className="w-full md:h-[120px] h-[100px] bg-sky-200">
         <div className="w-full h-[200px] flex items-center justify-center">
-          <img width={160} height={160} src={image} alt={name} />
+          <img
+            className="md:h-[160px] md:w-[160px] w-[140px]"
+            width={160}
+            height={160}
+            src={image}
+            alt={name}
+          />
         </div>
-        <p className="absolute top-0 px-4 py-4 font-medium text-lg text-white">
+        <p className="absolute top-0 px-4 py-4 font-medium md:text-lg text-sm text-white">
           {brand}
         </p>
       </div>
       <div className="pt-16 px-4 flex">
         <div>
-          <p className="text-neutral-800 text-2xl font-medium">{name}</p>
-          <p className="text-sm font-medium text-darkGray">{category}</p>
+          <p className="text-neutral-800 md:text-2xl text-base font-medium">
+            {name}
+          </p>
+          <p className="text-xs capitalize font-medium text-darkGray">
+            {category}
+          </p>
         </div>
       </div>
-      <div className="h-10 w-[60%] bg-sky-500 absolute bottom-5 right-[-5px] rounded-md flex items-center justify-center">
+      <div className="md:h-10 h-8 md:w-[60%] w-[40%] bg-sky-500 absolute bottom-5 md:right-[-5px] right-0 rounded-md flex items-center justify-center">
         <IndianRupee size={15} />
         <p>{price}</p>
       </div>

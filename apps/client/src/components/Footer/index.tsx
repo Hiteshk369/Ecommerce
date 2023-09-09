@@ -70,20 +70,20 @@ const Footer = () => {
     },
   ];
   return (
-    <div className="h-80 bg-[#ebeef2] w-screen">
-      <div className="max-w-[1240px] m-auto pt-12 flex pb-8 border-b border-b-[#e4dcdc]">
-        <div className="w-[35%]">
-          <p className="text-2xl font-semibold pb-3">
+    <div className="md:h-80 h-full bg-[#ebeef2] md:w-screen w-full">
+      <div className="md:max-w-[1240px] max-w-[94%] m-auto md:pt-12 pt-8 flex flex-wrap pb-8 border-b border-b-[#e4dcdc]">
+        <div className="md:w-[35%]">
+          <p className="md:text-2xl text-xl font-semibold md:pb-3 pb-2">
             <span className="text-darkBlue">e</span>COMMERCE
           </p>
-          <p className=" text-sm text-[#9c9c9c]">
+          <p className=" md:text-sm text-[0.8rem] text-[#9c9c9c]">
             Robust, user-friendly ecommerce platform designed to facilitate
             smooth and secure online transactions, while empowering businesses
             to reach a global audience effortlessly.
           </p>
         </div>
-        <div className="w-[35%] flex gap-16 ml-16">
-          <div className="w-[30%]">
+        <div className="md:w-[35%] flex md:gap-16 gap-12 md:ml-16 md:pt-0 pt-4">
+          <div className="md:w-[30%]">
             <p className="text-[1.15rem] font-medium mb-[0.7rem]">SHOP</p>
             <div className="flex flex-col gap-[0.15rem]">
               {shopList.map((item) => (
@@ -121,8 +121,8 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="w-[30%] ml-auto">
-          <div className="max-w-[60%] ml-auto">
+        <div className="md:w-[30%] md:ml-auto ml-auto mr-auto md:pt-0 pt-4">
+          <div className="md:max-w-[60%] md:ml-auto ">
             <p className="text-[1.15rem] font-medium mb-[0.7rem]">
               Connect with us
             </p>
@@ -137,7 +137,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="w-full h-16 flex justify-center items-center">
-        <p className="text-[#9c9c9c]">
+        <p className="text-[#9c9c9c] md:text-base text-sm">
           Copyright {"\u00a9"} 2023 eCOMMERCE. All Rights Reserved
         </p>
       </div>

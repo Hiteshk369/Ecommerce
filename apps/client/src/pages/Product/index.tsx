@@ -82,15 +82,17 @@ const Product = () => {
         </div>
       )}
       {data && (
-        <div className="ml-4 pt-6 h-full w-full flex gap-4">
-          <div className="w-[45%] flex flex-col">
-            <div className="bg-lightGray w-[500px] h-[500px] rounded-lg flex items-center">
+        <div className="md:ml-20 pt-6 h-full md:w-full md:flex gap-4">
+          <div className="md:w-[45%] flex flex-col">
+            <div className="bg-lightGray md:w-[500px] md:h-[500px] w-full h-[350px] rounded-lg flex items-center">
               <img src={data?.product.imageUrl} alt={data?.product.name} />
             </div>
           </div>
-          <div className="w-[45%] flex flex-col">
-            <div className="flex flex-col gap-2 pb-4">
-              <p className="text-3xl font-semibold">{data?.product.name}</p>
+          <div className="md:w-[45%] w-full flex flex-col">
+            <div className="flex flex-col gap-2 pb-4 md:pt-0 pt-5">
+              <p className="md:text-3xl text-2xl font-semibold">
+                {data?.product.name}
+              </p>
               <p className="text-sm text-neutral-500 text-justify">
                 {data?.product.description}
               </p>
@@ -106,12 +108,12 @@ const Product = () => {
                 </p>
               </div>
             </div>
-            <div className="flex pt-2 items-center gap-1">
+            <div className="flex md:pt-2 items-center gap-1">
               <IndianRupee strokeWidth={2.5} />
               <p className="text-2xl font-semibold">{data?.product.price}</p>
             </div>
-            <div className="flex items-center pt-5 gap-8">
-              <div className="flex items-center h-10 w-32 justify-evenly bg-lightGray rounded-3xl">
+            <div className="flex items-center md:pt-5 pt-2 gap-8">
+              <div className="flex items-center h-10 w-32 justify-evenly bg-lightGray rounded-xl">
                 <button
                   onClick={() => {
                     if (state.counter > 0) dispatch({ type: "decrement" });
@@ -135,8 +137,8 @@ const Product = () => {
                 <p>Don't miss it</p>
               </div>
             </div>
-            <div className="flex pt-6 gap-5">
-              <button className="bg-darkBlue w-[180px] py-2 text-white rounded-3xl font-medium">
+            <div className="flex md:pt-6 pt-4 gap-5">
+              <button className="bg-darkBlue md:w-[180px] w-[50%] py-2 text-white rounded-xl font-medium">
                 <p>Buy Now</p>
               </button>
               <button
@@ -149,7 +151,7 @@ const Product = () => {
                     state.counter
                   )
                 }
-                className="border-2 border-darkBlue w-[180px] py-2 text-darkBlue rounded-3xl font-medium"
+                className="border-2 border-darkBlue md:w-[180px] w-[50%] py-2 text-darkBlue rounded-xl font-medium"
               >
                 Add to Cart
               </button>
@@ -168,7 +170,7 @@ const Product = () => {
                   </p>
                 </div>
               </div>
-              <div className=" px-6 py-3 space-y-1">
+              <div className=" px-6 py-3 space-y-1 md:mb-0 mb-10">
                 <div className="flex items-center gap-2">
                   <ShoppingBag size={20} className="text-lightOrange" />
                   <p className="text-neutral-800 font-medium text-sm">

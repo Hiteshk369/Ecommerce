@@ -4,6 +4,7 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 
 import { brands } from "../../utils/Banner";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const features = [
@@ -35,10 +36,10 @@ const Home = () => {
     },
   ];
   return (
-    <main className="w-screen h-full bg-white">
+    <main className="md:w-screen w-full h-full bg-white">
       <Navbar />
-      <div className="max-w-[1240px] m-auto pt-28">
-        <div className=" h-[30rem] gap-4">
+      <div className="md:max-w-[1240px] max-w-[94%] m-auto pt-28">
+        <div className="md:h-[30rem] h-[18rem] gap-4">
           {/* <div className="relative overflow-hidden rounded-lg border-[#d0d0d1] group">
             <img
               className="bg-contain h-full w-full cursor-pointer"
@@ -49,14 +50,18 @@ const Home = () => {
               Shop now
             </button>
           </div> */}
-          <div className="w-full h-full flex flex-col items-center space-y-3 justify-center bg-emerald-200 rounded-md">
-            <p className="text-3xl font-medium">Welcome to Ecommerce store</p>
-            <p className="text-neutral-600 font-medium text-base">
+          <div className="w-full h-full flex flex-col items-center space-y-3 justify-center bg-emerald-300 rounded-md">
+            <p className="md:text-3xl text-xl font-medium">
+              Welcome to Ecommerce store
+            </p>
+            <p className="text-neutral-600 font-medium md:text-base text-sm">
               Shop your favorite items from different brands
             </p>
-            <button className="px-8 py-2 rounded-md border-2 font-medium border-slate-100 hover:bg-slate-100 hover:text-emerald-900 transition ease-in-out">
-              Store
-            </button>
+            <Link to="/store">
+              <button className="px-8 py-2 rounded-md border-2 font-medium border-slate-100 hover:bg-slate-100 hover:text-emerald-900 transition ease-in-out">
+                Store
+              </button>
+            </Link>
           </div>
           {/* <div className="relative overflow-hidden grid grid-cols-[auto_auto] grid-rows-[auto_auto] gap-x-4 gap-y-4">
             {banners.map((banner) => (
@@ -79,16 +84,14 @@ const Home = () => {
             ))}
           </div> */}
         </div>
-        <div className="pt-16">
-          <p className="text-[2rem] text-[#161616] capitalize font-semibold">
+        <div className="md:pt-16 pt-8">
+          <p className="md:text-[2rem] text-[1.75rem] text-[#161616] capitalize font-semibold">
             Brands<span className="text-5xl text-darkBlue">.</span>
           </p>
-          <div className="flex justify-evenly">
+          <div className="flex justify-evenly flex-wrap">
             {brands.map((brand) => (
               <img
-                className="mix-blend-multiply"
-                width={120}
-                height={120}
+                className="mix-blend-multiply md:w-[120px] md:h-[120px] w-[100px] h-[100px]"
                 key={brand.id}
                 src={brand.image}
                 alt={brand.alt}
@@ -96,23 +99,23 @@ const Home = () => {
             ))}
           </div>
         </div>
-        <div className="flex w-full my-10">
-          <div className="w-[30%]">
-            <p className="text-[1.75rem] font-semibold">
+        <div className="flex w-full my-10 ">
+          <div className="md:w-[30%] w-[25%]">
+            <p className="md:text-[1.75rem] text-[0.75rem] font-semibold">
               We provide best customer experiences
             </p>
           </div>
           <div className="flex flex-1 items-center">
-            <div className="w-2/5 h-4/5 border-r-[2.5px] border-r-[#161616] border-solid" />
-            <p className="text-[#9c9c9c] ml-auto">
+            <div className="w-2/5 h-4/5 md:border-r-[2.5px] border-r-[2px] border-r-[#161616] border-solid" />
+            <p className="text-[#9c9c9c]  ml-2 md:text-xl text-xs">
               We ensure our customers have the best shopping experience
             </p>
           </div>
         </div>
-        <div className="h-40 grid grid-cols-4 gap-x-16 mb-8">
+        <div className="h-40 grid md:grid-cols-4 grid-cols-2 md:gap-x-16 gap-x-8 md:gap-y-0 gap-y-6 md:mb-8 mb-44">
           {features.map((feature) => (
             <div key={feature.id}>
-              <div className="h-11 w-11 overflow-hidden bg-[#dcdde0] flex items-center justify-center mb-4 rounded-lg">
+              <div className="md:h-11 md:w-11 h-8 w-8 overflow-hidden bg-[#dcdde0] flex items-center justify-center mb-4 rounded-lg">
                 {feature.Icon}
               </div>
               <p className="font-semibold mb-2">{feature.title}</p>

@@ -74,8 +74,8 @@ const Login = () => {
 
   return (
     <RegisterLayout>
-      <div className="flex flex-col h-auto">
-        <p className="text-[2.5rem] font-semibold text-white pb-[0.75%]">
+      <div className="flex flex-col h-full">
+        <p className="md:text-[2.5rem] text-[2rem] font-semibold text-white md:pb-[0.75%] pb-[4%] md:pt-0 pt-16">
           Login to continue <span className="text-darkBlue">.</span>
         </p>
         <div className="flex items-center gap-2">
@@ -86,7 +86,7 @@ const Login = () => {
             Register
           </Link>
         </div>
-        <div className="flex flex-col gap-6 mt-[4%]">
+        <div className="flex flex-col md:gap-6 gap-8 md:mt-[4%] mt-[20%]">
           <Input
             id="email"
             label="Email"
@@ -108,7 +108,7 @@ const Login = () => {
         </div>
         <button
           onClick={handleSubmit(submitFormData)}
-          className="w-[85%] bg-darkBlue text-white text-base font-medium cursor-pointer transition-[0.2s] duration-[ease-in] mt-[5%] px-7 py-5 rounded-[1.15rem] border-[none] hover:opacity-80 disabled:opacity-60"
+          className="md:w-[85%] w-full  bg-darkBlue text-white text-base font-medium cursor-pointer transition-[0.2s] duration-[ease-in] md:mt-[5%] mt-[10%] px-7 py-5 rounded-[0.5rem] border-[none] hover:opacity-80 disabled:opacity-60"
           disabled={isSubmitting}
         >
           {isSubmitting ? (

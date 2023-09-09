@@ -23,7 +23,7 @@ const Input: React.FC<InputProps> = ({
 }) => {
   return (
     <div className="w-full relative">
-      <div className="w-[85%] relative">
+      <div className="md:w-[85%] w-full relative">
         <input
           id={id}
           type={type}
@@ -42,7 +42,7 @@ const Input: React.FC<InputProps> = ({
       </div>
       <Icon
         strokeWidth="1.5px"
-        className="absolute text-white text-base right-28 top-5"
+        className="absolute text-white text-base md:right-28 right-5 top-6"
       />
     </div>
   );

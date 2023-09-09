@@ -60,8 +60,8 @@ const SignUp = () => {
 
   return (
     <RegisterLayout>
-      <div className="flex flex-col h-auto">
-        <p className="text-[2.5rem] font-semibold text-white pb-[0.75%]">
+      <div className="flex flex-col h-full">
+        <p className="md:text-[2.5rem] text-[2rem] font-semibold text-white md:pb-[0.75%] pb-[4%] md:pt-0 pt-16">
           Create new account <span className="text-darkBlue">.</span>
         </p>
         <div className="flex gap-2">
@@ -72,7 +72,7 @@ const SignUp = () => {
             Log In
           </Link>
         </div>
-        <div className="flex flex-col gap-3 mt-[3%]">
+        <div className="flex flex-col md:gap-6 gap-8 md:mt-[4%] mt-[20%]">
           <Input
             id="name"
             label="Name"
@@ -103,7 +103,7 @@ const SignUp = () => {
         </div>
         <button
           onClick={handleSubmit(submitFormData)}
-          className="w-[85%] bg-darkBlue text-white text-base font-medium cursor-pointer transition-[0.2s] duration-[ease-in] mt-[3%] px-7 py-5 rounded-[1.15rem] border-[none] hover:opacity-80 disabled:opacity-60"
+          className="md:w-[85%] w-full bg-darkBlue text-white text-base font-medium cursor-pointer transition-[0.2s] duration-[ease-in] md:mt-[5%] mt-[10%] px-7 py-5 rounded-[1.15rem] border-[none] hover:opacity-80 disabled:opacity-60"
           disabled={isSubmitting}
         >
           {isSubmitting ? (
