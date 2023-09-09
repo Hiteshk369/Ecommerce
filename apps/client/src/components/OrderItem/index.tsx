@@ -1,7 +1,8 @@
 import { IndianRupee } from "lucide-react";
+import { IOrder, IOrderItems } from "../../utils/types";
 
 interface OrderItemProps {
-  order: any;
+  order: IOrder;
 }
 
 const OrderItem: React.FC<OrderItemProps> = ({ order }) => {
@@ -13,7 +14,7 @@ const OrderItem: React.FC<OrderItemProps> = ({ order }) => {
       <div className="flex h-[80%] px-5 py-3 gap-3">
         <div className="flex flex-col w-[50%] gap-2">
           <p className="font-medium text-lg mb-2">Order Items</p>
-          {order.orderItems.map((product: any) => (
+          {order.orderItems.map((product: IOrderItems) => (
             <div key={product.id} className="flex gap-2 items-center">
               <div className="h-[50px] w-[50px] bg-slate-200 rounded-md flex items-center justify-center">
                 <img src={product.imageUrl} alt={product.name} />
@@ -73,7 +74,7 @@ const OrderItem: React.FC<OrderItemProps> = ({ order }) => {
           <p className="text-sm text-gray-700">
             Date:{" "}
             <span className="text-neutral-900 font-medium">
-              {order.createdAt}
+              {order.createdAt.slice(0, 10)}
             </span>
           </p>
         </div>

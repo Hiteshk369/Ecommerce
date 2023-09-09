@@ -3,9 +3,7 @@ import { BadgeDollarSign, BaggageClaim, Smile, Truck } from "lucide-react";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 
-import { banners } from "../../utils/Banner";
 import { brands } from "../../utils/Banner";
-import MainBanner from "../../assets/Banners/MainBanner.jpeg";
 
 const Home = () => {
   const features = [
@@ -40,8 +38,8 @@ const Home = () => {
     <main className="w-screen h-full bg-white">
       <Navbar />
       <div className="max-w-[1240px] m-auto pt-28">
-        <div className="grid grid-cols-2 h-[30rem] gap-4">
-          <div className="relative overflow-hidden rounded-lg border-[#d0d0d1] group">
+        <div className=" h-[30rem] gap-4">
+          {/* <div className="relative overflow-hidden rounded-lg border-[#d0d0d1] group">
             <img
               className="bg-contain h-full w-full cursor-pointer"
               src={MainBanner}
@@ -50,8 +48,17 @@ const Home = () => {
             <button className="absolute bg-[#66b8e8] font-semibold opacity-70 transition-[0.3s] duration-[ease-in-out] cursor-pointer px-6 py-3 rounded-lg border-[none] left-[40%] bottom-[45%] scale-[0.9] group-hover:scale-[1] group-hover:opacity-100">
               Shop now
             </button>
+          </div> */}
+          <div className="w-full h-full flex flex-col items-center space-y-3 justify-center bg-emerald-200 rounded-md">
+            <p className="text-3xl font-medium">Welcome to Ecommerce store</p>
+            <p className="text-neutral-600 font-medium text-base">
+              Shop your favorite items from different brands
+            </p>
+            <button className="px-8 py-2 rounded-md border-2 font-medium border-slate-100 hover:bg-slate-100 hover:text-emerald-900 transition ease-in-out">
+              Store
+            </button>
           </div>
-          <div className="relative overflow-hidden grid grid-cols-[auto_auto] grid-rows-[auto_auto] gap-x-4 gap-y-4">
+          {/* <div className="relative overflow-hidden grid grid-cols-[auto_auto] grid-rows-[auto_auto] gap-x-4 gap-y-4">
             {banners.map((banner) => (
               <div key={banner.id} className="relative rounded-lg">
                 <img
@@ -70,7 +77,7 @@ const Home = () => {
                 </p>
               </div>
             ))}
-          </div>
+          </div> */}
         </div>
         <div className="pt-16">
           <p className="text-[2rem] text-[#161616] capitalize font-semibold">

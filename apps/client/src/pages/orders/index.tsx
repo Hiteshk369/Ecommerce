@@ -6,18 +6,19 @@ import axiosInstance from "../../libs/axios";
 import Spinner from "../../components/Spinner";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { IOrder } from "../../utils/types";
 
 function Orders() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const fetchOrders = async () => {
-    try{
+    try {
       const response = await axiosInstance.get("/order");
       return response.data;
-    }catch(err){
-      toast.error('Login')
-      setTimeout(()=>{
-        navigate('/login')
-      },1000)
+    } catch (err) {
+      toast.error("Login");
+      setTimeout(() => {
+        navigate("/login");
+      }, 1000);
     }
   };
 
@@ -36,7 +37,7 @@ function Orders() {
         <div className="pb-16">
           <div className="flex flex-wrap gap-5">
             {data &&
-              data.orders.map((order: any) => (
+              data.orders.map((order: IOrder) => (
                 <OrderItem key={order._id} order={order} />
               ))}
           </div>

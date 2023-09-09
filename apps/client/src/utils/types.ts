@@ -14,12 +14,11 @@ export interface IProduct {
       name: string;
       rating: number;
       comment: string;
-    }
+    },
   ];
   numOfReviews?: number;
   stock?: number;
   userId: string;
-  wishlist?: boolean;
 }
 
 export interface ICartItems {
@@ -33,6 +32,52 @@ export interface ICartItems {
     imageUrl: string;
     quantity: number;
   };
-
   quantity: number;
+}
+
+export interface IOrder {
+  _id: string;
+  user: string;
+  shippingInfo: {
+    name: string;
+    email: string;
+    address: string;
+    city: string;
+    state: string;
+    pinCode: string;
+    phoneNumber: string;
+  };
+  paymentInfo: {
+    id: string;
+    itemsPrice: number;
+    totalPrice: number;
+    orderDate: string;
+    paymentStatus: string;
+    paymentDate: string;
+    taxPrice: number;
+    deliveryCharges: number;
+    discount: number;
+    deliveryStatus: string;
+    deliveryDate: string;
+  };
+  orderItems: [
+    {
+      _id: string;
+      id: string;
+      name: string;
+      price: number;
+      quantity: number;
+      imageUrl: string;
+    },
+  ];
+  createdAt: string;
+}
+
+export interface IOrderItems {
+  _id: string;
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+  imageUrl: string;
 }

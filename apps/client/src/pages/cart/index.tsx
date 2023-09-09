@@ -28,7 +28,7 @@ const Cart = () => {
     0
   );
 
-  const placeOrder = async (cartItems: any, userId: any) => {
+  const placeOrder = async (cartItems: ICartItems, userId: string) => {
     try {
       const response = await axiosInstance.post(
         "/stripe/create-checkout-session",
@@ -61,7 +61,7 @@ const Cart = () => {
                     Review Items
                   </p>
                   <div className="flex flex-col gap-2">
-                    {data.cartItems.map((item: any) => (
+                    {data.cartItems.map((item: ICartItems) => (
                       <CartCard key={item._id} item={item} />
                     ))}
                   </div>
@@ -93,7 +93,7 @@ const Cart = () => {
                   <button
                     onClick={() =>
                       user
-                        ? placeOrder(data?.cartItems, userId)
+                        ? placeOrder(data?.cartItems, userId!)
                         : toast.error("Login")
                     }
                     className="mt-8 w-full flex items-center justify-center bg-darkBlue py-2 rounded-md hover:opacity-90 transition ease-in-out duration-200"

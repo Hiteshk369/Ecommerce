@@ -3,9 +3,10 @@ import { handleRefetchCartItems } from "../../libs/queryFunctions";
 import toast from "react-hot-toast";
 import { IndianRupee, Trash2 } from "lucide-react";
 import axiosInstance from "../../libs/axios";
+import { ICartItems } from "../../utils/types";
 
 interface CartCardProps {
-  item: any;
+  item: ICartItems;
 }
 
 const CartCard: React.FC<CartCardProps> = ({ item }) => {
