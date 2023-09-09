@@ -8,12 +8,9 @@ import { v4 as uuidv4 } from "uuid";
 dotenv.config();
 const router = express.Router();
 
-const stripe = new Stripe(
-  "sk_test_51NhSN3SGfXUgaiKh17GxqTcQJ7yrnYueTJE4eVXrwWaBg3ObNRfviqKZIBcG2zVBtJMzKUW8AoRDRHjyy5cWirpZ00ubiDIXki",
-  {
-    apiVersion: "2023-08-16",
-  }
-);
+const stripe = new Stripe(process.env.STRIPE_KEY, {
+  apiVersion: "2023-08-16",
+});
 
 const createOrder = async (customer: any, data: any) => {
   const cartItems = JSON.parse(customer.metadata.cart);
@@ -92,10 +89,7 @@ router.post("/create-checkout-session", async (req: IRequest, res) => {
   res.send({ url: session.url });
 });
 
-// This is your Stripe CLI webhook secret for testing your endpoint locally.
-// const endpointSecret =
-//   "whsec_632627b4967a3b1da83a7de52a608b673e7622193bc764b540f4fd430ec75cb6";
-let endpointSecret: string;
+let endpointSecret: string = process.env.STRIPE_ENDPOINT!;
 router.post(
   "/webhook",
   express.raw({ type: "application/json" }),
@@ -125,7 +119,7 @@ router.post(
       eventType = request.body.type;
     }
 
-    if (eventType === "checkout.session.completed") {
+    if (eventType === "checkout.session.async_payment_succeeded") {
       stripe.customers.retrieve(data.customer).then((customer) => {
         createOrder(customer, data);
       });
