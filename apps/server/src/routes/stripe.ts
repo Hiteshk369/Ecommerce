@@ -104,7 +104,7 @@ router.post(
 
       try {
         event = stripe.webhooks.constructEvent(
-          (request as any).rawBody,
+          request.body,
           sig,
           endpointSecret
         );
