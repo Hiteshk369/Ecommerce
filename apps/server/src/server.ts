@@ -29,7 +29,14 @@ app.use(
 );
 app.use(cookieParser());
 
-app.use(bodyParser.json({ limit: "10mb" }));
+app.use((req, res, next) => {
+  if (req.originalUrl === "/api/stripe/webhook") {
+    next();
+  } else {
+    bodyParser.json()(req, res, next);
+  }
+});
+
 app.use(bodyParser.urlencoded({ extended: true, limit: "10mb" }));
 
 cloudinary.config({
