@@ -1,5 +1,5 @@
-import { LucideIcon } from "lucide-react";
 import { FieldErrors } from "react-hook-form";
+import { LucideIcon } from "lucide-react";
 interface InputProps {
   id: "name" | "email" | "password";
   label: string;

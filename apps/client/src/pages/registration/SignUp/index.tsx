@@ -1,5 +1,4 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Mail, KeyRound, User } from "lucide-react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
@@ -7,8 +6,8 @@ import { ThreeDots } from "react-loader-spinner";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-import RegisterLayout from "../../../components/RegisterLayout";
-import Input from "../../../components/Input";
+import { Input, RegisterLayout } from "../../../components";
+import { Mail, KeyRound, User } from "lucide-react";
 
 const SignUp = () => {
   const navigate = useNavigate();

@@ -1,4 +1,9 @@
 import { useMemo } from "react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { useQuery } from "react-query";
+import { useDispatch } from "react-redux";
+import toast from "react-hot-toast";
+
 import {
   LayoutGrid,
   Smartphone,
@@ -8,10 +13,6 @@ import {
   ShoppingBag,
   LogOut,
 } from "lucide-react";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import toast from "react-hot-toast";
-import { useQuery } from "react-query";
-import { useDispatch } from "react-redux";
 
 import { useAppSelector } from "../../libs/hooks";
 import { REMOVE_USER } from "../../redux/reducers/userSlice";

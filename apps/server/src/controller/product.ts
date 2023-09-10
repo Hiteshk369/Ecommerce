@@ -73,6 +73,17 @@ export const getProductByCategory = asyncErrorHandler(
   }
 );
 
+export const getProductByName = asyncErrorHandler(async (req, res, next) => {
+  const { name } = req.body;
+  const product = await Product.find({
+    name: { $regex: name, $options: "i" },
+  }).sort({ createdAt: -1 });
+  res.status(200).json({
+    success: true,
+    product,
+  });
+});
+
 //update a product --Admin
 export const updateProductById = asyncErrorHandler(
   async (req: Request, res: Response, next: NextFunction) => {

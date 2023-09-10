@@ -1,5 +1,5 @@
-import { IndianRupee } from "lucide-react";
 import { Link } from "react-router-dom";
+import { IndianRupee } from "lucide-react";
 
 interface ProductCardProps {
   id: string;
@@ -21,14 +21,12 @@ const ProductCard: React.FC<ProductCardProps> = ({
   return (
     <Link
       to={`/store/${category}/${id}`}
-      className={`md:w-[260px] md:h-[320px] w-[175px] h-[260px] border border-lightGray shadow-md rounded-md  relative  group cursor-pointer transition-[2]  hover:scale-[1.02] `}
+      className={`md:w-[260px] md:h-[320px] w-[165px] h-[260px] border border-lightGray shadow-md rounded-md  relative  group cursor-pointer transition-[2]  hover:scale-[1.02] `}
     >
       <div className="w-full md:h-[120px] h-[100px] bg-sky-200">
         <div className="w-full h-[200px] flex items-center justify-center">
           <img
-            className="md:h-[160px] md:w-[160px] w-[140px]"
-            width={160}
-            height={160}
+            className=" md:w-[160px] sm:w-[140px] w-[120px]"
             src={image}
             alt={name}
           />
@@ -39,17 +37,17 @@ const ProductCard: React.FC<ProductCardProps> = ({
       </div>
       <div className="pt-16 px-4 flex">
         <div>
-          <p className="text-neutral-800 md:text-2xl text-base font-medium">
+          <p className="text-neutral-800 md:text-2xl sm:text-base text-[0.8rem] font-medium">
             {name}
           </p>
-          <p className="text-xs capitalize font-medium text-darkGray">
+          <p className="sm:text-xs text-[0.75rem] capitalize font-medium text-darkGray">
             {category}
           </p>
         </div>
       </div>
-      <div className="md:h-10 h-8 md:w-[60%] w-[40%] bg-sky-500 absolute bottom-5 md:right-[-5px] right-0 rounded-md flex items-center justify-center">
+      <div className="md:h-10 h-8 md:w-[60%] w-[50%] bg-sky-500 absolute bottom-5 md:right-[-5px] right-0 rounded-md flex items-center justify-center">
         <IndianRupee size={15} />
-        <p>{price}</p>
+        <p className="md:text-base text-sm">{price}</p>
       </div>
     </Link>
   );

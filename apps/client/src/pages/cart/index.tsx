@@ -2,13 +2,12 @@ import { Link } from "react-router-dom";
 import { useQuery } from "react-query";
 import toast from "react-hot-toast";
 
-import Navbar from "../../components/Navbar";
+import { CartCard, Navbar, Spinner } from "../../components";
+import emptyCart from "../../assets/emptyCart.jpg";
+
 import { useAppSelector } from "../../libs/hooks";
 import { ICartItems } from "../../utils/types";
-import emptyCart from "../../assets/emptyCart.jpg";
-import CartCard from "../../components/CartCard";
 import axiosInstance from "../../libs/axios";
-import Spinner from "../../components/Spinner";
 
 const Cart = () => {
   const user = useAppSelector((state) => state.user.token);
@@ -44,10 +43,10 @@ const Cart = () => {
   };
 
   return (
-    <main className="w-screen h-screen">
+    <main className="md:w-screen w-full h-screen">
       <Navbar />
       <section className="pt-24 w-full h-full">
-        <div className="max-w-[1240px] h-full m-auto flex gap-4">
+        <div className="md:max-w-[1240px] max-w-[94%] h-full m-auto md:flex gap-4">
           {isLoading && (
             <div className="flex w-full h-full items-center justify-center">
               <Spinner />
@@ -55,9 +54,9 @@ const Cart = () => {
           )}
           {data && data.cartItems.length !== 0 ? (
             <>
-              <div className="h-[90%] w-[70%] border border-gray-300 rounded-md">
+              <div className="md:h-[90%] md:w-[70%] w-full border border-gray-300 rounded-md">
                 <div className="p-4">
-                  <p className="text-2xl text-neutral-800 font-medium pb-4">
+                  <p className="md:text-2xl text-lg text-neutral-800 font-medium pb-4">
                     Review Items
                   </p>
                   <div className="flex flex-col gap-2">
@@ -67,9 +66,9 @@ const Cart = () => {
                   </div>
                 </div>
               </div>
-              <div className="h-[300px] w-[30%] border border-gray-300 rounded-md">
+              <div className="md:h-[300px] md:mt-0 mt-3 md:w-[30%] w-full border border-gray-300 rounded-md">
                 <div className="p-4">
-                  <p className="text-2xl text-neutral-800 font-medium pb-4">
+                  <p className="md:text-2xl text-lg text-neutral-800 font-medium pb-4">
                     Payment Info
                   </p>
                   <div className="flex flex-col gap-1 py-3 ">
@@ -104,13 +103,19 @@ const Cart = () => {
               </div>
             </>
           ) : (
-            <div className="flex w-full h-full items-center justify-center">
+            <div
+              className={`${
+                isLoading
+                  ? "hidden"
+                  : "flex w-full h-full items-center justify-center"
+              }`}
+            >
               <div className="flex flex-col justify-center items-center">
-                <div className="h-[400px] w-[400px]">
+                <div className="md:h-[400px] md:w-[400px] w-[300px]">
                   <img src={emptyCart} alt="emptyCart" />
                 </div>
-                <p className="text-2xl text-neutral-800 font-medium mt-3">
-                  Your Ecommerce cart is empty, continue shopping.
+                <p className="md:text-2xl text-lg text-neutral-800 font-medium mt-3">
+                  Your Ecommerce cart is empty
                 </p>
                 <Link
                   to="/store"

@@ -1,8 +1,8 @@
-import { QueryClient, QueryClientProvider } from "react-query";
-import { ReactQueryDevtools } from "react-query/devtools";
-import { BrowserRouter } from "react-router-dom";
-import { Toaster } from "react-hot-toast";
 import { Provider } from "react-redux";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { BrowserRouter } from "react-router-dom";
+import { ReactQueryDevtools } from "react-query/devtools";
+import { Toaster } from "react-hot-toast";
 
 import AppRoutes from "./Navigation";
 import store from "./redux/store";

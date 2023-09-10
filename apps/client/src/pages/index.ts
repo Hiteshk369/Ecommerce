@@ -9,6 +9,7 @@ import Error404 from "./error";
 import Success from "./success";
 import Cancel from "./cancel";
 import Orders from "./orders";
+import About from "./About";
 
 export {
   Home,
@@ -22,4 +23,5 @@ export {
   Success,
   Cancel,
   Orders,
+  About,
 };

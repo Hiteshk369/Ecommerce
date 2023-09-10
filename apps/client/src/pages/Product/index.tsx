@@ -1,5 +1,8 @@
+import { useReducer } from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
+import toast from "react-hot-toast";
+
 import {
   Star,
   IndianRupee,
@@ -8,13 +11,10 @@ import {
   Truck,
   ShoppingBag,
 } from "lucide-react";
-import toast from "react-hot-toast";
-import { useReducer } from "react";
 
-import StoreLayout from "../../components/StoreLayout";
+import { Spinner, StoreLayout } from "../../components";
 import { handleRefetchCartItems } from "../../libs/queryFunctions";
 import axiosInstance from "../../libs/axios";
-import Spinner from "../../components/Spinner";
 
 const initialState = {
   counter: 0,
@@ -82,9 +82,9 @@ const Product = () => {
         </div>
       )}
       {data && (
-        <div className="md:ml-20 pt-6 h-full md:w-full md:flex gap-4">
+        <div className="md:ml-20 md:px-0 px-5 md:pt-6 h-full w-full md:flex gap-4">
           <div className="md:w-[45%] flex flex-col">
-            <div className="bg-lightGray md:w-[500px] md:h-[500px] w-full h-[350px] rounded-lg flex items-center">
+            <div className="bg-lightGray md:w-[500px] md:h-[500px] w-full rounded-lg flex items-center">
               <img src={data?.product.imageUrl} alt={data?.product.name} />
             </div>
           </div>
@@ -93,7 +93,7 @@ const Product = () => {
               <p className="md:text-3xl text-2xl font-semibold">
                 {data?.product.name}
               </p>
-              <p className="text-sm text-neutral-500 text-justify">
+              <p className="md:text-sm text-[0.8rem] text-neutral-500 text-justify">
                 {data?.product.description}
               </p>
               <div className="flex items-center gap-2">
@@ -110,10 +110,12 @@ const Product = () => {
             </div>
             <div className="flex md:pt-2 items-center gap-1">
               <IndianRupee strokeWidth={2.5} />
-              <p className="text-2xl font-semibold">{data?.product.price}</p>
+              <p className="md:text-2xl text-xl font-semibold">
+                {data?.product.price}
+              </p>
             </div>
             <div className="flex items-center md:pt-5 pt-2 gap-8">
-              <div className="flex items-center h-10 w-32 justify-evenly bg-lightGray rounded-xl">
+              <div className="flex items-center md:h-10 h-8 md:w-32 w-28 justify-evenly bg-lightGray rounded-xl">
                 <button
                   onClick={() => {
                     if (state.counter > 0) dispatch({ type: "decrement" });
@@ -126,7 +128,7 @@ const Product = () => {
                   <Plus strokeWidth={2.5} size={16} />
                 </button>
               </div>
-              <div className="w-40 text-xs font-medium text-neutral-600">
+              <div className="w-40 md:text-xs text-[0.5rem] font-medium text-neutral-600">
                 <p>
                   Only{" "}
                   <span className="text-lightOrange">
@@ -138,25 +140,27 @@ const Product = () => {
               </div>
             </div>
             <div className="flex md:pt-6 pt-4 gap-5">
-              <button className="bg-darkBlue md:w-[180px] w-[50%] py-2 text-white rounded-xl font-medium">
+              <button className="bg-darkBlue md:w-[180px] w-[50%] md:py-2 py-1 text-white rounded-xl font-medium">
                 <p>Buy Now</p>
               </button>
               <button
-                onClick={() =>
-                  handleAddToCart(
-                    data?.product._id,
-                    data?.product.name,
-                    data?.product.price,
-                    data?.product.imageUrl,
-                    state.counter
-                  )
-                }
+                onClick={() => {
+                  if (state.counter >= 1) {
+                    handleAddToCart(
+                      data?.product._id,
+                      data?.product.name,
+                      data?.product.price,
+                      data?.product.imageUrl,
+                      state.counter
+                    );
+                  }
+                }}
                 className="border-2 border-darkBlue md:w-[180px] w-[50%] py-2 text-darkBlue rounded-xl font-medium"
               >
                 Add to Cart
               </button>
             </div>
-            <div className="w-[420px] flex flex-col mt-5  border border-lightGray">
+            <div className="md:w-[420px] flex flex-col mt-5  border border-lightGray">
               <div className=" border-b border-lightGray">
                 <div className="px-6 py-3 space-y-1">
                   <div className="flex gap-2 items-center">

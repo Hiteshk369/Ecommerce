@@ -32,6 +32,7 @@ app.use(
     credentials: true,
   })
 );
+
 app.use(cookieParser());
 
 app.use((req, res, next) => {

@@ -1,6 +1,5 @@
 import Navbar from "../Navbar";
 import Sidebar from "../Sidebar";
-
 interface StoreLayoutProps {
   children: React.ReactNode;
 }
@@ -9,9 +8,9 @@ const StoreLayout: React.FC<StoreLayoutProps> = ({ children }) => {
   return (
     <section className=" h-screen">
       <Navbar />
-      <div className=" pt-20 w-full h-full flex">
+      <div className=" pt-20 md:w-full  h-full flex">
         <Sidebar />
-        <div className="md:w-full w-[95%] md:ml-[220px]">{children}</div>
+        <div className="md:w-full md:ml-[220px]">{children}</div>
       </div>
     </section>
   );

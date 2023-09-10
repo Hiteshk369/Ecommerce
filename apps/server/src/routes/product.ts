@@ -6,6 +6,7 @@ import {
   getAllProducts,
   getProductByCategory,
   getProductById,
+  getProductByName,
   updateProductById,
 } from "../controller/product";
 import { verifyToken } from "../middleware/verifyToken";
@@ -17,6 +18,7 @@ router.post("/createProduct", verifyToken, verifyUserRole, createProduct);
 router.get("/getProducts", verifyToken, getAllProducts);
 router.get("/getProducts/:id", verifyToken, getProductById);
 router.get("/category", verifyToken, getProductByCategory);
+router.post("/searchproduct", verifyToken, getProductByName);
 router.put(
   "/updateproduct/:id",
   verifyToken,

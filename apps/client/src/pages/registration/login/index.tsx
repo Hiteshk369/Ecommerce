@@ -1,16 +1,15 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Mail, KeyRound } from "lucide-react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
 import { ThreeDots } from "react-loader-spinner";
 import { Link, useNavigate } from "react-router-dom";
 
+import { Mail, KeyRound } from "lucide-react";
+
+import { Input, RegisterLayout } from "../../../components";
 import { useDispatch } from "react-redux";
 import { SET_USER } from "../../../redux/reducers/userSlice";
-
-import RegisterLayout from "../../../components/RegisterLayout";
-import Input from "../../../components/Input";
 
 const Login = () => {
   const navigate = useNavigate();

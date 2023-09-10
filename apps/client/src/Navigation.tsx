@@ -11,6 +11,7 @@ import {
   ProductCategory,
   SignUp,
   Store,
+  About,
 } from "./pages";
 import ProtectedRoute from "./libs/ProtectedRoute";
 import Success from "./pages/success";
@@ -59,6 +60,7 @@ const AppRoutes = () => {
           </ProtectedRoute>
         }
       />
+      <Route path="/about" element={<About />} />
       <Route path="*" element={<Error404 />} />
     </Routes>
   );

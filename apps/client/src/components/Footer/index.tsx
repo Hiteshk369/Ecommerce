@@ -11,22 +11,22 @@ const Footer = () => {
     {
       id: 2,
       name: "Mobiles",
-      path: "",
+      path: "/store/category?type=mobile",
     },
     {
       id: 3,
       name: "Laptops",
-      path: "",
+      path: "/store/category?type=laptop",
     },
     {
       id: 4,
       name: "Watches",
-      path: "",
+      path: "/store/category?type=watch",
     },
     {
       id: 5,
-      name: "EarPods",
-      path: "",
+      name: "Headphones",
+      path: "/store/category?type=headphone",
     },
   ];
 
@@ -34,7 +34,7 @@ const Footer = () => {
     {
       id: 1,
       name: "About Us",
-      path: "",
+      path: "/about",
     },
     {
       id: 2,
@@ -70,25 +70,27 @@ const Footer = () => {
     },
   ];
   return (
-    <div className="md:h-80 h-full bg-[#ebeef2] md:w-screen w-full">
+    <div className="h-full bg-[#ebeef2] md:w-screen w-full">
       <div className="md:max-w-[1240px] max-w-[94%] m-auto md:pt-12 pt-8 flex flex-wrap pb-8 border-b border-b-[#e4dcdc]">
         <div className="md:w-[35%]">
-          <p className="md:text-2xl text-xl font-semibold md:pb-3 pb-2">
+          <p className="md:text-2xl text-lg font-semibold md:pb-3 pb-2">
             <span className="text-darkBlue">e</span>COMMERCE
           </p>
-          <p className=" md:text-sm text-[0.8rem] text-[#9c9c9c]">
+          <p className=" md:text-sm text-[0.7rem] text-[#9c9c9c]">
             Robust, user-friendly ecommerce platform designed to facilitate
             smooth and secure online transactions, while empowering businesses
             to reach a global audience effortlessly.
           </p>
         </div>
         <div className="md:w-[35%] flex md:gap-16 gap-12 md:ml-16 md:pt-0 pt-4">
-          <div className="md:w-[30%]">
-            <p className="text-[1.15rem] font-medium mb-[0.7rem]">SHOP</p>
+          <div className="md:w-[30%] w-[28%]">
+            <p className="md:text-[1.15rem] text-[0.9rem] font-medium mb-[0.7rem]">
+              SHOP
+            </p>
             <div className="flex flex-col gap-[0.15rem]">
               {shopList.map((item) => (
                 <Link
-                  className="no-underline text-[#9c9c9c] text-[0.9rem] transition-[0.2s] duration-[ease-in-out] hover:text-darkBlue hover:font-semibold"
+                  className="no-underline text-[#9c9c9c] md:text-[0.9rem] text-[0.7rem] transition-[0.2s] duration-[ease-in-out] hover:text-darkBlue hover:font-semibold"
                   to={item.path}
                   key={item.id}
                 >
@@ -98,11 +100,13 @@ const Footer = () => {
             </div>
           </div>
           <div className="w-[30%]">
-            <p className="text-[1.15rem] font-medium mb-[0.7rem]">COMPANY</p>
+            <p className="md:text-[1.15rem] text-[0.9rem] font-medium mb-[0.7rem]">
+              COMPANY
+            </p>
             <div className="flex flex-col gap-[0.15rem]">
               {companyList.map((item) => (
                 <Link
-                  className="no-underline text-[#9c9c9c] text-[0.9rem] transition-[0.2s] duration-[ease-in-out] hover:text-darkBlue hover:font-semibold"
+                  className="no-underline text-[#9c9c9c] md:text-[0.9rem] text-[0.7rem] transition-[0.2s] duration-[ease-in-out] hover:text-darkBlue hover:font-semibold"
                   to={item.path}
                   key={item.id}
                 >
@@ -112,9 +116,11 @@ const Footer = () => {
             </div>
           </div>
           <div className="w-[30%]">
-            <p className="text-[1.15rem] font-medium mb-[0.7rem]">ADDRESS</p>
+            <p className="md:text-[1.15rem] text-[0.9rem] font-medium mb-[0.7rem]">
+              ADDRESS
+            </p>
             <div>
-              <p className="text-[#9c9c9c] text-[0.9rem]">
+              <p className="text-[#9c9c9c] md:text-[0.9rem] text-[0.7rem]">
                 Padmakshi colony, Hanamkonda, Warangal, Telangana, India -
                 506001
               </p>
@@ -123,10 +129,10 @@ const Footer = () => {
         </div>
         <div className="md:w-[30%] md:ml-auto ml-auto mr-auto md:pt-0 pt-4">
           <div className="md:max-w-[60%] md:ml-auto ">
-            <p className="text-[1.15rem] font-medium mb-[0.7rem]">
+            <p className="md:text-[1.15rem] text-[0.9rem] font-medium mb-[0.7rem]">
               Connect with us
             </p>
-            <div className="flex gap-[1.2rem]">
+            <div className="flex md:gap-[1.2rem] gap-[0.75rem]">
               {connectIcons.map((icon) => (
                 <Link to={icon.path} target="_blank" key={icon.id}>
                   <icon.Icon className={icon.style} />
@@ -137,7 +143,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="w-full h-16 flex justify-center items-center">
-        <p className="text-[#9c9c9c] md:text-base text-sm">
+        <p className="text-[#9c9c9c] md:text-base text-xs">
           Copyright {"\u00a9"} 2023 eCOMMERCE. All Rights Reserved
         </p>
       </div>

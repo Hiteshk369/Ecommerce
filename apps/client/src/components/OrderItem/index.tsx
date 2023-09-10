@@ -9,11 +9,11 @@ const OrderItem: React.FC<OrderItemProps> = ({ order }) => {
   return (
     <div
       key={order._id}
-      className="h-[300px] w-[49%] border border-gray-200 shadow-md rounded-md "
+      className="md:h-[300px] h-auto md:w-[49%] sm:w-[48%] w-full border border-gray-200 shadow-md rounded-md "
     >
-      <div className="flex h-[80%] px-5 py-3 gap-3">
-        <div className="flex flex-col w-[50%] gap-2">
-          <p className="font-medium text-lg mb-2">Order Items</p>
+      <div className="md:flex h-[80%] px-5 py-3 gap-3">
+        <div className="flex flex-col md:w-[50%] gap-2">
+          <p className="font-medium md:text-lg text-[1rem] mb-2">Order Items</p>
           {order.orderItems.map((product: IOrderItems) => (
             <div key={product.id} className="flex gap-2 items-center">
               <div className="h-[50px] w-[50px] bg-slate-200 rounded-md flex items-center justify-center">
@@ -28,9 +28,9 @@ const OrderItem: React.FC<OrderItemProps> = ({ order }) => {
             </div>
           ))}
         </div>
-        <div className="flex flex-col w-[50%] gap-1">
+        <div className="flex flex-col md:pt-0 pt-3 md:w-[50%] gap-1">
           <div className="gap-2 mb-2 flex items-center w-full">
-            <p className="font-medium text-lg ">Shipping Info</p>
+            <p className="font-medium md:text-lg text-[1rem]">Shipping Info</p>
             <p className="bg-emerald-500 py-1 px-2 rounded-md text-white ml-auto">
               Delivered
             </p>
@@ -79,7 +79,7 @@ const OrderItem: React.FC<OrderItemProps> = ({ order }) => {
           </p>
         </div>
       </div>
-      <div className="px-5 pt-4 pb-2 h-auto mt-auto">
+      <div className="px-5 md:pt-4 pt-8 md:pb-2 h-auto mt-auto">
         <div className="flex justify-between">
           <p className=" text-base text-gray-700">
             OrderID:{" "}

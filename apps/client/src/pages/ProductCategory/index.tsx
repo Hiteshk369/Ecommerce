@@ -1,11 +1,9 @@
 import { useQuery } from "react-query";
 import { useSearchParams } from "react-router-dom";
 
-import StoreLayout from "../../components/StoreLayout";
-import ProductCard from "../../components/ProductCard";
+import { ProductCard, Spinner, StoreLayout } from "../../components";
 import { IProduct } from "../../utils/types";
 import axiosInstance from "../../libs/axios";
-import Spinner from "../../components/Spinner";
 
 const ProductCategory = () => {
   const [searchParams] = useSearchParams();
@@ -20,20 +18,25 @@ const ProductCategory = () => {
     return response.data;
   };
 
-  const { data, isLoading } = useQuery(
+  const { data, error, isLoading } = useQuery(
     ["productByCategory", type],
     fetchProductByCategory
   );
 
   return (
     <StoreLayout>
-      <div className="ml-4 px-4 mt-8">
-        {isLoading && (
-          <div className=" h-[500px] w-full flex justify-center items-center">
-            <Spinner />
-          </div>
-        )}
-        <div className="flex flex-wrap justify-center gap-5">
+      <div className="md:px-4  mt-8 mb-10 pb-10">
+        <div className="w-full flex justify-center flex-wrap md:gap-5 gap-2">
+          {isLoading && (
+            <div className="h-[500px] w-full flex justify-center items-center">
+              <Spinner />
+            </div>
+          )}
+          {error && (
+            <div className="h-full w-full flex justify-center items-center">
+              <p className="text-xl text-neutral-700">Error loading</p>
+            </div>
+          )}
           {data &&
             data?.products.map((product: IProduct) => (
               <ProductCard
