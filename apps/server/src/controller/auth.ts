@@ -63,8 +63,12 @@ export const login = asyncErrorHandler(
           "7d"
         );
         res.cookie("refreshToken", refreshToken, {
+          path: "/",
+          domain: ".vercel.app",
           httpOnly: true,
-          maxAge: 43200000,
+          maxAge: 30 * 1000 * 60 * 60 * 24,
+          sameSite: "none",
+          secure: true,
         });
         res
           .status(200)
@@ -149,9 +153,12 @@ export const getRefreshToken = async (
           "7d"
         );
         res.cookie("refreshToken", newRefreshToken, {
+          path: "/",
+          domain: ".vercel.app",
           httpOnly: true,
-          maxAge: 43200000,
-          sameSite: "lax",
+          maxAge: 30 * 1000 * 60 * 60 * 24,
+          sameSite: "none",
+          secure: true,
         });
         res
           .status(200)

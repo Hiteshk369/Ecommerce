@@ -21,9 +21,13 @@ const PORT = process.env.PORT || 5000;
 
 app.use(morgan("combined"));
 app.use(
-  "*",
   cors({
-    origin: true,
+    origin: [
+      "https://ecommerce-client-hiteshk369.vercel.app",
+      "http://localhost:5173/",
+      "http://localhost:5174/",
+    ],
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
   })
 );
