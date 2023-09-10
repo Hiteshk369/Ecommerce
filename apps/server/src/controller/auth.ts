@@ -64,7 +64,7 @@ export const login = asyncErrorHandler(
         );
         res.cookie("refreshToken", refreshToken, {
           path: "/",
-          domain: ".vercel.app",
+          domain: "api-ecommerce-1md0.onrender.com",
           httpOnly: true,
           maxAge: 30 * 1000 * 60 * 60 * 24,
           sameSite: "none",

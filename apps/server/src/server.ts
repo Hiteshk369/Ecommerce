@@ -15,6 +15,7 @@ import cart from "./routes/cart";
 import stripe from "./routes/stripe";
 
 const app = express();
+
 dotenv.config();
 
 const PORT = process.env.PORT || 5000;
