@@ -62,14 +62,14 @@ export const login = asyncErrorHandler(
           { email: email, id: user._id },
           "7d"
         );
-        res.cookie("refreshToken", refreshToken, {
-          path: "/",
-          domain: "api-ecommerce-1md0.onrender.com",
-          httpOnly: true,
-          maxAge: 30 * 1000 * 60 * 60 * 24,
-          sameSite: "none",
-          secure: true,
-        });
+        // res.cookie("refreshToken", refreshToken, {
+        //   // path: "/",
+        //   // domain: "api-ecommerce-1md0.onrender.com",
+        //   httpOnly: true,
+        //   maxAge: 30 * 1000 * 60 * 60 * 24,
+        //   // sameSite: "none",
+        //   // secure: true,
+        // });
         res
           .status(200)
           .json({ id: user._id, email, accessToken, refreshToken });
@@ -153,12 +153,12 @@ export const getRefreshToken = async (
           "7d"
         );
         res.cookie("refreshToken", newRefreshToken, {
-          path: "/",
-          domain: ".vercel.app",
+          // path: "/",
+          // domain: ".vercel.app",
           httpOnly: true,
           maxAge: 30 * 1000 * 60 * 60 * 24,
-          sameSite: "none",
-          secure: true,
+          // sameSite: "none",
+          // secure: true,
         });
         res
           .status(200)

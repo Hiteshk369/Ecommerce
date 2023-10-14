@@ -18,6 +18,7 @@ module.exports = {
     extend: {
       colors: {
         main: "#d3f46f",
+        dark: "#151515",
         cardColor: "#1b1a1a",
         pearl: "#fdfdfc",
         subGray: "#909090",
@@ -76,5 +77,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwindcss-animate"), require("tailwind-scrollbar-hide")],
 };

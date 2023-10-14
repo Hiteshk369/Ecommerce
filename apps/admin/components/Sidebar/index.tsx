@@ -38,14 +38,14 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
       {
         id: 3,
         name: "Orders",
-        to: "/",
+        to: "/orders",
         Icon: Book,
         active: pathName === "/orders",
       },
       {
         id: 4,
         name: "Users",
-        to: "/",
+        to: "/users",
         Icon: User,
         active: pathName === "/users",
       },
@@ -55,11 +55,13 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
 
   return (
     <div className="flex h-full">
-      <div className="w-[300px] h-full flex flex-col gap-y-2 p-4 border-r border-neutral-700">
+      <div className="w-[250px] h-full flex flex-col gap-y-2 p-4 border-r border-neutral-700">
         <Box className="py-5 px-2">
-          <p className="text-white font-bold text-2xl">
-            <span className="text-main">E</span>commerce
-          </p>
+          <Link href={"/"}>
+            <p className="text-white font-bold text-2xl">
+              <span className="text-main">E</span>commerce
+            </p>
+          </Link>
         </Box>
         <Box className="h-[calc(100%-40%)] flex flex-col justify-center">
           <div className="flex flex-col py-10 space-y-6 px-2">

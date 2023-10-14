@@ -38,7 +38,7 @@ const CardContainer = () => {
   return (
     <div className="h-full w-full flex justify-between">
       {cardData.map((card) => (
-        <Card key={card.id} className="bg-cardColor w-[30%] border-neutral-700">
+        <Card key={card.id} className=" w-[30%] border-neutral-700">
           <CardHeader>
             <CardTitle className="text-pearl flex items-center justify-between gap-3">
               <p className="text-lg tracking-wide font-normal">{card.title}</p>

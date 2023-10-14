@@ -1,6 +1,5 @@
 import OverviewChart from "../../components/OverviewChart";
 import CardContainer from "../../components/CardContainer";
-import React from "react";
 import { IndianRupee, Plus, User } from "lucide-react";
 
 const Home = () => {
